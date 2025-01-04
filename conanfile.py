@@ -11,8 +11,8 @@ class kubecppRecipe(ConanFile):
     # Optional metadata
     license = "Apache-2.0"
     author = "Mustafa Yemural (myemural)"
-    url = "TBD"
-    description = "TBD"
+    url = "https://github.com/myemural/kubecpp/tree/master"
+    description = "Kubernetes Client Library for Modern C++"
     topics = ("kubernetes", "kubernetes-client", "k8s", "k8s-client")
 
     # Binary configuration
