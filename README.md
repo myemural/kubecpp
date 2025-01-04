@@ -153,7 +153,7 @@ Before start, please review our `CODE_OF_CONDUCT.md` to learn community rules an
 
 ### How to Contribute?
 
-Our door is open to all developers. Don't forget to read the [contribution guide]() before contributing!
+Our door is open to all developers. Don't forget to read the [contribution guide](/CONTRIBUTING.md) before contributing!
 
 ### Current Contributors
 
@@ -170,4 +170,4 @@ Mustafa Yemural
 - [LinkedIn](https://www.linkedin.com/in/mustafa-yemural/)
 - [GitHub](https://github.com/myemural)
 
-Project Link: Github Link Here
+Project Link: https://github.com/myemural/kubecpp

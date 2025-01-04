@@ -14,7 +14,7 @@ Before you get started, you will need to [sign up](http://github.com/signup) for
 
 ### Code of Conduct
 
-Since community rules are as important here as they are everywhere, I recommend you review the [Code of Conduct]() section.
+Since community rules are as important here as they are everywhere, I recommend you review the [Code of Conduct](/CODE_OF_CONDUCT.md) section.
 
 ### Fork the Repo
 
