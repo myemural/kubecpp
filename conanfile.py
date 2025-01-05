@@ -18,11 +18,17 @@ class kubecppRecipe(ConanFile):
     # Binary configuration
     settings = "os", "compiler", "build_type", "arch"
 
-    options = {"shared": [True, False],
-               "fPIC": [True, False]}
+    options = {
+        "shared": [True, False],
+        "fPIC": [True, False],
+        "build_examples": [True, False],
+    }
 
-    default_options = {"shared": False,
-                       "fPIC": True}
+    default_options = {
+        "shared": False,
+        "fPIC": True,
+        "build_examples": True,
+    }
 
     exports_sources = "CMakeLists.txt", "main.cpp", "src/*", "include/*"
 
@@ -41,6 +47,7 @@ class kubecppRecipe(ConanFile):
         deps = CMakeDeps(self)
         deps.generate()
         tc = CMakeToolchain(self)
+        tc.cache_variables["BUILD_EXAMPLES"] = self.options.build_examples
         tc.generate()
 
     def requirements(self):

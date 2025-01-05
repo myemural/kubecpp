@@ -23,7 +23,7 @@ Optional dependencies:
 - clang-format (LLVM)
 - clang-tidy (LLVM)
 
-### Build and Installation
+### Build
 
 This project currently uses the Conan package manager. It also resolves 3rd party dependencies via Conan. Before you start building the project with Conan, you need to create a profile. To do this, you can follow the [Introduction to profiles](https://docs.conan.io/2/reference/config_files/profiles.html) guide on the Conan website. The profile file you create will look like this:
 
@@ -51,32 +51,18 @@ The output should be like this:
 conancenter: https://center2.conan.io [Verify SSL: True, Enabled: True]
 ```
 
-If it is not you can see the [conan remote](https://docs.conan.io/1/reference/commands/misc/remote.html) reference page to change Conan remote. After everything is ready, you can install the `kubecpp` package to the system by running the `conan create` command in the main working directory.
+If it is not, you can see the [conan remote](https://docs.conan.io/1/reference/commands/misc/remote.html) reference page to change Conan remote. After everything is ready, you can install the `kubecpp` package to the system by running the `conan create` command in the main working directory.
 
 For Debug:
 
 ```bash
-conan create . -s build_type=Debug --build=missing
+conan install . -s build_type=Debug --build=missing
 ```
 
 For Release:
 
 ```bash
-conan create . -s build_type=Release --build=missing
-```
-
-This will place `kubecpp` among your Conan packages. You can check if it is installed by doing the following:
-
-```bash
-conan list kubecpp*
-```
-
-## Usage
-
-You can use the `examples/create_pod` example to test the library. You can also easily compile and run this library using Conan and CMake Presets. First, let's install the CMake generator files and Preset files to the appropriate locations as follows (I assume you are in the directory of the example):
-
-```bash
-conan install . --build=missing -of ./build/generators
+conan install . -s build_type=Release --build=missing
 ```
 
 After that you can configure and build very easily using CMake Presets:
@@ -99,7 +85,19 @@ cmake --list-presets
 cmake --build --list-presets
 ```
 
-**Important Note:** Please don't forget to change `<PUT_YOUR_KUBECONFIG_PATH_HERE>` string in example code to execute your executable properly. This example requires a Kubernetes clsuter to properly work. If you don't know how to install Kubernetes in your local, please check these links:
+Alternatively, after doing a `conan install`, you can use the traditional CMake build instead of CMake Presets like this:
+
+```bash
+cd build
+cmake ..
+cmake --build .
+```
+
+## Usage
+
+Since the `BUILD_EXAMPLES` cache variable is `ON` by default, the examples will be compiled automatically when you perform the build steps. All you have to do after that is modify the example source code as you wish and compile using traditional CMake compilation or CMake Presets. You can find examples and their source codes in `examples` folder.
+
+**Important Note:** Please don't forget to change `<PUT_YOUR_KUBECONFIG_PATH_HERE>` string in example code to execute it properly. This example requires a Kubernetes cluster to properly work. If you don't know how to install Kubernetes in your local, please check these links:
 
 - [MicroK8s](https://microk8s.io/#install-microk8s)
 - [minikube](https://minikube.sigs.k8s.io/docs/start/?arch=%2Fwindows%2Fx86-64%2Fstable%2F.exe+download)

@@ -26,8 +26,8 @@ namespace kubecpp::model::internal::pod::container
 std::string Capabilities::ParseToJson() const
 {
     nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Add);
-    CHECK_AND_SET_FIELD(result, Drop);
+    CHECK_AND_SET_FIELD_CONTAINER(result, Add);
+    CHECK_AND_SET_FIELD_CONTAINER(result, Drop);
     return nlohmann::to_string(result);
 }
 
