@@ -30,7 +30,7 @@ struct ListMeta
     Checked<std::string> SelfLink{ "selfLink", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
-    ListMeta ParseFromJson(const std::string& jsonData);
+    static ListMeta ParseFromJson(const std::string& jsonData);
 };
 
 struct ListMetaBuilder

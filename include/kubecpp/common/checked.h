@@ -26,6 +26,8 @@ template <typename Type, typename ValidatorType = NullValidator<Type>>
 class Checked
 {
 public:
+    using InternalType = Type;
+
     struct FieldProps
     {
         std::string KeyName;

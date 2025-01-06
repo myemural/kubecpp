@@ -62,11 +62,22 @@ std::string ObjectMeta::ParseToJson() const
 
 ObjectMeta ObjectMeta::ParseFromJson(const std::string& jsonData)
 {
+    ObjectMeta result;
     nlohmann::json data = nlohmann::json::parse(jsonData);
-    Name                = data[Name.GetKeyName()].template get<std::string>();
-    Namespace           = data[Namespace.GetKeyName()].template get<std::string>();
+    if(data.contains(result.Name.GetKeyName())) {
+        result.Name = data[result.Name.GetKeyName()].template get<decltype(result.Name)::InternalType>();
+    }
+    if(data.contains(result.GenerateName.GetKeyName())) {
+        result.GenerateName = data[result.GenerateName.GetKeyName()].template get<decltype(result.GenerateName)::InternalType>();
+    }
+    if(data.contains(result.Namespace.GetKeyName())) {
+        result.Namespace = data[result.Namespace.GetKeyName()].template get<decltype(result.Namespace)::InternalType>();
+    }
+    if(data.contains(result.Labels.GetKeyName())) {
+        result.Labels = data[result.Labels.GetKeyName()].template get<decltype(result.Labels)::InternalType>();
+    }
 
-    return *this;
+    return result;
 }
 
 ObjectMetaBuilder& ObjectMetaBuilder::Name(const std::string& name)

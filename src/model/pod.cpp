@@ -35,12 +35,15 @@ Pod Pod::ParseFromJson(const std::string& jsonData)
 {
     Pod result;
     nlohmann::json data = nlohmann::json::parse(jsonData);
-    result.ApiVersion   = data[result.ApiVersion.GetKeyName()].template get<std::string>();
-    result.Kind         = data[result.Kind.GetKeyName()].template get<std::string>();
-    // internal::ObjectMeta metadata;
-    // result.Metadata = metadata.ParseFromJson(nlohmann::to_string(data[result.Metadata.GetKeyName()]));
-    // PodSpec spec;
-    // result.Spec = spec.ParseFromJson(nlohmann::to_string(data[result.Spec.GetKeyName()]));
+    if(data.contains(result.ApiVersion.GetKeyName())) {
+        result.ApiVersion = data[result.ApiVersion.GetKeyName()].template get<decltype(result.ApiVersion)::InternalType>();
+    }
+    if(data.contains(result.Kind.GetKeyName())) {
+        result.Kind = data[result.Kind.GetKeyName()].template get<decltype(result.Kind)::InternalType>();
+    }
+    if(data.contains(result.Metadata.GetKeyName())) {
+        result.Metadata = internal::common::ObjectMeta::ParseFromJson(nlohmann::to_string(data[result.Metadata.GetKeyName()]));
+    }
 
     return result;
 }

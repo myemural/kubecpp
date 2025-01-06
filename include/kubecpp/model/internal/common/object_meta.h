@@ -67,7 +67,7 @@ struct ObjectMeta
 
 
     [[nodiscard]] std::string ParseToJson() const;
-    ObjectMeta ParseFromJson(const std::string& jsonData);
+    static ObjectMeta ParseFromJson(const std::string& jsonData);
 };
 
 struct ManageFieldsEntryBuilder
