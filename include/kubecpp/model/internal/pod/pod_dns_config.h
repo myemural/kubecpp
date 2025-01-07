@@ -41,6 +41,32 @@ struct PodDNSConfig
     [[nodiscard]] std::string ParseToJson() const;
 };
 
+struct PodDNSConfigOptionBuilder
+{
+    PodDNSConfigOptionBuilder& Name(const std::string& name);
+
+    PodDNSConfigOptionBuilder& Value(const std::string& value);
+
+    PodDNSConfigOption Build();
+
+private:
+    PodDNSConfigOption podDNSConfigOption_;
+};
+
+struct PodDNSConfigBuilder
+{
+    PodDNSConfigBuilder& Nameservers(const std::vector<std::string>& nameservers);
+
+    PodDNSConfigBuilder& Options(const std::vector<PodDNSConfigOption>& options);
+
+    PodDNSConfigBuilder& Searches(const std::vector<std::string>& searches);
+
+    PodDNSConfig Build();
+
+private:
+    PodDNSConfig podDNSConfig_;
+};
+
 } // namespace kubecpp::model::internal::pod
 
 #endif // POD_DNS_CONFIG_H_

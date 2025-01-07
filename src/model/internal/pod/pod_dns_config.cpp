@@ -40,4 +40,44 @@ std::string PodDNSConfig::ParseToJson() const
     return nlohmann::to_string(result);
 }
 
+PodDNSConfigOptionBuilder& PodDNSConfigOptionBuilder::Name(const std::string& name)
+{
+    podDNSConfigOption_.Name = name;
+    return *this;
+}
+
+PodDNSConfigOptionBuilder& PodDNSConfigOptionBuilder::Value(const std::string& value)
+{
+    podDNSConfigOption_.Value = value;
+    return *this;
+}
+
+PodDNSConfigOption PodDNSConfigOptionBuilder::Build()
+{
+    return std::move(podDNSConfigOption_);
+}
+
+PodDNSConfigBuilder& PodDNSConfigBuilder::Nameservers(const std::vector<std::string>& nameservers)
+{
+    podDNSConfig_.Nameservers = nameservers;
+    return *this;
+}
+
+PodDNSConfigBuilder& PodDNSConfigBuilder::Options(const std::vector<PodDNSConfigOption>& options)
+{
+    podDNSConfig_.Options = options;
+    return *this;
+}
+
+PodDNSConfigBuilder& PodDNSConfigBuilder::Searches(const std::vector<std::string>& searches)
+{
+    podDNSConfig_.Searches = searches;
+    return *this;
+}
+
+PodDNSConfig PodDNSConfigBuilder::Build()
+{
+    return std::move(podDNSConfig_);
+}
+
 } // namespace kubecpp::model::internal::pod
