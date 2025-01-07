@@ -31,4 +31,22 @@ std::string HostAlias::ParseToJson() const
     return nlohmann::to_string(result);
 }
 
+HostAliasBuilder& HostAliasBuilder::Ip(const std::string& ip)
+{
+    hostAlias_.Ip = ip;
+    return *this;
+}
+
+HostAliasBuilder& HostAliasBuilder::HostNames(const std::vector<std::string>& hostNames)
+{
+    hostAlias_.HostNames = hostNames;
+    return *this;
+}
+
+HostAlias HostAliasBuilder::Build()
+{
+    return std::move(hostAlias_);
+}
+
+
 } // namespace kubecpp::model::internal::pod

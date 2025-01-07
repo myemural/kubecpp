@@ -32,6 +32,18 @@ struct HostAlias
     [[nodiscard]] std::string ParseToJson() const;
 };
 
+struct HostAliasBuilder
+{
+    HostAliasBuilder& Ip(const std::string& ip);
+
+    HostAliasBuilder& HostNames(const std::vector<std::string>& hostNames);
+
+    HostAlias Build();
+
+private:
+    HostAlias hostAlias_;
+};
+
 } // namespace kubecpp::model::internal::pod
 
 #endif // HOST_ALIAS_H_
