@@ -48,4 +48,123 @@ std::string EphemeralContainer::ParseToJson() const
     return nlohmann::to_string(result);
 }
 
+EphemeralContainerBuilder& EphemeralContainerBuilder::Name(const std::string& name)
+{
+    ephemeralContainer_.Name = name;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::TargetContainerName(const std::string& targetContainerName)
+{
+    ephemeralContainer_.TargetContainerName = targetContainerName;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::Image(const std::string& image)
+{
+    ephemeralContainer_.Image = image;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::ImagePullPolicy(const std::string& imagePullPolicy)
+{
+    ephemeralContainer_.ImagePullPolicy = imagePullPolicy;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::Command(const std::vector<std::string>& command)
+{
+    ephemeralContainer_.Command = command;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::Args(const std::vector<std::string>& args)
+{
+    ephemeralContainer_.Args = args;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::WorkingDir(const std::string& workingDir)
+{
+    ephemeralContainer_.WorkingDir = workingDir;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::Env(const std::vector<container::EnvVar>& env)
+{
+    ephemeralContainer_.Env = env;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::EnvFrom(const std::vector<container::EnvFromSource>& envFrom)
+{
+    ephemeralContainer_.EnvFrom = envFrom;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::VolumeMounts(const std::vector<container::VolumeMount>& volumeMounts)
+{
+    ephemeralContainer_.VolumeMounts = volumeMounts;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::VolumeDevices(const std::vector<container::VolumeDevice>& volumeDevices)
+{
+    ephemeralContainer_.VolumeDevices = volumeDevices;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::ResizePolicy(const std::vector<container::ContainerResizePolicy>& resizePolicy)
+{
+    ephemeralContainer_.ResizePolicy = resizePolicy;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::TerminationMessagePath(const std::string& terminationMessagePath)
+{
+    ephemeralContainer_.TerminationMessagePath = terminationMessagePath;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::TerminationMessagePolicy(const std::string& terminationMessagePolicy)
+{
+    ephemeralContainer_.TerminationMessagePolicy = terminationMessagePolicy;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::RestartPolicy(const std::string& restartPolicy)
+{
+    ephemeralContainer_.RestartPolicy = restartPolicy;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::SecurityContext(const container::SecurityContext& securityContext)
+{
+    ephemeralContainer_.SecurityContext = securityContext;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::Stdin(bool stdIn)
+{
+    ephemeralContainer_.Stdin = stdIn;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::StdinOnce(bool stdinOnce)
+{
+    ephemeralContainer_.StdinOnce = stdinOnce;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::Tty(bool tty)
+{
+    ephemeralContainer_.Tty = tty;
+    return *this;
+}
+
+EphemeralContainer EphemeralContainerBuilder::Build()
+{
+    return std::move(ephemeralContainer_);
+}
+
 } // namespace kubecpp::model::internal::pod

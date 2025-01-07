@@ -55,6 +55,52 @@ struct EphemeralContainer
     [[nodiscard]] std::string ParseToJson() const;
 };
 
+struct EphemeralContainerBuilder
+{
+    EphemeralContainerBuilder& Name(const std::string& name);
+
+    EphemeralContainerBuilder& TargetContainerName(const std::string& targetContainerName);
+
+    EphemeralContainerBuilder& Image(const std::string& image);
+
+    EphemeralContainerBuilder& ImagePullPolicy(const std::string& imagePullPolicy);
+
+    EphemeralContainerBuilder& Command(const std::vector<std::string>& command);
+
+    EphemeralContainerBuilder& Args(const std::vector<std::string>& args);
+
+    EphemeralContainerBuilder& WorkingDir(const std::string& workingDir);
+
+    EphemeralContainerBuilder& Env(const std::vector<container::EnvVar>& env);
+
+    EphemeralContainerBuilder& EnvFrom(const std::vector<container::EnvFromSource>& envFrom);
+
+    EphemeralContainerBuilder& VolumeMounts(const std::vector<container::VolumeMount>& volumeMounts);
+
+    EphemeralContainerBuilder& VolumeDevices(const std::vector<container::VolumeDevice>& volumeDevices);
+
+    EphemeralContainerBuilder& ResizePolicy(const std::vector<container::ContainerResizePolicy>& resizePolicy);
+
+    EphemeralContainerBuilder& TerminationMessagePath(const std::string& terminationMessagePath);
+
+    EphemeralContainerBuilder& TerminationMessagePolicy(const std::string& terminationMessagePolicy);
+
+    EphemeralContainerBuilder& RestartPolicy(const std::string& restartPolicy);
+
+    EphemeralContainerBuilder& SecurityContext(const container::SecurityContext& securityContext);
+
+    EphemeralContainerBuilder& Stdin(bool stdIn);
+
+    EphemeralContainerBuilder& StdinOnce(bool stdinOnce);
+
+    EphemeralContainerBuilder& Tty(bool tty);
+
+    EphemeralContainer Build();
+
+private:
+    EphemeralContainer ephemeralContainer_;
+};
+
 } // namespace kubecpp::model::internal::pod
 
 #endif // EPHEMERAL_CONTAINER_H_

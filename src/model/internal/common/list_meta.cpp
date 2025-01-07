@@ -35,13 +35,14 @@ std::string ListMeta::ParseToJson() const
 
 ListMeta ListMeta::ParseFromJson(const std::string& jsonData)
 {
-    nlohmann::json data = nlohmann::json::parse(jsonData);
-    Continue            = data[Continue.GetKeyName()].template get<std::string>();
-    RemainingItemCount  = data[RemainingItemCount.GetKeyName()].template get<int64_t>();
-    ResourceVersion     = data[ResourceVersion.GetKeyName()].template get<std::string>();
-    SelfLink            = data[SelfLink.GetKeyName()].template get<std::string>();
+    ListMeta result;
+    nlohmann::json data       = nlohmann::json::parse(jsonData);
+    result.Continue           = data[result.Continue.GetKeyName()].template get<std::string>();
+    result.RemainingItemCount = data[result.RemainingItemCount.GetKeyName()].template get<int64_t>();
+    result.ResourceVersion    = data[result.ResourceVersion.GetKeyName()].template get<std::string>();
+    result.SelfLink           = data[result.SelfLink.GetKeyName()].template get<std::string>();
 
-    return *this;
+    return result;
 }
 
 ListMetaBuilder& ListMetaBuilder::Continue(const std::string& cont)
