@@ -51,10 +51,10 @@ std::string PodAffinityTermType::ParseToJson() const
     nlohmann::json result;
     CHECK_AND_SET_FIELD(result, TopologyKey);
     CHECK_AND_SET_OBJECT_FIELD(result, LabelSelector);
-    CHECK_AND_SET_FIELD_CONTAINER(result, MatchLabelKeys);
-    CHECK_AND_SET_FIELD_CONTAINER(result, MismatchLabelKeys);
+    CHECK_AND_SET_FIELD(result, MatchLabelKeys);
+    CHECK_AND_SET_FIELD(result, MismatchLabelKeys);
     CHECK_AND_SET_OBJECT_FIELD(result, NamespaceSelector);
-    CHECK_AND_SET_FIELD_CONTAINER(result, Namespaces);
+    CHECK_AND_SET_FIELD(result, Namespaces);
     return nlohmann::to_string(result);
 }
 

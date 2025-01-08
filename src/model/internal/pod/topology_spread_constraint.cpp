@@ -30,7 +30,7 @@ std::string TopologySpreadConstraint::ParseToJson() const
     CHECK_AND_SET_FIELD(result, TopologyKey);
     CHECK_AND_SET_FIELD(result, WhenUnsatisfiable);
     CHECK_AND_SET_OBJECT_FIELD(result, LabelSelector);
-    CHECK_AND_SET_FIELD_CONTAINER(result, MatchLabelKeys);
+    CHECK_AND_SET_FIELD(result, MatchLabelKeys);
     CHECK_AND_SET_FIELD(result, MinDomains);
     CHECK_AND_SET_FIELD(result, NodeAffinityPolicy);
     CHECK_AND_SET_FIELD(result, NodeTaintsPolicy);

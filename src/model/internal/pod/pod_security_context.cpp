@@ -42,7 +42,7 @@ std::string PodSecurityContext::ParseToJson() const
     CHECK_AND_SET_FIELD(result, RunAsGroup);
     CHECK_AND_SET_OBJECT_FIELD(result, SeccompProfile);
     CHECK_AND_SET_OBJECT_FIELD(result, SeLinuxOptions);
-    CHECK_AND_SET_FIELD_CONTAINER(result, SupplementalGroups);
+    CHECK_AND_SET_FIELD(result, SupplementalGroups);
     CHECK_AND_SET_FIELD(result, SupplementalGroupsPolicy);
     CHECK_AND_SET_OBJECT_FIELD_LIST(result, Sysctls);
     CHECK_AND_SET_OBJECT_FIELD(result, WindowsOptions);

@@ -35,7 +35,7 @@ std::string DeleteOptions::ParseToJson() const
 {
     nlohmann::json result;
     CHECK_AND_SET_FIELD(result, ApiVersion);
-    CHECK_AND_SET_FIELD_CONTAINER(result, DryRun);
+    CHECK_AND_SET_FIELD(result, DryRun);
     CHECK_AND_SET_FIELD(result, GracePeriodSeconds);
     CHECK_AND_SET_FIELD(result, Kind);
     CHECK_AND_SET_FIELD(result, OrphanDependents);

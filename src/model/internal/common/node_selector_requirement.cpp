@@ -28,7 +28,7 @@ std::string NodeSelectorRequirement::ParseToJson() const
     nlohmann::json result;
     CHECK_AND_SET_FIELD(result, Key);
     CHECK_AND_SET_FIELD(result, Operator);
-    CHECK_AND_SET_FIELD_CONTAINER(result, Values);
+    CHECK_AND_SET_FIELD(result, Values);
     return nlohmann::to_string(result);
 }
 

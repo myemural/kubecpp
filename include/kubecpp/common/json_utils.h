@@ -43,14 +43,6 @@
         throw std::exception((x).GetKeyName().c_str());                                   \
     }
 
-#define CHECK_AND_SET_FIELD_CONTAINER(result, x)        \
-    if((x).HasValue()) {                                \
-        const nlohmann::json itemJson((x).GetValue());  \
-        (result)[(x).GetKeyName()] = itemJson;          \
-    } else if((x).IsRequired()) {                       \
-        throw std::exception((x).GetKeyName().c_str()); \
-    }
-
 #define CHECK_AND_SET_OBJECT_FIELD_LIST(result, x)                                     \
     if((x).HasValue()) {                                                               \
         for(const auto& item : (x).GetValue()) {                                       \

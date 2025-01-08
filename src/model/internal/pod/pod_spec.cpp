@@ -40,7 +40,7 @@ std::string PodSpec::ParseToJson() const
     CHECK_AND_SET_FIELD(result, EnableServiceLinks);
     CHECK_AND_SET_OBJECT_FIELD(result, Os);
     CHECK_AND_SET_OBJECT_FIELD_LIST(result, Volumes);
-    CHECK_AND_SET_FIELD_CONTAINER(result, NodeSelector);
+    CHECK_AND_SET_FIELD(result, NodeSelector);
     CHECK_AND_SET_FIELD(result, NodeName);
     CHECK_AND_SET_OBJECT_FIELD(result, Affinity);
     CHECK_AND_SET_OBJECT_FIELD_LIST(result, Tolerations);
@@ -50,7 +50,7 @@ std::string PodSpec::ParseToJson() const
     CHECK_AND_SET_FIELD(result, Priority);
     CHECK_AND_SET_FIELD(result, PreemptionPolicy);
     CHECK_AND_SET_OBJECT_FIELD_LIST(result, TopologySpreadConstraints);
-    CHECK_AND_SET_FIELD_CONTAINER(result, Overhead);
+    CHECK_AND_SET_FIELD(result, Overhead);
     CHECK_AND_SET_FIELD(result, RestartPolicy);
     CHECK_AND_SET_FIELD(result, TerminationGracePeriodSeconds);
     CHECK_AND_SET_FIELD(result, ActiveDeadlineSeconds);

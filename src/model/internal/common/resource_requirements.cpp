@@ -35,8 +35,8 @@ std::string ResourceRequirements::ParseToJson() const
 {
     nlohmann::json result;
     CHECK_AND_SET_OBJECT_FIELD_LIST(result, Claims);
-    CHECK_AND_SET_FIELD_CONTAINER(result, Limits);
-    CHECK_AND_SET_FIELD_CONTAINER(result, Requests);
+    CHECK_AND_SET_FIELD(result, Limits);
+    CHECK_AND_SET_FIELD(result, Requests);
     return nlohmann::to_string(result);
 }
 

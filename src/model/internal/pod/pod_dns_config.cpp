@@ -34,9 +34,9 @@ std::string PodDNSConfigOption::ParseToJson() const
 std::string PodDNSConfig::ParseToJson() const
 {
     nlohmann::json result;
-    CHECK_AND_SET_FIELD_CONTAINER(result, Nameservers);
+    CHECK_AND_SET_FIELD(result, Nameservers);
     CHECK_AND_SET_OBJECT_FIELD_LIST(result, Options);
-    CHECK_AND_SET_FIELD_CONTAINER(result, Searches);
+    CHECK_AND_SET_FIELD(result, Searches);
     return nlohmann::to_string(result);
 }
 

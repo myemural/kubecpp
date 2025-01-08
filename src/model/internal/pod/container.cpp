@@ -29,8 +29,8 @@ std::string Container::ParseToJson() const
     CHECK_AND_SET_FIELD(result, Name);
     CHECK_AND_SET_FIELD(result, Image);
     CHECK_AND_SET_FIELD(result, ImagePullPolicy);
-    CHECK_AND_SET_FIELD_CONTAINER(result, Command);
-    CHECK_AND_SET_FIELD_CONTAINER(result, Args);
+    CHECK_AND_SET_FIELD(result, Command);
+    CHECK_AND_SET_FIELD(result, Args);
     CHECK_AND_SET_FIELD(result, WorkingDir);
     CHECK_AND_SET_OBJECT_FIELD_LIST(result, Ports);
     CHECK_AND_SET_OBJECT_FIELD_LIST(result, Env);

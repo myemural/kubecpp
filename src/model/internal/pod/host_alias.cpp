@@ -27,7 +27,7 @@ std::string HostAlias::ParseToJson() const
 {
     nlohmann::json result;
     CHECK_AND_SET_FIELD(result, Ip);
-    CHECK_AND_SET_FIELD_CONTAINER(result, HostNames);
+    CHECK_AND_SET_FIELD(result, HostNames);
     return nlohmann::to_string(result);
 }
 

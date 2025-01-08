@@ -53,8 +53,8 @@ std::string ObjectMeta::ParseToJson() const
     CHECK_AND_SET_FIELD(result, Name);
     CHECK_AND_SET_FIELD(result, GenerateName);
     CHECK_AND_SET_FIELD(result, Namespace);
-    CHECK_AND_SET_FIELD_CONTAINER(result, Labels);
-    CHECK_AND_SET_FIELD_CONTAINER(result, Finalizers);
+    CHECK_AND_SET_FIELD(result, Labels);
+    CHECK_AND_SET_FIELD(result, Finalizers);
     CHECK_AND_SET_OBJECT_FIELD_LIST(result, ManagedFields);
     CHECK_AND_SET_OBJECT_FIELD_LIST(result, OwnerReferences);
     return nlohmann::to_string(result);

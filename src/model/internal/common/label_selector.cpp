@@ -28,7 +28,7 @@ std::string LabelSelectorRequirement::ParseToJson() const
     nlohmann::json result;
     CHECK_AND_SET_FIELD(result, Key);
     CHECK_AND_SET_FIELD(result, Operator);
-    CHECK_AND_SET_FIELD_CONTAINER(result, Values);
+    CHECK_AND_SET_FIELD(result, Values);
     return nlohmann::to_string(result);
 }
 
@@ -36,7 +36,7 @@ std::string LabelSelector::ParseToJson() const
 {
     nlohmann::json result;
     CHECK_AND_SET_OBJECT_FIELD_LIST(result, MatchExpressions);
-    CHECK_AND_SET_FIELD_CONTAINER(result, MatchLabels);
+    CHECK_AND_SET_FIELD(result, MatchLabels);
     return nlohmann::to_string(result);
 }
 
