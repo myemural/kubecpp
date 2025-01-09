@@ -63,9 +63,9 @@ ApiClient::ApiClient(const ApiConfig& config)
        [&currentUser](const ApiConfig::NamedAuthInfo& item) { return item.Name == currentUser; });
     userIt != config.Users.end()) {
         const std::string clientCertificate = userIt->User.ClientCertificateData;
-        sslConfig_.ClientCertFile           = CreateCertKeyTempFile(clientCertificate);
+        sslConfig_.ClientCertFile           = CreateTempFile("kubeconfig", clientCertificate);
         const std::string clientKey         = userIt->User.ClientKeyData;
-        sslConfig_.ClientKeyFile            = CreateCertKeyTempFile(clientKey);
+        sslConfig_.ClientKeyFile            = CreateTempFile("kubeconfig", clientKey);
     }
 
     // Get server address and CA
@@ -74,15 +74,15 @@ ApiClient::ApiClient(const ApiConfig& config)
     clusterIt != config.Clusters.end()) {
         basePath_                   = clusterIt->Cluster.Server;
         const std::string currentCA = clusterIt->Cluster.CertificateAuthorityData;
-        sslConfig_.CaCertFile       = CreateCertKeyTempFile(currentCA);
+        sslConfig_.CaCertFile       = CreateTempFile("kubeconfig", currentCA);
     }
 }
 
 ApiClient::~ApiClient()
 {
-    RemoveTempFile(sslConfig_.CaCertFile);
-    RemoveTempFile(sslConfig_.ClientCertFile);
-    RemoveTempFile(sslConfig_.ClientKeyFile);
+    RemoveFile(sslConfig_.CaCertFile);
+    RemoveFile(sslConfig_.ClientCertFile);
+    RemoveFile(sslConfig_.ClientKeyFile);
 }
 
 ApiClient::ApiResponse ApiClient::Execute(const HttpMethod& method, const std::string& path, const std::string& body) const

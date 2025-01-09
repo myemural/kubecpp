@@ -22,9 +22,9 @@
 namespace kubecpp::common
 {
 
-std::string CreateCertKeyTempFile(const std::string& data);
+std::string CreateTempFile(const std::string& filePrefix, const std::string& data);
 
-void RemoveTempFile(const std::string& fileName);
+void RemoveFile(const std::string& fileName);
 
 std::string ReadAllFile(const std::string& filePath);
 

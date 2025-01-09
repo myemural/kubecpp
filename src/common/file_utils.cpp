@@ -16,69 +16,53 @@
 
 #include "kubecpp/common/file_utils.h"
 
+#include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <random>
 #include <sstream>
-
-#ifndef WINDOWS_OS
-#include <unistd.h>
-
-#define KUBE_CONFIG_TEMPFILE_NAME_PATTERN "/tmp/kubeconfig-XXXXXX"
-
-#else
-#include <fcntl.h>
-#include <io.h>
-
-#define KUBE_CONFIG_TEMPFILE_NAME_PATTERN "\\kubeconfig-XXXXXX"
-
-#endif
 
 #include "kubecpp/common/base64_utils.h"
 
 namespace kubecpp::common
 {
 
-std::string CreateCertKeyTempFile(const std::string& data)
+namespace
+{
+const std::string kCharacterSet("abcdefghijklmnopqrstuvwxyz"
+                                "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                                "0123456789");
+}
+
+std::string CreateTempFile(const std::string& filePrefix, const std::string& data)
 {
     std::string decodedData = DecodeBase64(data);
 
-// Create tempfile
-#ifndef WINDOWS_OS
-    char tempFileName[] = KUBE_CONFIG_TEMPFILE_NAME_PATTERN;
-    const int fileDesc  = mkstemp(tempFileName);
-#else
-    const std::string tempDirectory = getenv("TEMP");
-    std::string tempFileFullPath    = tempDirectory + KUBE_CONFIG_TEMPFILE_NAME_PATTERN;
-    std::string fileName            = _mktemp(tempFileFullPath.data());
-    const int fileDesc              = _sopen(fileName.c_str(), O_CREAT | O_WRONLY, _SH_DENYWR, _S_IREAD | _S_IWRITE);
-#endif
+    // Create filename postfix
+    std::string postfix("        ");
+    std::random_device randomDevice;
+    std::mt19937 engine(randomDevice());
+    std::uniform_int_distribution<std::size_t> dist(0, kCharacterSet.length() - 1);
+    std::for_each(postfix.begin(), postfix.end(), [&dist, &engine](char& c) { c = kCharacterSet[dist(engine)]; });
 
-    if(fileDesc == -1) {
-        std::cerr << "File couldn't be opened: " << fileName << '\n';
+    // Create tempfile
+    const auto tempFileName = filePrefix + "-" + postfix;
+    const auto tempFilePath = std::filesystem::temp_directory_path().append(tempFileName);
+    std::ofstream file(tempFilePath);
+    if(!file.is_open()) {
+        std::cerr << "Failed to open file: " << tempFilePath << '\n';
         return {};
     }
+    file << decodedData;
+    file.close();
 
-// Write data to file
-#ifndef WINDOWS_OS
-    const int ret = write(fileDesc, decodedData.c_str(), decodedData.length());
-    close(fileDesc);
-#else
-    const int ret = _write(fileDesc, decodedData.c_str(), decodedData.length());
-    _close(fileDesc);
-#endif
-
-    if(ret == -1) {
-        std::cerr << "File couldn't be written: " << fileName << '\n';
-        return {};
-    }
-
-    return fileName;
+    return tempFilePath.string();
 }
 
-void RemoveTempFile(const std::string& fileName)
+void RemoveFile(const std::string& fileName)
 {
     if(!fileName.empty()) {
-        unlink(fileName.c_str());
+        std::filesystem::remove(fileName);
     }
 }
 
