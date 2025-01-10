@@ -18,6 +18,7 @@
 #define FILE_UTILS_H_
 
 #include <string>
+#include <vector>
 
 namespace kubecpp::common
 {
@@ -27,6 +28,8 @@ std::string CreateTempFile(const std::string& filePrefix, const std::string& dat
 void RemoveFile(const std::string& fileName);
 
 std::string ReadAllFile(const std::string& filePath);
+
+std::vector<std::string> GetEnvVarValues(const std::string& envVarName);
 
 } // namespace kubecpp::common
 

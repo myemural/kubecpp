@@ -16,6 +16,7 @@
 
 #include "kubecpp/common/file_utils.h"
 
+#include <cstdlib>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
@@ -32,7 +33,13 @@ namespace
 const std::string kCharacterSet("abcdefghijklmnopqrstuvwxyz"
                                 "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                                 "0123456789");
-}
+
+#ifdef WINDOWS_OS
+inline constexpr const char kEnvVarValueDelim = ';';
+#else
+inline constexpr const char kEnvVarValueDelim = ':';
+#endif
+} // namespace
 
 std::string CreateTempFile(const std::string& filePrefix, const std::string& data)
 {
@@ -78,6 +85,23 @@ std::string ReadAllFile(const std::string& filePath)
     std::stringstream buffer;
     buffer << file.rdbuf();
     result = buffer.str();
+    return result;
+}
+
+std::vector<std::string> GetEnvVarValues(const std::string& envVarName)
+{
+    std::vector<std::string> result;
+
+    char* envValue = std::getenv(envVarName.c_str());
+    if(envValue) {
+        std::stringstream ss{ envValue };
+        std::string value;
+
+        while(getline(ss, value, kEnvVarValueDelim)) {
+            result.push_back(value);
+        }
+    }
+
     return result;
 }
 
