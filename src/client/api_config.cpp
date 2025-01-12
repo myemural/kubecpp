@@ -29,7 +29,7 @@ namespace kubecpp::client
 namespace
 {
 
-inline void ProcessClusters(std::vector<ApiConfig::NamedCluster>& clusters, const c4::yml::Tree& tree)
+void ProcessClusters(std::vector<ApiConfig::NamedCluster>& clusters, const c4::yml::Tree& tree)
 {
     for(const auto& cluster : tree["clusters"]) {
         ApiConfig::NamedCluster namedCluster;
@@ -47,7 +47,7 @@ inline void ProcessClusters(std::vector<ApiConfig::NamedCluster>& clusters, cons
     }
 }
 
-inline void ProcessUsers(std::vector<ApiConfig::NamedAuthInfo>& users, const c4::yml::Tree& tree)
+void ProcessUsers(std::vector<ApiConfig::NamedAuthInfo>& users, const c4::yml::Tree& tree)
 {
     for(const auto& user : tree["users"]) {
         ApiConfig::NamedAuthInfo namedAuthInfo;
@@ -72,7 +72,7 @@ inline void ProcessUsers(std::vector<ApiConfig::NamedAuthInfo>& users, const c4:
     }
 }
 
-inline void ProcessContexts(std::vector<ApiConfig::NamedContext>& contexts, const c4::yml::Tree& tree)
+void ProcessContexts(std::vector<ApiConfig::NamedContext>& contexts, const c4::yml::Tree& tree)
 {
     for(const auto& context : tree["contexts"]) {
         ApiConfig::NamedContext namedContext;
@@ -86,6 +86,26 @@ inline void ProcessContexts(std::vector<ApiConfig::NamedContext>& contexts, cons
     }
 }
 
+std::string GetKubeconfigDefaultFilePath()
+{
+    if(const auto configPaths = kubecpp::common::GetEnvVarValues("KUBECONFIG"); configPaths.size() > 0) {
+        /// TODO: Currently only first path will be processed
+        return configPaths.at(0);
+    }
+
+#ifndef WINDOWS_OS
+    if(const auto userDirs = GetEnvVarValues("HOME"); userDirs.size() > 0) {
+        return userDirs.at(0) + "/.kube/config";
+    }
+#else
+    if(const auto userDirs = kubecpp::common::GetEnvVarValues("USERPROFILE"); userDirs.size() > 0) {
+        return userDirs.at(0) + "\\.kube\\config";
+    }
+#endif
+
+    return "";
+}
+
 } // namespace
 
 using namespace kubecpp::common;
@@ -93,13 +113,8 @@ using namespace kubecpp::common::constants;
 
 ApiConfig::ApiConfig(std::string filePath)
 {
-    /// TODO: Currently this part will not work. Will be refactored later.
     if(filePath.empty()) {
-#ifndef _WIN32
-        filePath = kK8sKubeconfigDefaultPathLinux;
-#else
-        filePath = kK8sKubeconfigDefaultPathWin;
-#endif
+        filePath = GetKubeconfigDefaultFilePath();
     }
 
     // Read all file
