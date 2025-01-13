@@ -23,7 +23,7 @@
 namespace kubecpp::model::internal::pod::container
 {
 
-std::string Capabilities::ParseToJson() const
+std::string CapabilitiesType::ParseToJson() const
 {
     nlohmann::json result;
     CHECK_AND_SET_FIELD(result, Add);

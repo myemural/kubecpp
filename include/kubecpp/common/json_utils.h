@@ -29,18 +29,18 @@
 #define CHECK_BOOL(Type)           static_assert(std::is_same_v<Type, bool> == true, "T is not a bool type")
 #define CHECK_NOT_BOOL(Type)       static_assert(std::is_same_v<Type, bool> == false, "T is a bool type")
 
-#define CHECK_AND_SET_FIELD(result, x)                  \
-    if((x).HasValue()) {                                \
-        (result)[(x).GetKeyName()] = (x).GetValue();    \
-    } else if((x).IsRequired()) {                       \
-        throw std::exception((x).GetKeyName().c_str()); \
+#define CHECK_AND_SET_FIELD(result, x)               \
+    if((x).HasValue()) {                             \
+        (result)[(x).GetKeyName()] = (x).GetValue(); \
+    } else if((x).IsRequired()) {                    \
+        throw std::runtime_error((x).GetKeyName());  \
     }
 
 #define CHECK_AND_SET_OBJECT_FIELD(result, x)                                             \
     if((x).HasValue()) {                                                                  \
         (result)[(x).GetKeyName()] = nlohmann::json::parse((x).GetValue().ParseToJson()); \
     } else if((x).IsRequired()) {                                                         \
-        throw std::exception((x).GetKeyName().c_str());                                   \
+        throw std::runtime_error((x).GetKeyName());                                       \
     }
 
 #define CHECK_AND_SET_OBJECT_FIELD_LIST(result, x)                                     \
@@ -50,7 +50,7 @@
             (result)[(x).GetKeyName()].push_back(itemJson);                            \
         }                                                                              \
     } else if((x).IsRequired()) {                                                      \
-        throw std::exception((x).GetKeyName().c_str());                                \
+        throw std::runtime_error((x).GetKeyName());                                    \
     }
 
 #endif // JSON_UTILS_H_

@@ -28,7 +28,7 @@
 namespace kubecpp::model::internal::pod::container
 {
 
-struct Capabilities
+struct CapabilitiesType
 {
     Checked<std::vector<std::string>> Add{ "add", false, "description" };
     Checked<std::vector<std::string>> Drop{ "drop", false, "description" };
@@ -40,7 +40,7 @@ struct SecurityContext
 {
     Checked<bool> AllowPrivilegeEscalation{ "allowPrivilegeEscalation", false, "description" };
     Checked<security::AppArmorProfile> AppArmorProfile{ "appArmorProfile", false, "description" };
-    Checked<Capabilities> Capabilities{ "capabilities", false, "description" };
+    Checked<CapabilitiesType> Capabilities{ "capabilities", false, "description" };
     Checked<std::string> ProcMount{ "procMount", false, "description" };
     Checked<bool> Privileged{ "privileged", false, "description" };
     Checked<bool> ReadOnlyRootFilesystem{ "readOnlyRootFilesystem", false, "description" };

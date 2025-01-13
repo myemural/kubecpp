@@ -17,6 +17,7 @@
 #ifndef CHECKED_H_
 #define CHECKED_H_
 
+#include <stdexcept>
 #include <optional>
 #include <string>
 
@@ -44,7 +45,7 @@ public:
     {
         if constexpr(!std::is_same_v<ValidatorType, NullValidator<Type>>) {
             if(!validator_.Validate(val)) {
-                throw std::exception(std::string("Invalid value in " + fieldProps_.KeyDescription).c_str());
+                throw std::runtime_error(std::string("Invalid value in " + fieldProps_.KeyDescription));
             }
         }
         value_ = val;
@@ -55,7 +56,7 @@ public:
     {
         if constexpr(!std::is_same_v<ValidatorType, NullValidator<Type>>) {
             if(!validator_.Validate(val)) {
-                throw std::exception(std::string("Invalid value in " + fieldProps_.KeyDescription).c_str());
+                throw std::runtime_error(std::string("Invalid value in " + fieldProps_.KeyDescription));
             }
         }
         value_ = std::move(val);

@@ -17,6 +17,7 @@
 #ifndef API_CLIENT_H_
 #define API_CLIENT_H_
 
+#include <cstdint>
 #include <string>
 
 #include "kubecpp/client/api_config.h"
@@ -24,7 +25,7 @@
 namespace kubecpp::client
 {
 
-enum class HttpMethod : uint8_t { kDelete, kGet, kPatch, kPost, kPut };
+enum class HttpMethod : std::uint8_t { kDelete, kGet, kPatch, kPost, kPut };
 
 class ApiClient
 {

@@ -16,6 +16,7 @@
 
 #include "kubecpp/common/file_utils.h"
 
+#include <algorithm>
 #include <cstdlib>
 #include <filesystem>
 #include <fstream>

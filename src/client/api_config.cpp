@@ -94,7 +94,7 @@ std::string GetKubeconfigDefaultFilePath()
     }
 
 #ifndef WINDOWS_OS
-    if(const auto userDirs = GetEnvVarValues("HOME"); userDirs.size() > 0) {
+    if(const auto userDirs = kubecpp::common::GetEnvVarValues("HOME"); userDirs.size() > 0) {
         return userDirs.at(0) + "/.kube/config";
     }
 #else

@@ -9,6 +9,8 @@ set(PROJECT_VERSION_PATCH 0)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${CMAKE_BINARY_DIR}/generators")
+set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${CMAKE_BINARY_DIR}/Debug/generators") # For Linux
+set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${CMAKE_BINARY_DIR}/Release/generators") # For Linux
 
 # Settings
 option(BUILD_SHARED_LIBS "Build using shared libraries" OFF)

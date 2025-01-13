@@ -17,6 +17,7 @@
 #ifndef CORE_API_H_
 #define CORE_API_H_
 
+#include <cstdint>
 #include <unordered_map>
 
 #include "kubecpp/client/api_client.h"
