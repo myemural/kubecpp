@@ -23,6 +23,7 @@
 #include <iostream>
 #include <random>
 #include <sstream>
+#include <stdexcept>
 
 #include "kubecpp/common/base64_utils.h"
 
@@ -79,8 +80,7 @@ std::string ReadAllFile(const std::string& filePath)
     std::string result;
     const std::ifstream file(filePath);
     if(!file.is_open()) {
-        std::cerr << "Failed to open file: " << filePath << '\n';
-        return {};
+        throw std::runtime_error(std::string("Failed to open file: " + filePath));
     }
 
     std::stringstream buffer;
