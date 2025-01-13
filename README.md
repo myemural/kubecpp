@@ -17,6 +17,7 @@ For compiling and installation:
 - CMake 3.24+
 - Conan 2.4+
 - MSVC 19.40+ (for Windows)
+- GCC 13+ (for Linux)
 - Ninja 1.12+ (optional)
 
 Optional dependencies:
@@ -107,7 +108,8 @@ Since the `BUILD_EXAMPLES` cache variable is `ON` by default, the examples will 
 
 Currently, the following compilers are known to work:
 
-- MSVC 19.42 (or later)
+- MSVC 19.40+ (Windows)
+- GCC 13+ (Linux) 
 
 But we will test it on other compilers and versions as quickly as possible. We plan to increase this with local builds or using CI/CD.
 
