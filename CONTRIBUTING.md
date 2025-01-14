@@ -51,15 +51,15 @@ Action keywords:
 Examples:
 
 ```
-Added: New PodTemplate model class to the project.
+Added: New PodTemplate model class to the project
 ```
 
 ```
-Deleted: String utils implementation.
+Deleted: String utils implementation
 ```
 
 ```
-Fixed: Localization problems about xyz module.
+Fixed: Localization problems about xyz module
 ```
 
 The message should be clear and concise. It should not be too general or too specific. It should briefly state exactly what was done in that task. There is no specific length for the message (for now). It is also recommended that each task you do be divided into smaller commits.
