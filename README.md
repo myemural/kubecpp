@@ -139,9 +139,6 @@ Additionally, GitHub Actions integration will be added very soon. Also the first
 - JSON to model conversion
 - YAML to model conversion
 - Model to YAML conversion
-- Comprehensive Kubeconfig integration (environment variable, in-cluster support etc.)
-- A proper Debug/Release scheme
-- Multi-platform and compiler support (GNU/Linux, MacOS etc.)
 - A proper versionun and release scheme
 - Unit testing integration
 
