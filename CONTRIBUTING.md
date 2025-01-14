@@ -22,11 +22,11 @@ I recommend that you fork the main repo and clone this fork to your local enviro
 
 ## Roles and Responsibilities
 
-| Role        | Responsibilities                                                                               | Requirements                                                                                   |
-| ----------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| Contributer | Active contributor in the community                                                            | There is no limitation to become contributer for now                                           |
-| Committer   | Review contributions from other members and accept PRs                                         | This role can be assigned by the maintainer to people who contribute a lot to the project      |
-| Maintainer  | Lead whole repo and directly commit to the repo, also they can have committer responsibilities | Experienced active reviewer and contributor to the project, also can be chosen from committers |
+| Role         | Responsibilities                                       | Requirements                                                                                      |
+| ------------ | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
+| Contributor  | Active contributor in the community                    | There is no limitation to become contributor for now                                              |
+| Collaborator | Review contributions from other members and accept PRs | This role can be assigned by the maintainer to people who contribute a lot to the project         |
+| Maintainer   | Lead whole repo and can directly commit to the repo    | Experienced active reviewer and contributor to the project, also can be chosen from collaborators |
 
 ## Version Scheme
 
