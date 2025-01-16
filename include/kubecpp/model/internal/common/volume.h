@@ -18,9 +18,11 @@
 #define VOLUME_H_
 
 #include <cstdint>
+#include <map>
 #include <vector>
 
 #include "kubecpp/common/checked.h"
+#include "kubecpp/model/internal/common/local_object_reference.h"
 #include "kubecpp/model/internal/common/object_field_selector.h"
 #include "kubecpp/model/internal/common/resource_field_selector.h"
 
@@ -36,7 +38,7 @@ struct KeyToPath
 
 struct DownwardAPIVolumeFile
 {
-    Checked<std::string> Path{ "key", true, "description" };
+    Checked<std::string> Path{ "path", true, "description" };
     Checked<ObjectFieldSelector> FieldRef{ "fieldRef", false, "description" };
     Checked<std::int32_t> Mode{ "mode", false, "description" };
     Checked<ResourceFieldSelector> ResourceFieldRef{ "resourceFieldRef", false, "description" };
@@ -76,34 +78,65 @@ struct ProjectedVolumeSource
 
 struct EmptyDirVolumeSource
 {
+    Checked<std::string> Medium{ "medium", false, "description" };
+    Checked<std::string> SizeLimit{ "sizeLimit", false, "description" }; // Quantity
 };
 
 struct HostPathVolumeSource
 {
+    Checked<std::string> Path{ "path", true, "description" };
+    Checked<std::string> Type{ "type", false, "description" };
 };
 
 struct AWSElasticBlockStoreVolumeSource
 {
+    Checked<std::string> VolumeID{ "volumeID", true, "description" };
+    Checked<std::string> FsType{ "fsType", false, "description" };
+    Checked<std::int32_t> Partition{ "partition", false, "description" };
+    Checked<bool> ReadOnly{ "readOnly", false, "description" };
 };
 
 struct AzureDiskVolumeSource
 {
+    Checked<std::string> DiskName{ "diskName", true, "description" };
+    Checked<std::string> DiskURI{ "diskURI", true, "description" };
+    Checked<std::string> CachingMode{ "cachingMode", false, "description" };
+    Checked<std::string> FsType{ "fsType", false, "description" };
+    Checked<std::string> Kind{ "kind", false, "description" };
+    Checked<bool> ReadOnly{ "readOnly", false, "description" };
 };
 
 struct AzureFileVolumeSource
 {
+    Checked<std::string> SecretName{ "secretName", true, "description" };
+    Checked<std::string> ShareName{ "shareName", true, "description" };
+    Checked<bool> ReadOnly{ "readOnly", false, "description" };
 };
 
 struct CephFSVolumeSource
 {
+    Checked<std::vector<std::string>> Monitors{ "monitors", true, "description" };
+    Checked<std::string> Path{ "path", false, "description" };
+    Checked<bool> ReadOnly{ "readOnly", false, "description" };
+    Checked<std::string> SecretFile{ "secretFile", false, "description" };
+    Checked<LocalObjectReference> SecretRef{ "secretRef", false, "description" };
 };
 
 struct CinderVolumeSource
 {
+    Checked<std::string> VolumeID{ "volumeID", true, "description" };
+    Checked<std::string> FsType{ "fsType", false, "description" };
+    Checked<bool> ReadOnly{ "readOnly", false, "description" };
+    Checked<LocalObjectReference> SecretRef{ "secretRef", false, "description" };
 };
 
 struct CSIVolumeSource
 {
+    Checked<std::string> Driver{ "driver", true, "description" };
+    Checked<std::string> FsType{ "fsType", false, "description" };
+    Checked<LocalObjectReference> NodePublishSecretRef{ "nodePublishSecretRef", false, "description" };
+    Checked<bool> ReadOnly{ "readOnly", false, "description" };
+    Checked<std::map<std::string, std::string>> VolumeAttributes{ "volumeAttributes", false, "description" };
 };
 
 struct EphemeralVolumeSource
