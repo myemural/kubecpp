@@ -17,25 +17,57 @@
 #ifndef VOLUME_H_
 #define VOLUME_H_
 
+#include <cstdint>
+#include <vector>
+
 #include "kubecpp/common/checked.h"
+#include "kubecpp/model/internal/common/object_field_selector.h"
+#include "kubecpp/model/internal/common/resource_field_selector.h"
 
 namespace kubecpp::model::internal::common
 {
 
+struct KeyToPath
+{
+    Checked<std::string> Key{ "key", true, "description" };
+    Checked<std::string> Path{ "path", true, "description" };
+    Checked<std::int32_t> Mode{ "mode", false, "description" };
+};
+
+struct DownwardAPIVolumeFile
+{
+    Checked<std::string> Path{ "key", true, "description" };
+    Checked<ObjectFieldSelector> FieldRef{ "fieldRef", false, "description" };
+    Checked<std::int32_t> Mode{ "mode", false, "description" };
+    Checked<ResourceFieldSelector> ResourceFieldRef{ "resourceFieldRef", false, "description" };
+};
+
 struct PersistentVolumeClaimVolumeSource
 {
+    Checked<std::string> ClaimName{ "claimName", true, "description" };
+    Checked<bool> ReadOnly{ "readOnly", false, "description" };
 };
 
 struct ConfigMapVolumeSource
 {
+    Checked<std::string> Name{ "name", false, "description" };
+    Checked<bool> Optional{ "optional", false, "description" };
+    Checked<std::int32_t> DefaultMode{ "defaultMode", false, "description" };
+    Checked<std::vector<KeyToPath>> Items{ "items", false, "description" };
 };
 
 struct SecretVolumeSource
 {
+    Checked<std::string> SecretName{ "secretName", false, "description" };
+    Checked<bool> Optional{ "optional", false, "description" };
+    Checked<std::int32_t> DefaultMode{ "defaultMode", false, "description" };
+    Checked<std::vector<KeyToPath>> Items{ "items", false, "description" };
 };
 
 struct DownwardAPIVolumeSource
 {
+    Checked<std::int32_t> DefaultMode{ "defaultMode", false, "description" };
+    Checked<std::vector<DownwardAPIVolumeFile>> Items{ "items", false, "description" };
 };
 
 struct ProjectedVolumeSource
