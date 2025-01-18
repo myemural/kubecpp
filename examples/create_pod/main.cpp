@@ -16,8 +16,8 @@ using namespace kubecpp::model::internal::pod;
 int main()
 {
     try {
-        const ApiConfig config{ R"(<PUT_YOUR_KUBECONFIG_PATH_HERE>)" };
-        const ApiClient defaultClient = ApiClient(config);
+        // const ApiConfig config{ R"(<PUT_YOUR_KUBECONFIG_PATH_HERE>)" };
+        // const ApiClient defaultClient = ApiClient(config);
 
         const Pod pod =
         PodBuilder()
@@ -31,9 +31,9 @@ int main()
         auto testJson = pod.ParseToJson();
         std::cout << testJson << '\n';
 
-        const CoreApi instance{ defaultClient };
-        auto res = instance.Create<Pod>("default", pod);
-        std::cout << res.GetData().ParseToJson() << std::endl;
+        // const CoreApi instance{ defaultClient };
+        // auto res = instance.Create<Pod>("default", pod);
+        // std::cout << res.GetData().ParseToJson() << std::endl;
     } catch(const std::exception& except) {
         std::cout << "Error: " << except.what() << '\n';
     }

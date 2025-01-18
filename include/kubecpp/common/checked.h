@@ -17,13 +17,14 @@
 #ifndef CHECKED_H_
 #define CHECKED_H_
 
+#include <memory>
 #include <optional>
 #include <stdexcept>
 #include <string>
 
-#include "kubecpp/model/validator/null_validator.h"
+#include "kubecpp/model/validator/validator.h"
 
-template <typename Type, typename ValidatorType = kubecpp::model::validator::NullValidator<Type>>
+template <typename Type>
 class Checked
 {
 public:
@@ -36,17 +37,21 @@ public:
         std::string KeyDescription;
     };
 
-    template <typename... Args>
-    Checked(const std::string& keyName, bool isRequired, const std::string& description, Args&&... args)
-        : fieldProps_{ keyName, isRequired, description }, validator_{ std::forward<Args>(args)... }, value_{ std::nullopt }
+    Checked(const std::string& keyName, bool isRequired, const std::string& description)
+        : fieldProps_{ keyName, isRequired, description }, value_{ std::nullopt }
+    {}
+
+    Checked(const std::string& keyName,
+    bool isRequired,
+    const std::string& description,
+    std::shared_ptr<kubecpp::model::validator::IValidator<Type>> validator)
+        : fieldProps_{ keyName, isRequired, description }, value_{ std::nullopt }, validator_{ validator }
     {}
 
     Checked& operator=(const Type& val)
     {
-        if constexpr(!std::is_same_v<ValidatorType, kubecpp::model::validator::NullValidator<Type>>) {
-            if(!validator_.Validate(val)) {
-                throw std::runtime_error(std::string("Invalid value in " + fieldProps_.KeyDescription));
-            }
+        if(validator_ && !validator_->Validate(val)) {
+            throw std::runtime_error(std::string("Invalid value in " + fieldProps_.KeyDescription));
         }
         value_ = val;
         return *this;
@@ -54,10 +59,8 @@ public:
 
     Checked& operator=(Type&& val)
     {
-        if constexpr(!std::is_same_v<ValidatorType, kubecpp::model::validator::NullValidator<Type>>) {
-            if(!validator_.Validate(val)) {
-                throw std::runtime_error(std::string("Invalid value in " + fieldProps_.KeyDescription));
-            }
+        if(validator_ && !validator_->Validate(val)) {
+            throw std::runtime_error(std::string("Invalid value in " + fieldProps_.KeyDescription));
         }
         value_ = std::move(val);
         return *this;
@@ -90,8 +93,8 @@ public:
 
 private:
     FieldProps fieldProps_;
-    ValidatorType validator_;
     std::optional<Type> value_;
+    std::shared_ptr<kubecpp::model::validator::IValidator<Type>> validator_;
 };
 
 #endif // CHECKED_H_

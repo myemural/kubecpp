@@ -37,7 +37,6 @@ class IValidator
 public:
     virtual ~IValidator() = default;
 
-protected:
     virtual bool Validate(const T& newValue) = 0;
 };
 

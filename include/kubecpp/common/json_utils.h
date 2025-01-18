@@ -25,8 +25,8 @@
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 
-template <typename T, typename U>
-inline void SetField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const Checked<T, U>& field)
+template <typename T>
+inline void SetField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const Checked<T>& field)
 {
     if(field.HasValue()) {
         writer.Key(field.GetKeyName().c_str());
@@ -47,8 +47,8 @@ inline void SetField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const C
     }
 }
 
-template <typename T, typename U>
-inline void SetField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const Checked<std::vector<T>, U>& field)
+template <typename T>
+inline void SetField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const Checked<std::vector<T>>& field)
 {
     if(field.HasValue()) {
         writer.Key(field.GetKeyName().c_str());
@@ -73,9 +73,9 @@ inline void SetField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const C
     }
 }
 
-template <typename T, typename U>
+template <typename T>
 inline void
-SetField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const Checked<std::unordered_map<std::string, T>, U>& field)
+SetField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const Checked<std::unordered_map<std::string, T>>& field)
 {
     if(field.HasValue()) {
         writer.Key(field.GetKeyName().c_str());
@@ -111,8 +111,8 @@ inline std::string ParseFieldsToJson(Fields&&... fields)
     return lStringBuffer.GetString();
 }
 
-template <typename T, typename U>
-inline void GetField(const rapidjson::Document& doc, Checked<T, U>& field)
+template <typename T>
+inline void GetField(const rapidjson::Document& doc, Checked<T>& field)
 {
     if(const auto it = doc.FindMember(field.GetKeyName().c_str()); it != doc.MemberEnd()) {
         if constexpr(std::is_same_v<std::string, T>) {
@@ -134,8 +134,8 @@ inline void GetField(const rapidjson::Document& doc, Checked<T, U>& field)
     }
 }
 
-template <typename T, typename U>
-inline void GetField(const rapidjson::Document& doc, Checked<std::vector<T>, U>& field)
+template <typename T>
+inline void GetField(const rapidjson::Document& doc, Checked<std::vector<T>>& field)
 {
     if(const auto it = doc.FindMember(field.GetKeyName().c_str()); it != doc.MemberEnd()) {
         if constexpr(std::is_same_v<std::string, T>) {
@@ -150,8 +150,8 @@ inline void GetField(const rapidjson::Document& doc, Checked<std::vector<T>, U>&
     }
 }
 
-template <typename T, typename U>
-inline void GetField(const rapidjson::Document& doc, Checked<std::unordered_map<std::string, T>, U>& field)
+template <typename T>
+inline void GetField(const rapidjson::Document& doc, Checked<std::unordered_map<std::string, T>>& field)
 {
     if(const auto it = doc.FindMember(field.GetKeyName().c_str()); it != doc.MemberEnd()) {
         if constexpr(std::is_same_v<std::string, T>) {

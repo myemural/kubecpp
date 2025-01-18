@@ -55,10 +55,11 @@ struct OwnerReference
 
 struct ObjectMeta
 {
-    Checked<std::string, validator::DnsLabelNameValidator> Name{ "name", false, "description" };
+    Checked<std::string> Name{ "name", false, "description", std::make_shared<validator::DnsLabelNameValidator>() };
     Checked<std::string> GenerateName{ "generateName", false, "description" };
-    Checked<std::string, validator::DnsLabelNameValidator> Namespace{ "namespace", false, "description" };
-    Checked<std::unordered_map<std::string, std::string>, validator::LabelKeyValueValidator> Labels{ "labels", false, "description" };
+    Checked<std::string> Namespace{ "namespace", false, "description", std::make_shared<validator::DnsLabelNameValidator>() };
+    Checked<std::unordered_map<std::string, std::string>> Labels{ "labels", false, "description",
+        std::make_shared<validator::LabelKeyValueValidator>() };
     Checked<std::vector<std::string>> Finalizers{ "finalizers", false, "description" };
     Checked<std::vector<ManagedFieldsEntry>> ManagedFields{ "managedFields", false, "description" };
     Checked<std::vector<OwnerReference>> OwnerReferences{ "ownerReferences", false, "description" };
