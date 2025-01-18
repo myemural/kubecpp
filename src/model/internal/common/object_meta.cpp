@@ -18,65 +18,45 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::common
 {
 
 std::string ManagedFieldsEntry::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, ApiVersion);
-    CHECK_AND_SET_FIELD(result, FieldsType);
-    CHECK_AND_SET_FIELD(result, FieldsV1);
-    CHECK_AND_SET_FIELD(result, Manager);
-    CHECK_AND_SET_FIELD(result, Operation);
-    CHECK_AND_SET_FIELD(result, Subresource);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(ApiVersion, FieldsType, FieldsV1, Manager, Operation, Subresource);
+}
+
+ManagedFieldsEntry ManagedFieldsEntry::ParseFromJson(const std::string& jsonData)
+{
+    ManagedFieldsEntry result;
+    ParseFieldsFromJson(jsonData, result.ApiVersion, result.FieldsType, result.FieldsV1, result.Manager,
+    result.Operation, result.Subresource);
+    return result;
 }
 
 std::string OwnerReference::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, ApiVersion);
-    CHECK_AND_SET_FIELD(result, Kind);
-    CHECK_AND_SET_FIELD(result, Name);
-    CHECK_AND_SET_FIELD(result, Uid);
-    CHECK_AND_SET_FIELD(result, Controller);
-    CHECK_AND_SET_FIELD(result, BlockOwnerDeletion);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(ApiVersion, Kind, Name, Uid, Controller, BlockOwnerDeletion);
+}
+
+OwnerReference OwnerReference::ParseFromJson(const std::string& jsonData)
+{
+    OwnerReference result;
+    ParseFieldsFromJson(jsonData, result.ApiVersion, result.Kind, result.Name, result.Uid, result.Controller, result.BlockOwnerDeletion);
+    return result;
 }
 
 std::string ObjectMeta::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Name);
-    CHECK_AND_SET_FIELD(result, GenerateName);
-    CHECK_AND_SET_FIELD(result, Namespace);
-    CHECK_AND_SET_FIELD(result, Labels);
-    CHECK_AND_SET_FIELD(result, Finalizers);
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, ManagedFields);
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, OwnerReferences);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Name, GenerateName, Namespace, Labels, Finalizers, ManagedFields, OwnerReferences);
 }
 
 ObjectMeta ObjectMeta::ParseFromJson(const std::string& jsonData)
 {
     ObjectMeta result;
-    nlohmann::json data = nlohmann::json::parse(jsonData);
-    if(data.contains(result.Name.GetKeyName())) {
-        result.Name = data[result.Name.GetKeyName()].template get<decltype(result.Name)::InternalType>();
-    }
-    if(data.contains(result.GenerateName.GetKeyName())) {
-        result.GenerateName = data[result.GenerateName.GetKeyName()].template get<decltype(result.GenerateName)::InternalType>();
-    }
-    if(data.contains(result.Namespace.GetKeyName())) {
-        result.Namespace = data[result.Namespace.GetKeyName()].template get<decltype(result.Namespace)::InternalType>();
-    }
-    if(data.contains(result.Labels.GetKeyName())) {
-        result.Labels = data[result.Labels.GetKeyName()].template get<decltype(result.Labels)::InternalType>();
-    }
-
+    ParseFieldsFromJson(jsonData, result.Name, result.GenerateName, result.Namespace, result.Labels, result.Finalizers,
+    result.ManagedFields, result.OwnerReferences, result.CreationTimestamp, result.DeletionGracePeriodSeconds,
+    result.DeletionTimestamp, result.Generation, result.ResourceVersion, result.SelfLink, result.Uid);
     return result;
 }
 

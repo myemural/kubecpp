@@ -18,19 +18,12 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::pod::security
 {
 
 std::string SELinuxOptions::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Level);
-    CHECK_AND_SET_FIELD(result, Role);
-    CHECK_AND_SET_FIELD(result, Type);
-    CHECK_AND_SET_FIELD(result, User);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Level, Role, Type, User);
 }
 
 } // namespace kubecpp::model::internal::pod::security

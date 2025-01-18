@@ -18,25 +18,13 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::pod::container
 {
 
 std::string Probe::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_OBJECT_FIELD(result, Exec);
-    CHECK_AND_SET_OBJECT_FIELD(result, HttpGet);
-    CHECK_AND_SET_OBJECT_FIELD(result, TcpSocket);
-    CHECK_AND_SET_FIELD(result, InitialDelaySeconds);
-    CHECK_AND_SET_FIELD(result, TerminationGracePeriodSeconds);
-    CHECK_AND_SET_FIELD(result, PeriodSeconds);
-    CHECK_AND_SET_FIELD(result, TimeoutSeconds);
-    CHECK_AND_SET_FIELD(result, FailureThreshold);
-    CHECK_AND_SET_FIELD(result, SuccessThreshold);
-    CHECK_AND_SET_OBJECT_FIELD(result, Grpc);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Exec, HttpGet, TcpSocket, InitialDelaySeconds, TerminationGracePeriodSeconds,
+    PeriodSeconds, TimeoutSeconds, FailureThreshold, SuccessThreshold, Grpc);
 }
 
 } // namespace kubecpp::model::internal::pod::container

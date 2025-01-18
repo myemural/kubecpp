@@ -18,27 +18,17 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::pod::container
 {
 
 std::string LifecycleHandler::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_OBJECT_FIELD(result, Exec);
-    CHECK_AND_SET_OBJECT_FIELD(result, HttpGet);
-    CHECK_AND_SET_OBJECT_FIELD(result, Sleep);
-    CHECK_AND_SET_OBJECT_FIELD(result, TcpSocket);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Exec, HttpGet, Sleep, TcpSocket);
 }
 
 std::string Lifecycle::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_OBJECT_FIELD(result, PostStart);
-    CHECK_AND_SET_OBJECT_FIELD(result, PreStop);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(PostStart, PreStop);
 }
 
 } // namespace kubecpp::model::internal::pod::container

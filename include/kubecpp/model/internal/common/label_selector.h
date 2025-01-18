@@ -17,8 +17,7 @@
 #ifndef LABEL_SELECTOR_H_
 #define LABEL_SELECTOR_H_
 
-#include <map>
-
+#include <unordered_map>
 #include <vector>
 
 #include "kubecpp/common/checked.h"
@@ -38,7 +37,7 @@ struct LabelSelectorRequirement
 struct LabelSelector
 {
     Checked<std::vector<LabelSelectorRequirement>> MatchExpressions{ "matchExpressions", false, "description" };
-    Checked<std::map<std::string, std::string>> MatchLabels{ "matchLabels", false, "description" };
+    Checked<std::unordered_map<std::string, std::string>> MatchLabels{ "matchLabels", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
 };
@@ -61,7 +60,7 @@ struct LabelSelectorBuilder
 {
     LabelSelectorBuilder& MatchExpressions(const std::vector<LabelSelectorRequirement>& matchExpressions);
 
-    LabelSelectorBuilder& MatchLabels(const std::map<std::string, std::string>& matchLabels);
+    LabelSelectorBuilder& MatchLabels(const std::unordered_map<std::string, std::string>& matchLabels);
 
     LabelSelector Build();
 

@@ -18,35 +18,18 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::pod::container
 {
 
 std::string CapabilitiesType::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Add);
-    CHECK_AND_SET_FIELD(result, Drop);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Add, Drop);
 }
 
 std::string SecurityContext::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, AllowPrivilegeEscalation);
-    CHECK_AND_SET_OBJECT_FIELD(result, AppArmorProfile);
-    CHECK_AND_SET_OBJECT_FIELD(result, Capabilities);
-    CHECK_AND_SET_FIELD(result, ProcMount);
-    CHECK_AND_SET_FIELD(result, Privileged);
-    CHECK_AND_SET_FIELD(result, ReadOnlyRootFilesystem);
-    CHECK_AND_SET_FIELD(result, RunAsUser);
-    CHECK_AND_SET_FIELD(result, RunAsNonRoot);
-    CHECK_AND_SET_FIELD(result, RunAsGroup);
-    CHECK_AND_SET_OBJECT_FIELD(result, SeLinuxOptions);
-    CHECK_AND_SET_OBJECT_FIELD(result, SeccompProfile);
-    CHECK_AND_SET_OBJECT_FIELD(result, WindowsOptions);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(AllowPrivilegeEscalation, AppArmorProfile, Capabilities, ProcMount, Privileged,
+    ReadOnlyRootFilesystem, RunAsUser, RunAsNonRoot, RunAsGroup, SeLinuxOptions, SeccompProfile, WindowsOptions);
 }
 
 } // namespace kubecpp::model::internal::pod::container

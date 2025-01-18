@@ -18,34 +18,22 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::pod::container
 {
 
 std::string SecretEnvSource::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Name);
-    CHECK_AND_SET_FIELD(result, Optional);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Name, Optional);
 }
 
 std::string ConfigMapEnvSource::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Name);
-    CHECK_AND_SET_FIELD(result, Optional);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Name, Optional);
 }
 
 std::string EnvFromSource::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_OBJECT_FIELD(result, ConfigMapRef);
-    CHECK_AND_SET_FIELD(result, Prefix);
-    CHECK_AND_SET_OBJECT_FIELD(result, SecretRef);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(ConfigMapRef, Prefix, SecretRef);
 }
 
 } // namespace kubecpp::model::internal::pod::container

@@ -18,16 +18,12 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::pod::container
 {
 
 std::string SleepAction::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Seconds);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Seconds);
 }
 
 } // namespace kubecpp::model::internal::pod::container

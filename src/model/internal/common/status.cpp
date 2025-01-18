@@ -18,49 +18,27 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::common
 {
 
 std::string StatusCause::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Field);
-    CHECK_AND_SET_FIELD(result, Message);
-    CHECK_AND_SET_FIELD(result, Reason);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Field, Message, Reason);
 }
 
 std::string StatusDetails::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, Causes);
-    CHECK_AND_SET_FIELD(result, Group);
-    CHECK_AND_SET_FIELD(result, Kind);
-    CHECK_AND_SET_FIELD(result, Name);
-    CHECK_AND_SET_FIELD(result, RetryAfterSeconds);
-    CHECK_AND_SET_FIELD(result, Uid);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Causes, Group, Kind, Name, RetryAfterSeconds, Uid);
 }
 
 std::string Status::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, ApiVersion);
-    CHECK_AND_SET_FIELD(result, Code);
-    CHECK_AND_SET_OBJECT_FIELD(result, Details);
-    CHECK_AND_SET_FIELD(result, Kind);
-    CHECK_AND_SET_FIELD(result, Message);
-    CHECK_AND_SET_FIELD(result, Reason);
-    CHECK_AND_SET_FIELD(result, StatusStr);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(ApiVersion, Code, Details, Kind, Message, Reason, StatusStr);
 }
 
 Status Status::ParseFromJson(const std::string& jsonData)
 {
     Status result;
-    nlohmann::json data = nlohmann::json::parse(jsonData);
     return result;
 }
 

@@ -18,35 +18,18 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::pod
 {
 
 std::string Sysctl::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Name);
-    CHECK_AND_SET_FIELD(result, Value);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Name, Value);
 }
 
 std::string PodSecurityContext::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_OBJECT_FIELD(result, AppArmorProfile);
-    CHECK_AND_SET_FIELD(result, FsGroup);
-    CHECK_AND_SET_FIELD(result, FsGroupChangePolicy);
-    CHECK_AND_SET_FIELD(result, RunAsUser);
-    CHECK_AND_SET_FIELD(result, RunAsNonRoot);
-    CHECK_AND_SET_FIELD(result, RunAsGroup);
-    CHECK_AND_SET_OBJECT_FIELD(result, SeccompProfile);
-    CHECK_AND_SET_OBJECT_FIELD(result, SeLinuxOptions);
-    CHECK_AND_SET_FIELD(result, SupplementalGroups);
-    CHECK_AND_SET_FIELD(result, SupplementalGroupsPolicy);
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, Sysctls);
-    CHECK_AND_SET_OBJECT_FIELD(result, WindowsOptions);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(AppArmorProfile, FsGroup, FsGroupChangePolicy, RunAsUser, RunAsNonRoot, RunAsGroup,
+    SeccompProfile, SeLinuxOptions, SupplementalGroups, SupplementalGroupsPolicy, Sysctls, WindowsOptions);
 }
 
 } // namespace kubecpp::model::internal::pod

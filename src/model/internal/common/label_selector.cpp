@@ -18,26 +18,17 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::common
 {
 
 std::string LabelSelectorRequirement::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Key);
-    CHECK_AND_SET_FIELD(result, Operator);
-    CHECK_AND_SET_FIELD(result, Values);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Key, Operator, Values);
 }
 
 std::string LabelSelector::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, MatchExpressions);
-    CHECK_AND_SET_FIELD(result, MatchLabels);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(MatchExpressions, MatchLabels);
 }
 
 LabelSelectorRequirementBuilder& LabelSelectorRequirementBuilder::Key(const std::string& key)
@@ -69,7 +60,7 @@ LabelSelectorBuilder& LabelSelectorBuilder::MatchExpressions(const std::vector<L
     return *this;
 }
 
-LabelSelectorBuilder& LabelSelectorBuilder::MatchLabels(const std::map<std::string, std::string>& matchLabels)
+LabelSelectorBuilder& LabelSelectorBuilder::MatchLabels(const std::unordered_map<std::string, std::string>& matchLabels)
 {
     labelSelector_.MatchLabels = matchLabels;
     return *this;

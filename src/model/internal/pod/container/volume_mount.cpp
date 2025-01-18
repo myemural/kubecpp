@@ -18,22 +18,12 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::pod::container
 {
 
 std::string VolumeMount::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, MountPath);
-    CHECK_AND_SET_FIELD(result, Name);
-    CHECK_AND_SET_FIELD(result, MountPropagation);
-    CHECK_AND_SET_FIELD(result, ReadOnly);
-    CHECK_AND_SET_FIELD(result, RecursiveReadOnly);
-    CHECK_AND_SET_FIELD(result, SubPath);
-    CHECK_AND_SET_FIELD(result, SubPathExpr);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(MountPath, Name, MountPropagation, ReadOnly, RecursiveReadOnly, SubPath, SubPathExpr);
 }
 
 } // namespace kubecpp::model::internal::pod::container

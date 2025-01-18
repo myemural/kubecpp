@@ -18,20 +18,12 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::pod::container
 {
 
 std::string ContainerPortType::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, ContainerPort);
-    CHECK_AND_SET_FIELD(result, HostIP);
-    CHECK_AND_SET_FIELD(result, HostPort);
-    CHECK_AND_SET_FIELD(result, Name);
-    CHECK_AND_SET_FIELD(result, Protocol);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(ContainerPort, HostIP, HostPort, Name, Protocol);
 }
 
 } // namespace kubecpp::model::internal::pod::container

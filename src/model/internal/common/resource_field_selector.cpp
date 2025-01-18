@@ -18,18 +18,12 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::common
 {
 
 std::string ResourceFieldSelector::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Resource);
-    CHECK_AND_SET_FIELD(result, ContainerName);
-    CHECK_AND_SET_FIELD(result, Divisor);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Resource, ContainerName, Divisor);
 }
 
 ResourceFieldSelectorBuilder& ResourceFieldSelectorBuilder::Resource(const std::string& resource)

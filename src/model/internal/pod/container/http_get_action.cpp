@@ -18,28 +18,17 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::pod::container
 {
 
 std::string HTTPHeader::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Name);
-    CHECK_AND_SET_FIELD(result, Value);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Name, Value);
 }
 
 std::string HTTPGetAction::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Port);
-    CHECK_AND_SET_FIELD(result, Host);
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, HttpHeaders);
-    CHECK_AND_SET_FIELD(result, Path);
-    CHECK_AND_SET_FIELD(result, Scheme);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Port, Host, HttpHeaders, Path, Scheme);
 }
 
 } // namespace kubecpp::model::internal::pod::container

@@ -19,16 +19,12 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::common
 {
 
 std::string Volume::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Name);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Name);
 }
 
 VolumeBuilder& VolumeBuilder::Name(const std::string& name)

@@ -18,46 +18,27 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::pod::container
 {
 
 std::string SecretKeySelector::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Key);
-    CHECK_AND_SET_FIELD(result, Name);
-    CHECK_AND_SET_FIELD(result, Optional);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Key, Name, Optional);
 }
 
 std::string ConfigMapKeySelector::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Key);
-    CHECK_AND_SET_FIELD(result, Name);
-    CHECK_AND_SET_FIELD(result, Optional);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Key, Name, Optional);
 }
 
 std::string EnvVarSource::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_OBJECT_FIELD(result, ConfigMapKeyRef);
-    CHECK_AND_SET_OBJECT_FIELD(result, FieldRef);
-    CHECK_AND_SET_OBJECT_FIELD(result, ResourceFieldRef);
-    CHECK_AND_SET_OBJECT_FIELD(result, SecretKeyRef);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(ConfigMapKeyRef, FieldRef, ResourceFieldRef, SecretKeyRef);
 }
 
 std::string EnvVar::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Name);
-    CHECK_AND_SET_FIELD(result, Value);
-    CHECK_AND_SET_OBJECT_FIELD(result, ValueFrom);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Name, Value, ValueFrom);
 }
 
 } // namespace kubecpp::model::internal::pod::container

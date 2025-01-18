@@ -18,17 +18,12 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::pod::container
 {
 
 std::string GRPCAction::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Port);
-    CHECK_AND_SET_FIELD(result, Service);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Port, Service);
 }
 
 } // namespace kubecpp::model::internal::pod::container

@@ -18,61 +18,28 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::pod
 {
 
 std::string PodOs::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Name);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Name);
 }
 
 std::string PodSpec::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, Containers);
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, InitContainers);
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, EphemeralContainers);
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, ImagePullSecrets);
-    CHECK_AND_SET_FIELD(result, EnableServiceLinks);
-    CHECK_AND_SET_OBJECT_FIELD(result, Os);
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, Volumes);
-    CHECK_AND_SET_FIELD(result, NodeSelector);
-    CHECK_AND_SET_FIELD(result, NodeName);
-    CHECK_AND_SET_OBJECT_FIELD(result, Affinity);
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, Tolerations);
-    CHECK_AND_SET_FIELD(result, SchedulerName);
-    CHECK_AND_SET_FIELD(result, RuntimeClassName);
-    CHECK_AND_SET_FIELD(result, PriorityClassName);
-    CHECK_AND_SET_FIELD(result, Priority);
-    CHECK_AND_SET_FIELD(result, PreemptionPolicy);
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, TopologySpreadConstraints);
-    CHECK_AND_SET_FIELD(result, Overhead);
-    CHECK_AND_SET_FIELD(result, RestartPolicy);
-    CHECK_AND_SET_FIELD(result, TerminationGracePeriodSeconds);
-    CHECK_AND_SET_FIELD(result, ActiveDeadlineSeconds);
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, ReadinessGates);
-    CHECK_AND_SET_FIELD(result, Hostname);
-    CHECK_AND_SET_FIELD(result, SetHostnameAsFQDN);
-    CHECK_AND_SET_FIELD(result, Subdomain);
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, HostAliases);
-    CHECK_AND_SET_OBJECT_FIELD(result, DnsConfig);
-    CHECK_AND_SET_FIELD(result, DnsPolicy);
-    CHECK_AND_SET_FIELD(result, HostNetwork);
-    CHECK_AND_SET_FIELD(result, HostPID);
-    CHECK_AND_SET_FIELD(result, HostIPC);
-    CHECK_AND_SET_FIELD(result, ShareProcessNamespace);
-    CHECK_AND_SET_FIELD(result, ServiceAccountName);
-    CHECK_AND_SET_FIELD(result, AutomountServiceAccountToken);
-    CHECK_AND_SET_OBJECT_FIELD(result, SecurityContext);
-    CHECK_AND_SET_FIELD(result, HostUsers);
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, ResourceClaims);
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, SchedulingGates);
-    CHECK_AND_SET_FIELD(result, ServiceAccount);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Containers, InitContainers, EphemeralContainers, ImagePullSecrets, EnableServiceLinks, Os,
+    Volumes, NodeSelector, NodeName, Affinity, Tolerations, SchedulerName, RuntimeClassName, PriorityClassName,
+    Priority, PreemptionPolicy, TopologySpreadConstraints, Overhead, RestartPolicy, TerminationGracePeriodSeconds,
+    ActiveDeadlineSeconds, ReadinessGates, Hostname, SetHostnameAsFQDN, Subdomain, HostAliases, DnsConfig, DnsPolicy,
+    HostNetwork, HostPID, HostIPC, ShareProcessNamespace, ServiceAccountName, AutomountServiceAccountToken,
+    SecurityContext, HostUsers, ResourceClaims, SchedulingGates, ServiceAccount);
+}
+
+PodSpec PodSpec::ParseFromJson(const std::string& jsonData)
+{
+    PodSpec result;
+    return result;
 }
 
 PodOsBuilder& PodOsBuilder::Name(const std::string& name)
@@ -128,7 +95,7 @@ PodSpecBuilder& PodSpecBuilder::Volumes(const std::vector<common::Volume>& volum
     return *this;
 }
 
-PodSpecBuilder& PodSpecBuilder::NodeSelector(const std::map<std::string, std::string>& nodeSelector)
+PodSpecBuilder& PodSpecBuilder::NodeSelector(const std::unordered_map<std::string, std::string>& nodeSelector)
 {
     podSpec_.NodeSelector = nodeSelector;
     return *this;
@@ -188,7 +155,7 @@ PodSpecBuilder& PodSpecBuilder::TopologySpreadConstraints(const std::vector<Topo
     return *this;
 }
 
-PodSpecBuilder& PodSpecBuilder::Overhead(const std::map<std::string, std::string>& overhead)
+PodSpecBuilder& PodSpecBuilder::Overhead(const std::unordered_map<std::string, std::string>& overhead)
 {
     podSpec_.Overhead = overhead;
     return *this;

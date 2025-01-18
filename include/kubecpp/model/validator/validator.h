@@ -17,6 +17,17 @@
 #ifndef VALIDATOR_H_
 #define VALIDATOR_H_
 
+#include <type_traits>
+
+#define CHECK_INTEGRAL(Type)       static_assert(std::is_integral_v<Type> == true, "T is not an integral type")
+#define CHECK_NOT_INTEGRAL(Type)   static_assert(std::is_integral_v<Type> == false, "T is an integral type")
+#define CHECK_FLOATING(Type)       static_assert(std::is_floating_point_v<Type> == true, "T is not a floating-point type")
+#define CHECK_NOT_FLOATING(Type)   static_assert(std::is_floating_point_v<Type> == false, "T is a floating-point type")
+#define CHECK_ARITHMETIC(Type)     static_assert(std::is_arithmetic_v<Type> == true, "T is not an arithmetic type")
+#define CHECK_NOT_ARITHMETIC(Type) static_assert(std::is_arithmetic_v<Type> == false, "T is an arithmetic type")
+#define CHECK_BOOL(Type)           static_assert(std::is_same_v<Type, bool> == true, "T is not a bool type")
+#define CHECK_NOT_BOOL(Type)       static_assert(std::is_same_v<Type, bool> == false, "T is a bool type")
+
 template <typename T>
 class IValidator
 {

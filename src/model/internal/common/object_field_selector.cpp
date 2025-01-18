@@ -18,17 +18,12 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::common
 {
 
 std::string ObjectFieldSelector::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, FieldPath);
-    CHECK_AND_SET_FIELD(result, ApiVersion);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(FieldPath, ApiVersion);
 }
 
 ObjectFieldSelectorBuilder& ObjectFieldSelectorBuilder::FieldPath(const std::string& fieldPath)

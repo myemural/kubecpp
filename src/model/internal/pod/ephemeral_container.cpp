@@ -18,34 +18,14 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::pod
 {
 
 std::string EphemeralContainer::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Name);
-    CHECK_AND_SET_FIELD(result, TargetContainerName);
-    CHECK_AND_SET_FIELD(result, Image);
-    CHECK_AND_SET_FIELD(result, ImagePullPolicy);
-    CHECK_AND_SET_FIELD(result, Command);
-    CHECK_AND_SET_FIELD(result, Args);
-    CHECK_AND_SET_FIELD(result, WorkingDir);
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, Env);
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, EnvFrom);
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, VolumeMounts);
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, VolumeDevices);
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, ResizePolicy);
-    CHECK_AND_SET_FIELD(result, TerminationMessagePath);
-    CHECK_AND_SET_FIELD(result, TerminationMessagePolicy);
-    CHECK_AND_SET_FIELD(result, RestartPolicy);
-    CHECK_AND_SET_OBJECT_FIELD(result, SecurityContext);
-    CHECK_AND_SET_FIELD(result, Stdin);
-    CHECK_AND_SET_FIELD(result, StdinOnce);
-    CHECK_AND_SET_FIELD(result, Tty);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Name, TargetContainerName, Image, ImagePullPolicy, Command, Args, WorkingDir, Env, EnvFrom,
+    VolumeMounts, VolumeDevices, ResizePolicy, TerminationMessagePath, TerminationMessagePolicy, RestartPolicy,
+    SecurityContext, Stdin, StdinOnce, Tty);
 }
 
 EphemeralContainerBuilder& EphemeralContainerBuilder::Name(const std::string& name)

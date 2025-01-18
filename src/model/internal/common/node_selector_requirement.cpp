@@ -18,18 +18,12 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::common
 {
 
 std::string NodeSelectorRequirement::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Key);
-    CHECK_AND_SET_FIELD(result, Operator);
-    CHECK_AND_SET_FIELD(result, Values);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Key, Operator, Values);
 }
 
 } // namespace kubecpp::model::internal::common

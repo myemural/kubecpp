@@ -18,26 +18,17 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::pod
 {
 
 std::string PodDNSConfigOption::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Name);
-    CHECK_AND_SET_FIELD(result, Value);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Name, Value);
 }
 
 std::string PodDNSConfig::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Nameservers);
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, Options);
-    CHECK_AND_SET_FIELD(result, Searches);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Nameservers, Options, Searches);
 }
 
 PodDNSConfigOptionBuilder& PodDNSConfigOptionBuilder::Name(const std::string& name)

@@ -34,6 +34,7 @@ struct ManagedFieldsEntry
     Checked<std::string> Subresource{ "subresource", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static ManagedFieldsEntry ParseFromJson(const std::string& jsonData);
 };
 
 struct OwnerReference
@@ -46,6 +47,7 @@ struct OwnerReference
     Checked<bool> BlockOwnerDeletion{ "blockOwnerDeletion", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static OwnerReference ParseFromJson(const std::string& jsonData);
 };
 
 struct ObjectMeta

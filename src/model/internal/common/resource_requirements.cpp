@@ -18,26 +18,17 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::common
 {
 
 std::string ResourceClaim::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Name);
-    CHECK_AND_SET_FIELD(result, Request);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Name, Request);
 }
 
 std::string ResourceRequirements::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, Claims);
-    CHECK_AND_SET_FIELD(result, Limits);
-    CHECK_AND_SET_FIELD(result, Requests);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Claims, Limits, Requests);
 }
 
 } // namespace kubecpp::model::internal::common

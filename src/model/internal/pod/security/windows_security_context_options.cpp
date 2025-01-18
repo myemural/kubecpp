@@ -18,19 +18,12 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::pod::security
 {
 
 std::string WindowsSecurityContextOptions::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, GmsaCredentialSpec);
-    CHECK_AND_SET_FIELD(result, GmsaCredentialSpecName);
-    CHECK_AND_SET_FIELD(result, HostProcess);
-    CHECK_AND_SET_FIELD(result, RunAsUserName);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(GmsaCredentialSpec, GmsaCredentialSpecName, HostProcess, RunAsUserName);
 }
 
 } // namespace kubecpp::model::internal::pod::security

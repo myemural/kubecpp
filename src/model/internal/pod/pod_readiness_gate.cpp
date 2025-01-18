@@ -18,16 +18,12 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::pod
 {
 
 std::string PodReadinessGate::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, ConditionType);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(ConditionType);
 }
 
 PodReadinessGateBuilder& PodReadinessGateBuilder::ConditionType(const std::string& conditionType)

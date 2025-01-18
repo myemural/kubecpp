@@ -17,6 +17,7 @@
 #ifndef POD_SPEC_H_
 #define POD_SPEC_H_
 
+#include <unordered_map>
 #include <vector>
 
 #include "kubecpp/common/checked.h"
@@ -54,7 +55,7 @@ struct PodSpec
     Checked<bool> EnableServiceLinks{ "enableServiceLinks", false, "description" };
     Checked<PodOs> Os{ "os", false, "description" };
     Checked<std::vector<common::Volume>> Volumes{ "volumes", false, "description" };
-    Checked<std::map<std::string, std::string>> NodeSelector{ "nodeSelector", false, "description" };
+    Checked<std::unordered_map<std::string, std::string>> NodeSelector{ "nodeSelector", false, "description" };
     Checked<std::string> NodeName{ "nodeName", false, "description" };
     Checked<AffinityType> Affinity{ "affinity", false, "description" };
     Checked<std::vector<Toleration>> Tolerations{ "tolerations", false, "description" };
@@ -64,7 +65,7 @@ struct PodSpec
     Checked<int32_t> Priority{ "priority", false, "description" };
     Checked<std::string> PreemptionPolicy{ "preemptionPolicy", false, "description" };
     Checked<std::vector<TopologySpreadConstraint>> TopologySpreadConstraints{ "topologySpreadConstraints", false, "description" };
-    Checked<std::map<std::string, std::string>> Overhead{ "overhead", false, "description" }; // Quantity
+    Checked<std::unordered_map<std::string, std::string>> Overhead{ "overhead", false, "description" }; // Quantity
     Checked<std::string> RestartPolicy{ "restartPolicy", false, "description" };
     Checked<int64_t> TerminationGracePeriodSeconds{ "terminationGracePeriodSeconds", false, "description" };
     Checked<int64_t> ActiveDeadlineSeconds{ "activeDeadlineSeconds", false, "description" };
@@ -88,6 +89,7 @@ struct PodSpec
     Checked<std::string> ServiceAccount{ "serviceAccount", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static PodSpec ParseFromJson(const std::string& jsonData);
 };
 
 struct PodOsBuilder
@@ -116,7 +118,7 @@ struct PodSpecBuilder
 
     PodSpecBuilder& Volumes(const std::vector<common::Volume>& volumes);
 
-    PodSpecBuilder& NodeSelector(const std::map<std::string, std::string>& nodeSelector);
+    PodSpecBuilder& NodeSelector(const std::unordered_map<std::string, std::string>& nodeSelector);
 
     PodSpecBuilder& NodeName(const std::string& nodeName);
 
@@ -136,7 +138,7 @@ struct PodSpecBuilder
 
     PodSpecBuilder& TopologySpreadConstraints(const std::vector<TopologySpreadConstraint>& topologySpreadConstraints);
 
-    PodSpecBuilder& Overhead(const std::map<std::string, std::string>& overhead);
+    PodSpecBuilder& Overhead(const std::unordered_map<std::string, std::string>& overhead);
 
     PodSpecBuilder& RestartPolicy(const std::string& restartPolicy);
 

@@ -14,34 +14,17 @@
  * limitations under the License.
  */
 
-#include "kubecpp/model/internal/pod/host_alias.h"
+#include "kubecpp/model/internal/pod/pod_status.h"
 
 #include "kubecpp/common/json_utils.h"
 
 namespace kubecpp::model::internal::pod
 {
 
-std::string HostAlias::ParseToJson() const
+PodStatus PodStatus::ParseFromJson(const std::string& jsonData)
 {
-    return ParseFieldsToJson(Ip, HostNames);
+    PodStatus result;
+    return result;
 }
-
-HostAliasBuilder& HostAliasBuilder::Ip(const std::string& ip)
-{
-    hostAlias_.Ip = ip;
-    return *this;
-}
-
-HostAliasBuilder& HostAliasBuilder::HostNames(const std::vector<std::string>& hostNames)
-{
-    hostAlias_.HostNames = hostNames;
-    return *this;
-}
-
-HostAlias HostAliasBuilder::Build()
-{
-    return std::move(hostAlias_);
-}
-
 
 } // namespace kubecpp::model::internal::pod

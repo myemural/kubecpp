@@ -22,8 +22,6 @@
 #include "kubecpp/common/string_utils.h"
 #include "kubecpp/model/pod.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::api::core::v1
 {
 

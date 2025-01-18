@@ -18,18 +18,12 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::pod
 {
 
 std::string PodResourceClaim::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Name);
-    CHECK_AND_SET_FIELD(result, ResourceClaimName);
-    CHECK_AND_SET_FIELD(result, ResourceClaimTemplateName);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Name, ResourceClaimName, ResourceClaimTemplateName);
 }
 
 } // namespace kubecpp::model::internal::pod

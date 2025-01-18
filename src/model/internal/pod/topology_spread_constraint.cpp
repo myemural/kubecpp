@@ -18,23 +18,13 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::pod
 {
 
 std::string TopologySpreadConstraint::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, MaxSkew);
-    CHECK_AND_SET_FIELD(result, TopologyKey);
-    CHECK_AND_SET_FIELD(result, WhenUnsatisfiable);
-    CHECK_AND_SET_OBJECT_FIELD(result, LabelSelector);
-    CHECK_AND_SET_FIELD(result, MatchLabelKeys);
-    CHECK_AND_SET_FIELD(result, MinDomains);
-    CHECK_AND_SET_FIELD(result, NodeAffinityPolicy);
-    CHECK_AND_SET_FIELD(result, NodeTaintsPolicy);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(MaxSkew, TopologyKey, WhenUnsatisfiable, LabelSelector, MatchLabelKeys, MinDomains,
+    NodeAffinityPolicy, NodeTaintsPolicy);
 }
 
 } // namespace kubecpp::model::internal::pod

@@ -6,11 +6,11 @@ target_include_directories(kubecpp_objs PRIVATE "${CMAKE_SOURCE_DIR}/include")
 find_package(cpr REQUIRED)
 target_link_libraries(kubecpp_objs cpr::cpr)
     
-find_package(nlohmann_json REQUIRED)
-target_link_libraries(kubecpp_objs nlohmann_json::nlohmann_json)
-    
 find_package(ryml REQUIRED)
 target_link_libraries(kubecpp_objs ryml::ryml)
+
+find_package(RapidJSON REQUIRED)
+target_link_libraries(kubecpp_objs rapidjson)
 
 # Detecting OS and Compiler
 message("Detected OS: ${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION}")

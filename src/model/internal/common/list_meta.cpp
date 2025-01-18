@@ -18,29 +18,18 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::common
 {
 
 std::string ListMeta::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Continue);
-    CHECK_AND_SET_FIELD(result, RemainingItemCount);
-    CHECK_AND_SET_FIELD(result, ResourceVersion);
-    CHECK_AND_SET_FIELD(result, SelfLink);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Continue, RemainingItemCount, ResourceVersion, SelfLink);
 }
 
 ListMeta ListMeta::ParseFromJson(const std::string& jsonData)
 {
     ListMeta result;
-    nlohmann::json data       = nlohmann::json::parse(jsonData);
-    result.Continue           = data[result.Continue.GetKeyName()].template get<std::string>();
-    result.RemainingItemCount = data[result.RemainingItemCount.GetKeyName()].template get<int64_t>();
-    result.ResourceVersion    = data[result.ResourceVersion.GetKeyName()].template get<std::string>();
-    result.SelfLink           = data[result.SelfLink.GetKeyName()].template get<std::string>();
+    ParseFieldsFromJson(jsonData, result.Continue, result.RemainingItemCount, result.ResourceVersion, result.SelfLink);
 
     return result;
 }

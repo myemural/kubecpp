@@ -18,17 +18,12 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::pod::security
 {
 
 std::string SeccompProfile::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, Type);
-    CHECK_AND_SET_FIELD(result, LocalhostProfile);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Type, LocalhostProfile);
 }
 
 } // namespace kubecpp::model::internal::pod::security

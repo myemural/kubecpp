@@ -149,6 +149,8 @@ struct PodStatus
     Checked<std::vector<ContainerStatus>> EphemeralContainerStatuses{ "ephemeralContainerStatuses", true, "description" };
     Checked<std::vector<PodResourceClaimStatus>> ResourceClaimStatuses{ "resourceClaimStatuses", true, "description" };
     Checked<std::string> Resize{ "resize", true, "description" };
+
+    static PodStatus ParseFromJson(const std::string& jsonData);
 };
 
 } // namespace kubecpp::model::internal::pod

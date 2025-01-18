@@ -18,17 +18,12 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::pod::container
 {
 
 std::string ContainerResizePolicy::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, ResourceName);
-    CHECK_AND_SET_FIELD(result, RestartPolicy);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(ResourceName, RestartPolicy);
 }
 
 } // namespace kubecpp::model::internal::pod::container

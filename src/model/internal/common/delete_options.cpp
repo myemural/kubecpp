@@ -18,30 +18,17 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::common
 {
 
 std::string PreconditionsType::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, ResourceVersion);
-    CHECK_AND_SET_FIELD(result, Uid);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(ResourceVersion, Uid);
 }
 
 std::string DeleteOptions::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, ApiVersion);
-    CHECK_AND_SET_FIELD(result, DryRun);
-    CHECK_AND_SET_FIELD(result, GracePeriodSeconds);
-    CHECK_AND_SET_FIELD(result, Kind);
-    CHECK_AND_SET_FIELD(result, OrphanDependents);
-    CHECK_AND_SET_OBJECT_FIELD(result, Preconditions);
-    CHECK_AND_SET_FIELD(result, PropagationPolicy);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(ApiVersion, DryRun, GracePeriodSeconds, Kind, OrphanDependents, Preconditions, PropagationPolicy);
 }
 
 PreConditionsBuilder& PreConditionsBuilder::ResourceVersion(const std::string& resourceVersion)

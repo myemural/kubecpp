@@ -17,7 +17,7 @@
 #ifndef RESOURCE_REQUIREMENTS_H_
 #define RESOURCE_REQUIREMENTS_H_
 
-#include <map>
+#include <unordered_map>
 #include <vector>
 
 #include "kubecpp/common/checked.h"
@@ -36,8 +36,8 @@ struct ResourceClaim
 struct ResourceRequirements
 {
     Checked<std::vector<ResourceClaim>> Claims{ "claims", false, "description" };
-    Checked<std::map<std::string, std::string>> Limits{ "limits", false, "description" };     // Quantity
-    Checked<std::map<std::string, std::string>> Requests{ "requests", false, "description" }; // Quantity
+    Checked<std::unordered_map<std::string, std::string>> Limits{ "limits", false, "description" };     // Quantity
+    Checked<std::unordered_map<std::string, std::string>> Requests{ "requests", false, "description" }; // Quantity
 
     [[nodiscard]] std::string ParseToJson() const;
 };

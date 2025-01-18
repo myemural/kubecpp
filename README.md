@@ -10,7 +10,7 @@
 
 3rd party libraries that are dependent on:
 - cpr 1.11.1
-- nlohmann_json 3.11.3
+- rapidjson cci.20230929
 - rapidyaml 0.7.1
 
 For compiling and installation:

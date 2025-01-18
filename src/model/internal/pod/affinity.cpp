@@ -18,85 +18,52 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::pod
 {
 
 std::string NodeSelectorTerm::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_OBJECT_FIELD(result, MatchExpressions);
-    CHECK_AND_SET_OBJECT_FIELD(result, MatchFields);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(MatchExpressions, MatchFields);
 }
 
 std::string PreferredSchedulingTerm::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_OBJECT_FIELD(result, Preference);
-    CHECK_AND_SET_FIELD(result, Weight);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Preference, Weight);
 }
 
 std::string NodeSelector::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, NodeSelectorTerms);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(NodeSelectorTerms);
 }
 
 std::string PodAffinityTermType::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, TopologyKey);
-    CHECK_AND_SET_OBJECT_FIELD(result, LabelSelector);
-    CHECK_AND_SET_FIELD(result, MatchLabelKeys);
-    CHECK_AND_SET_FIELD(result, MismatchLabelKeys);
-    CHECK_AND_SET_OBJECT_FIELD(result, NamespaceSelector);
-    CHECK_AND_SET_FIELD(result, Namespaces);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(TopologyKey, LabelSelector, MatchLabelKeys, MismatchLabelKeys, NamespaceSelector, Namespaces);
 }
 
 std::string WeightedPodAffinityTerm::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_OBJECT_FIELD(result, PodAffinityTerm);
-    CHECK_AND_SET_FIELD(result, Weight);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(PodAffinityTerm, Weight);
 }
 
 std::string NodeAffinityType::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, PreferredDuringSchedulingIgnoredDuringExecution);
-    CHECK_AND_SET_OBJECT_FIELD(result, RequiredDuringSchedulingIgnoredDuringExecution);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(PreferredDuringSchedulingIgnoredDuringExecution, RequiredDuringSchedulingIgnoredDuringExecution);
 }
 
 std::string PodAffinityType::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, PreferredDuringSchedulingIgnoredDuringExecution);
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, RequiredDuringSchedulingIgnoredDuringExecution);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(PreferredDuringSchedulingIgnoredDuringExecution, RequiredDuringSchedulingIgnoredDuringExecution);
 }
 
 std::string PodAntiAffinityType::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, PreferredDuringSchedulingIgnoredDuringExecution);
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, RequiredDuringSchedulingIgnoredDuringExecution);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(PreferredDuringSchedulingIgnoredDuringExecution, RequiredDuringSchedulingIgnoredDuringExecution);
 }
 
 std::string AffinityType::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_OBJECT_FIELD(result, NodeAffinity);
-    CHECK_AND_SET_OBJECT_FIELD(result, PodAffinity);
-    CHECK_AND_SET_OBJECT_FIELD(result, PodAntiAffinity);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(NodeAffinity, PodAffinity, PodAntiAffinity);
 }
 
 } // namespace kubecpp::model::internal::pod

@@ -18,17 +18,12 @@
 
 #include "kubecpp/common/json_utils.h"
 
-#include "nlohmann/json.hpp"
-
 namespace kubecpp::model::internal::pod::container
 {
 
 std::string VolumeDevice::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, DevicePath);
-    CHECK_AND_SET_FIELD(result, Name);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(DevicePath, Name);
 }
 
 } // namespace kubecpp::model::internal::pod::container

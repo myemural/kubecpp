@@ -16,53 +16,32 @@
 
 #include "kubecpp/model/pod.h"
 
-#include "nlohmann/json.hpp"
+#include "kubecpp/common/json_utils.h"
 
 namespace kubecpp::model::core::v1
 {
 
 [[nodiscard]] std::string Pod::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_FIELD(result, ApiVersion);
-    CHECK_AND_SET_FIELD(result, Kind);
-    CHECK_AND_SET_OBJECT_FIELD(result, Metadata);
-    CHECK_AND_SET_OBJECT_FIELD(result, Spec);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(ApiVersion, Kind, Metadata, Spec);
 }
 
 Pod Pod::ParseFromJson(const std::string& jsonData)
 {
     Pod result;
-    nlohmann::json data = nlohmann::json::parse(jsonData);
-    if(data.contains(result.ApiVersion.GetKeyName())) {
-        result.ApiVersion = data[result.ApiVersion.GetKeyName()].template get<decltype(result.ApiVersion)::InternalType>();
-    }
-    if(data.contains(result.Kind.GetKeyName())) {
-        result.Kind = data[result.Kind.GetKeyName()].template get<decltype(result.Kind)::InternalType>();
-    }
-    if(data.contains(result.Metadata.GetKeyName())) {
-        result.Metadata = internal::common::ObjectMeta::ParseFromJson(nlohmann::to_string(data[result.Metadata.GetKeyName()]));
-    }
-
+    ParseFieldsFromJson(jsonData, result.ApiVersion, result.Kind, result.Metadata, result.Spec, result.Status);
     return result;
 }
 
 std::string PodList::ParseToJson() const
 {
-    nlohmann::json result;
-    CHECK_AND_SET_OBJECT_FIELD_LIST(result, Items);
-    CHECK_AND_SET_FIELD(result, ApiVersion);
-    CHECK_AND_SET_FIELD(result, Kind);
-    CHECK_AND_SET_OBJECT_FIELD(result, Metadata);
-    return nlohmann::to_string(result);
+    return ParseFieldsToJson(Items, ApiVersion, Kind, Metadata);
 }
 
 PodList PodList::ParseFromJson(const std::string& jsonData)
 {
     PodList result;
-    nlohmann::json data = nlohmann::json::parse(jsonData);
-
+    ParseFieldsFromJson(jsonData, result.Items, result.ApiVersion, result.Kind, result.Metadata);
     return result;
 }
 
