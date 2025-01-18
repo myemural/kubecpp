@@ -17,24 +17,25 @@
 #ifndef DNS_LABEL_NAME_VALIDATOR_H_
 #define DNS_LABEL_NAME_VALIDATOR_H_
 
-#include <regex>
 #include <string>
 
 #include "validator.h"
+
+namespace kubecpp::model::validator
+{
 
 class DnsLabelNameValidator : public IValidator<std::string>
 {
 public:
     ~DnsLabelNameValidator() override = default;
 
-    bool Validate(const std::string& newValue) override
-    {
-        return (newValue.length() <= dnsLabelMaxLength) && std::regex_match(newValue, std::regex(dnsLabelRegexPattern));
-    }
+    bool Validate(const std::string& newValue) override;
 
 private:
     static inline int dnsLabelMaxLength            = 63;
     static inline const char* dnsLabelRegexPattern = "[a-z0-9]+(-[a-z0-9]+)*";
 };
+
+} // namespace kubecpp::model::validator
 
 #endif // DNS_LABEL_NAME_VALIDATOR_H_

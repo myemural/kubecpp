@@ -20,6 +20,9 @@
 #include <string>
 #include "validator.h"
 
+namespace kubecpp::model::validator
+{
+
 template <typename T>
 class MinMaxValidator : public IValidator<T>
 {
@@ -80,5 +83,7 @@ public:
 protected:
     T testValue_;
 };
+
+} // namespace kubecpp::model::validator
 
 #endif // MIN_MAX_VALIDATOR_H_

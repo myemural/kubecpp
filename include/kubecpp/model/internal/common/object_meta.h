@@ -17,6 +17,9 @@
 #ifndef OBJECT_META_H_
 #define OBJECT_META_H_
 
+#include <unordered_map>
+#include <vector>
+
 #include "kubecpp/common/checked.h"
 #include "kubecpp/model/validator/dns_label_name_validator.h"
 #include "kubecpp/model/validator/label_key_value_validator.h"
@@ -52,10 +55,10 @@ struct OwnerReference
 
 struct ObjectMeta
 {
-    Checked<std::string, DnsLabelNameValidator> Name{ "name", false, "description" };
+    Checked<std::string, validator::DnsLabelNameValidator> Name{ "name", false, "description" };
     Checked<std::string> GenerateName{ "generateName", false, "description" };
-    Checked<std::string, DnsLabelNameValidator> Namespace{ "namespace", false, "description" };
-    Checked<std::unordered_map<std::string, std::string>, LabelKeyValueValidator> Labels{ "labels", false, "description" };
+    Checked<std::string, validator::DnsLabelNameValidator> Namespace{ "namespace", false, "description" };
+    Checked<std::unordered_map<std::string, std::string>, validator::LabelKeyValueValidator> Labels{ "labels", false, "description" };
     Checked<std::vector<std::string>> Finalizers{ "finalizers", false, "description" };
     Checked<std::vector<ManagedFieldsEntry>> ManagedFields{ "managedFields", false, "description" };
     Checked<std::vector<OwnerReference>> OwnerReferences{ "ownerReferences", false, "description" };

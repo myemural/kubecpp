@@ -17,13 +17,13 @@
 #ifndef CHECKED_H_
 #define CHECKED_H_
 
-#include <stdexcept>
 #include <optional>
+#include <stdexcept>
 #include <string>
 
 #include "kubecpp/model/validator/null_validator.h"
 
-template <typename Type, typename ValidatorType = NullValidator<Type>>
+template <typename Type, typename ValidatorType = kubecpp::model::validator::NullValidator<Type>>
 class Checked
 {
 public:
@@ -43,7 +43,7 @@ public:
 
     Checked& operator=(const Type& val)
     {
-        if constexpr(!std::is_same_v<ValidatorType, NullValidator<Type>>) {
+        if constexpr(!std::is_same_v<ValidatorType, kubecpp::model::validator::NullValidator<Type>>) {
             if(!validator_.Validate(val)) {
                 throw std::runtime_error(std::string("Invalid value in " + fieldProps_.KeyDescription));
             }
@@ -54,7 +54,7 @@ public:
 
     Checked& operator=(Type&& val)
     {
-        if constexpr(!std::is_same_v<ValidatorType, NullValidator<Type>>) {
+        if constexpr(!std::is_same_v<ValidatorType, kubecpp::model::validator::NullValidator<Type>>) {
             if(!validator_.Validate(val)) {
                 throw std::runtime_error(std::string("Invalid value in " + fieldProps_.KeyDescription));
             }

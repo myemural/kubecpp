@@ -19,6 +19,9 @@
 
 #include <type_traits>
 
+namespace kubecpp::model::validator
+{
+
 #define CHECK_INTEGRAL(Type)       static_assert(std::is_integral_v<Type> == true, "T is not an integral type")
 #define CHECK_NOT_INTEGRAL(Type)   static_assert(std::is_integral_v<Type> == false, "T is an integral type")
 #define CHECK_FLOATING(Type)       static_assert(std::is_floating_point_v<Type> == true, "T is not a floating-point type")
@@ -37,5 +40,8 @@ public:
 protected:
     virtual bool Validate(const T& newValue) = 0;
 };
+
+
+} // namespace kubecpp::model::validator
 
 #endif // VALIDATOR_H_

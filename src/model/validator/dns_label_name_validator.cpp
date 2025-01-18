@@ -14,26 +14,16 @@
  * limitations under the License.
  */
 
-#ifndef LABEL_KEY_VALUE_VALIDATOR_H_
-#define LABEL_KEY_VALUE_VALIDATOR_H_
+#include "kubecpp/model/validator/dns_label_name_validator.h"
 
-#include <string>
-#include <unordered_map>
-
-#include "validator.h"
+#include <regex>
 
 namespace kubecpp::model::validator
 {
 
-class LabelKeyValueValidator : public IValidator<std::unordered_map<std::string, std::string>>
+bool DnsLabelNameValidator::Validate(const std::string& newValue)
 {
-public:
-    bool Validate(const std::unordered_map<std::string, std::string>& newValue) override;
-
-private:
-    static inline int labelKeyMaxLength = 63;
-};
+    return (newValue.length() <= dnsLabelMaxLength) && std::regex_match(newValue, std::regex(dnsLabelRegexPattern));
+}
 
 } // namespace kubecpp::model::validator
-
-#endif // LABEL_KEY_VALUE_VALIDATOR_H_

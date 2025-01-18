@@ -19,6 +19,9 @@
 
 #include "validator.h"
 
+namespace kubecpp::model::validator
+{
+
 template <typename T>
 class NullValidator final : public IValidator<T>
 {
@@ -28,5 +31,7 @@ public:
         return true;
     }
 };
+
+} // namespace kubecpp::model::validator
 
 #endif // NULL_VALIDATOR_H_
