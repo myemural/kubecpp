@@ -27,4 +27,57 @@ std::string TopologySpreadConstraint::ParseToJson() const
     NodeAffinityPolicy, NodeTaintsPolicy);
 }
 
+TopologySpreadConstraintBuilder& TopologySpreadConstraintBuilder::MaxSkew(int32_t maxSkew)
+{
+    topologySpreadConstraint_.MaxSkew = maxSkew;
+    return *this;
+}
+
+TopologySpreadConstraintBuilder& TopologySpreadConstraintBuilder::TopologyKey(const std::string& topologyKey)
+{
+    topologySpreadConstraint_.TopologyKey = topologyKey;
+    return *this;
+}
+
+TopologySpreadConstraintBuilder& TopologySpreadConstraintBuilder::WhenUnsatisfiable(const std::string& whenUnsatisfiable)
+{
+    topologySpreadConstraint_.WhenUnsatisfiable = whenUnsatisfiable;
+    return *this;
+}
+
+TopologySpreadConstraintBuilder& TopologySpreadConstraintBuilder::LabelSelector(const common::LabelSelector& labelSelector)
+{
+    topologySpreadConstraint_.LabelSelector = labelSelector;
+    return *this;
+}
+
+TopologySpreadConstraintBuilder& TopologySpreadConstraintBuilder::MatchLabelKeys(const std::vector<std::string>& matchLabelKeys)
+{
+    topologySpreadConstraint_.MatchLabelKeys = matchLabelKeys;
+    return *this;
+}
+
+TopologySpreadConstraintBuilder& TopologySpreadConstraintBuilder::MinDomains(int32_t minDomains)
+{
+    topologySpreadConstraint_.MinDomains = minDomains;
+    return *this;
+}
+
+TopologySpreadConstraintBuilder& TopologySpreadConstraintBuilder::NodeAffinityPolicy(const std::string& nodeAffinityPolicy)
+{
+    topologySpreadConstraint_.NodeAffinityPolicy = nodeAffinityPolicy;
+    return *this;
+}
+
+TopologySpreadConstraintBuilder& TopologySpreadConstraintBuilder::NodeTaintsPolicy(const std::string& nodeTaintsPolicy)
+{
+    topologySpreadConstraint_.NodeTaintsPolicy = nodeTaintsPolicy;
+    return *this;
+}
+
+TopologySpreadConstraint TopologySpreadConstraintBuilder::Build()
+{
+    return std::move(topologySpreadConstraint_);
+}
+
 } // namespace kubecpp::model::internal::pod

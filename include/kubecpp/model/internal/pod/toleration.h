@@ -33,6 +33,24 @@ struct Toleration
     [[nodiscard]] std::string ParseToJson() const;
 };
 
+struct TolerationBuilder
+{
+    TolerationBuilder& Key(const std::string& key);
+
+    TolerationBuilder& Operator(const std::string& oprt);
+
+    TolerationBuilder& Value(const std::string& value);
+
+    TolerationBuilder& Effect(const std::string& effect);
+
+    TolerationBuilder& TolerationSeconds(int64_t tolerationSeconds);
+
+    Toleration Build();
+
+private:
+    Toleration toleration_;
+};
+
 } // namespace kubecpp::model::internal::pod
 
 #endif // TOLERATION_H_

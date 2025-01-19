@@ -26,4 +26,39 @@ std::string Toleration::ParseToJson() const
     return ParseFieldsToJson(Key, Operator, Value, Effect, TolerationSeconds);
 }
 
+TolerationBuilder& TolerationBuilder::Key(const std::string& key)
+{
+    toleration_.Key = key;
+    return *this;
+}
+
+TolerationBuilder& TolerationBuilder::Operator(const std::string& oprt)
+{
+    toleration_.Operator = oprt;
+    return *this;
+}
+
+TolerationBuilder& TolerationBuilder::Value(const std::string& value)
+{
+    toleration_.Value = value;
+    return *this;
+}
+
+TolerationBuilder& TolerationBuilder::Effect(const std::string& effect)
+{
+    toleration_.Effect = effect;
+    return *this;
+}
+
+TolerationBuilder& TolerationBuilder::TolerationSeconds(int64_t tolerationSeconds)
+{
+    toleration_.TolerationSeconds = tolerationSeconds;
+    return *this;
+}
+
+Toleration TolerationBuilder::Build()
+{
+    return std::move(toleration_);
+}
+
 } // namespace kubecpp::model::internal::pod

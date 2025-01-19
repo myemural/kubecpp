@@ -40,6 +40,30 @@ struct TopologySpreadConstraint
     [[nodiscard]] std::string ParseToJson() const;
 };
 
+struct TopologySpreadConstraintBuilder
+{
+    TopologySpreadConstraintBuilder& MaxSkew(int32_t maxSkew);
+
+    TopologySpreadConstraintBuilder& TopologyKey(const std::string& topologyKey);
+
+    TopologySpreadConstraintBuilder& WhenUnsatisfiable(const std::string& whenUnsatisfiable);
+
+    TopologySpreadConstraintBuilder& LabelSelector(const common::LabelSelector& labelSelector);
+
+    TopologySpreadConstraintBuilder& MatchLabelKeys(const std::vector<std::string>& matchLabelKeys);
+
+    TopologySpreadConstraintBuilder& MinDomains(int32_t minDomains);
+
+    TopologySpreadConstraintBuilder& NodeAffinityPolicy(const std::string& nodeAffinityPolicy);
+
+    TopologySpreadConstraintBuilder& NodeTaintsPolicy(const std::string& nodeTaintsPolicy);
+
+    TopologySpreadConstraint Build();
+
+private:
+    TopologySpreadConstraint topologySpreadConstraint_;
+};
+
 } // namespace kubecpp::model::internal::pod
 
 #endif // TOPOLOGY_SPREAD_CONSTRAINT_H_
