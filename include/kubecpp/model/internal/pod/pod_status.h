@@ -17,34 +17,18 @@
 #ifndef POD_STATUS_H_
 #define POD_STATUS_H_
 
-#include <map>
+#include <unordered_map>
 #include <vector>
 
 #include "kubecpp/common/checked.h"
 #include "kubecpp/model/internal/common/resource_requirements.h"
+#include "kubecpp/model/internal/pod/status/host_ip.h"
+#include "kubecpp/model/internal/pod/status/pod_ip.h"
+#include "kubecpp/model/internal/pod/status/pod_condition.h"
+#include "kubecpp/model/internal/pod/status/pod_resource_claim_status.h"
 
 namespace kubecpp::model::internal::pod
 {
-
-struct HostIPType
-{
-    Checked<std::string> Ip{ "ip", true, "description" };
-};
-
-struct PodIPType
-{
-    Checked<std::string> Ip{ "ip", true, "description" };
-};
-
-struct PodCondition
-{
-    Checked<std::string> Status{ "status", true, "description" };
-    Checked<std::string> Type{ "type", true, "description" };
-    Checked<std::string> LastProbeTime{ "lastProbeTime", true, "description" };           // Time
-    Checked<std::string> LastTransitionTime{ "lastTransitionTime", true, "description" }; // Time
-    Checked<std::string> Message{ "message", true, "description" };
-    Checked<std::string> Reason{ "reason", true, "description" };
-};
 
 struct ResourceHealth
 {
@@ -109,7 +93,7 @@ struct VolumeMountStatus
 
 struct ContainerStatus
 {
-    Checked<std::map<std::string, std::string>> AllocatedResources{ "allocatedResources", true, "description" }; // Quantity
+    Checked<std::unordered_map<std::string, std::string>> AllocatedResources{ "allocatedResources", true, "description" }; // Quantity
     Checked<std::vector<ResourceStatus>> AllocatedResourcesStatus{ "allocatedResourcesStatus", true, "description" };
     Checked<std::string> ContainerID{ "containerID", true, "description" };
     Checked<std::string> Image{ "image", true, "description" };
@@ -125,29 +109,23 @@ struct ContainerStatus
     Checked<std::vector<VolumeMountStatus>> VolumeMounts{ "volumeMounts", true, "description" };
 };
 
-struct PodResourceClaimStatus
-{
-    Checked<std::string> Name{ "name", true, "description" };
-    Checked<std::string> ResourceClaimName{ "resourceClaimName", true, "description" };
-};
-
 struct PodStatus
 {
     Checked<std::string> NominatedNodeName{ "nominatedNodeName", true, "description" };
-    Checked<std::string> HostIP{ "hostIP", true, "description" };
-    Checked<std::vector<HostIPType>> HostIPs{ "hostIPs", true, "description" };
+    Checked<std::string> HostIp{ "hostIP", true, "description" };
+    Checked<std::vector<status::HostIP>> HostIPs{ "hostIPs", true, "description" };
     Checked<std::string> StartTime{ "startTime", true, "description" }; // Time
     Checked<std::string> Phase{ "phase", true, "description" };
     Checked<std::string> Message{ "message", true, "description" };
     Checked<std::string> Reason{ "reason", true, "description" };
-    Checked<std::string> PodIP{ "podIP", true, "description" };
-    Checked<std::vector<PodIPType>> PodIPs{ "podIPs", true, "description" };
-    Checked<std::vector<PodCondition>> Conditions{ "conditions", true, "description" };
+    Checked<std::string> PodIp{ "podIP", true, "description" };
+    Checked<std::vector<status::PodIP>> PodIPs{ "podIPs", true, "description" };
+    Checked<std::vector<status::PodCondition>> Conditions{ "conditions", true, "description" };
     Checked<std::string> QosClass{ "qosClass", true, "description" };
     Checked<std::vector<ContainerStatus>> InitContainerStatuses{ "InitContainerStatuses", true, "description" };
     Checked<std::vector<ContainerStatus>> ContainerStatuses{ "containerStatuses", true, "description" };
     Checked<std::vector<ContainerStatus>> EphemeralContainerStatuses{ "ephemeralContainerStatuses", true, "description" };
-    Checked<std::vector<PodResourceClaimStatus>> ResourceClaimStatuses{ "resourceClaimStatuses", true, "description" };
+    Checked<std::vector<status::PodResourceClaimStatus>> ResourceClaimStatuses{ "resourceClaimStatuses", true, "description" };
     Checked<std::string> Resize{ "resize", true, "description" };
 
     static PodStatus ParseFromJson(const std::string& jsonData);
