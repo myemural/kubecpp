@@ -28,6 +28,14 @@ std::string Container::ParseToJson() const
     ReadinessProbe, StartupProbe, RestartPolicy, SecurityContext, Stdin, StdinOnce, Tty);
 }
 
+Container Container::ParseFromJson(const std::string& jsonData)
+{
+    /// TODO: Will be implemented later.
+    Container result;
+    ParseFieldsFromJson(jsonData, result.Name);
+    return result;
+}
+
 ContainerBuilder& ContainerBuilder::Name(const std::string& name)
 {
     container_.Name = name;

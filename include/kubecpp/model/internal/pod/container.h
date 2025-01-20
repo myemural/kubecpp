@@ -62,6 +62,7 @@ struct Container
     Checked<bool> Tty{ "tty", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static Container ParseFromJson(const std::string& jsonData);
 };
 
 struct ContainerBuilder

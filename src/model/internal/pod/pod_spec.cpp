@@ -38,7 +38,9 @@ std::string PodSpec::ParseToJson() const
 
 PodSpec PodSpec::ParseFromJson(const std::string& jsonData)
 {
+    /// TODO: Will be implemented later.
     PodSpec result;
+    ParseFieldsFromJson(jsonData, result.Containers);
     return result;
 }
 

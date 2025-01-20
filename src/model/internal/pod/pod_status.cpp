@@ -23,7 +23,9 @@ namespace kubecpp::model::internal::pod
 
 PodStatus PodStatus::ParseFromJson(const std::string& jsonData)
 {
+    /// TODO: Will be implemented later.
     PodStatus result;
+    ParseFieldsFromJson(jsonData, result.NominatedNodeName);
     return result;
 }
 
