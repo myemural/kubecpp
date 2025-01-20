@@ -31,6 +31,7 @@ struct StatusCause
     Checked<std::string> Reason{ "reason", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static StatusCause ParseFromJson(const std::string& jsonData);
 };
 
 struct StatusDetails
@@ -43,6 +44,7 @@ struct StatusDetails
     Checked<std::string> Uid{ "uid", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static StatusDetails ParseFromJson(const std::string& jsonData);
 };
 
 struct Status

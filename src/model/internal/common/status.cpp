@@ -26,9 +26,24 @@ std::string StatusCause::ParseToJson() const
     return ParseFieldsToJson(Field, Message, Reason);
 }
 
+StatusCause StatusCause::ParseFromJson(const std::string& jsonData)
+{
+    StatusCause result;
+    ParseFieldsFromJson(jsonData, result.Field, result.Message, result.Reason);
+    return result;
+}
+
 std::string StatusDetails::ParseToJson() const
 {
     return ParseFieldsToJson(Causes, Group, Kind, Name, RetryAfterSeconds, Uid);
+}
+
+StatusDetails StatusDetails::ParseFromJson(const std::string& jsonData)
+{
+    StatusDetails result;
+    ParseFieldsFromJson(
+    jsonData, result.Causes, result.Group, result.Kind, result.Name, result.RetryAfterSeconds, result.Uid);
+    return result;
 }
 
 std::string Status::ParseToJson() const
@@ -39,6 +54,8 @@ std::string Status::ParseToJson() const
 Status Status::ParseFromJson(const std::string& jsonData)
 {
     Status result;
+    ParseFieldsFromJson(jsonData, result.ApiVersion, result.Code, result.Details, result.Kind, result.Message,
+    result.Reason, result.StatusStr);
     return result;
 }
 
