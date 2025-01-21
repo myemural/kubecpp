@@ -24,10 +24,16 @@
 #include "kubecpp/common/checked.h"
 #include "kubecpp/model/internal/common/local_object_reference.h"
 #include "kubecpp/model/internal/common/object_field_selector.h"
+#include "kubecpp/model/internal/common/object_meta.h"
 #include "kubecpp/model/internal/common/resource_field_selector.h"
 
 namespace kubecpp::model::internal::common
 {
+
+/// TODO: This will be implemented in PersistentVolumeClaim.
+struct PersistentVolumeClaimSpec
+{
+};
 
 struct KeyToPath
 {
@@ -42,6 +48,12 @@ struct DownwardAPIVolumeFile
     Checked<ObjectFieldSelector> FieldRef{ "fieldRef", false, "description" };
     Checked<std::int32_t> Mode{ "mode", false, "description" };
     Checked<ResourceFieldSelector> ResourceFieldRef{ "resourceFieldRef", false, "description" };
+};
+
+struct PersistentVolumeClaimTemplate
+{
+    Checked<PersistentVolumeClaimSpec> Spec{ "spec", true, "description" };
+    Checked<ObjectMeta> Metadata{ "metadata", false, "description" };
 };
 
 struct PersistentVolumeClaimVolumeSource
@@ -141,10 +153,16 @@ struct CSIVolumeSource
 
 struct EphemeralVolumeSource
 {
+    Checked<PersistentVolumeClaimTemplate> VolumeClaimTemplate{ "volumeClaimTemplate", false, "description" };
 };
 
 struct FCVolumeSource
 {
+    Checked<std::string> FsType{ "fsType", false, "description" };
+    Checked<std::int32_t> Lun{ "lun", false, "description" };
+    Checked<bool> readOnly{ "readOnly", false, "description" };
+    Checked<std::vector<std::string>> TargetWWNs{ "targetWWNs", false, "description" };
+    Checked<std::vector<std::string>> Wwids{ "wwids", false, "description" };
 };
 
 struct FlexVolumeSource
