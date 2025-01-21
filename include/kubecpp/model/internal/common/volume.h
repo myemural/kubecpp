@@ -167,18 +167,32 @@ struct FCVolumeSource
 
 struct FlexVolumeSource
 {
+    Checked<std::string> Driver{ "driver", true, "description" };
+    Checked<std::string> FsType{ "fsType", false, "description" };
+    Checked<std::unordered_map<std::string, std::string>> Options{ "options", false, "description" };
+    Checked<bool> ReadOnly{ "readOnly", false, "description" };
+    Checked<LocalObjectReference> SecretRef{ "secretRef", false, "description" };
 };
 
 struct FlockerVolumeSource
 {
+    Checked<std::string> DatasetName{ "datasetName", false, "description" };
+    Checked<std::string> DatasetUUID{ "datasetUUID", false, "description" };
 };
 
 struct GCEPersistentDiskVolumeSource
 {
+    Checked<std::string> PdName{ "pdName", true, "description" };
+    Checked<std::string> FsType{ "fsType", false, "description" };
+    Checked<std::int32_t> Partition{ "partition", false, "description" };
+    Checked<bool> ReadOnly{ "readOnly", false, "description" };
 };
 
 struct GlusterfsVolumeSource
 {
+    Checked<std::string> Endpoints{ "endpoints", true, "description" };
+    Checked<std::string> Path{ "path", true, "description" };
+    Checked<bool> ReadOnly{ "readOnly", false, "description" };
 };
 
 struct ISCSIVolumeSource
