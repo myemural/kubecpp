@@ -20,19 +20,23 @@
 #include <sstream>
 #include <string>
 #include <unordered_map>
+#include <initializer_list>
 
 #include "kubecpp/common/constants.h"
 
 namespace kubecpp::common
 {
 
-template <typename... Args>
-inline void BuildPath(std::string& path, Args&&... args)
+inline std::string BuildPath(const std::initializer_list<std::string>& args)
 {
+    std::string path;
     std::ostringstream stream;
-    ((stream << args << constants::kPathSeparator), ...);
+    for (const auto arg : args) {
+        stream << arg << constants::kPathSeparator;
+    }
     path = stream.str();
     path.pop_back();
+    return path;
 }
 
 inline void BuildQueryParams(std::string& path, const std::unordered_map<std::string, std::string>& queryParams)

@@ -91,8 +91,7 @@ ApiClient::ApiResponse ApiClient::Execute(const HttpMethod& method, const std::s
     cpr::ssl::CertFile{ sslConfig_.ClientCertFile }, cpr::ssl::KeyFile{ sslConfig_.ClientKeyFile });
 
     cpr::Response response;
-    std::string fullUrl;
-    BuildPath(fullUrl, basePath_, path);
+    std::string fullUrl = BuildPath({basePath_, path});
 
     /// TODO: This logic can be changed.
     if(method == HttpMethod::kPost) {

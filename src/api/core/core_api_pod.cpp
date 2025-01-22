@@ -43,8 +43,7 @@ template <>
 ApiResult<Pod> CoreApi::Create<Pod>(const std::string& nameSpace, const Pod& resource, const QueryParams& queryParams) const
 {
     // Build path
-    std::string path;
-    BuildPath(path, kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural);
+    std::string path = BuildPath({ kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural });
     BuildQueryParams(path, queryParams);
 
     // Parse resource to Json
@@ -68,13 +67,14 @@ CoreApi::Get<Pod>(const std::string& name, const std::string& nameSpace, const P
     std::string path;
     switch(filter) {
     case PodGetFilter::kAll:
-        BuildPath(path, kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural, name);
+        path = BuildPath({ kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural, name });
         break;
     case PodGetFilter::kEphemeralContainer:
-        BuildPath(path, kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural, name, "ephemeralcontainers");
+        path = BuildPath(
+        { kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural, name, "ephemeralcontainers" });
         break;
     case PodGetFilter::kStatus:
-        BuildPath(path, kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural, name, "status");
+        path = BuildPath({ kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural, name, "status" });
         break;
     }
     BuildQueryParams(path, queryParams);
@@ -93,8 +93,7 @@ template <>
 ApiResult<Pod::ListType> CoreApi::List<Pod>(const QueryParams& queryParams) const
 {
     // Build Path
-    std::string path;
-    BuildPath(path, kK8sApiKeyword, kApiVersion, kResourceNamePlural);
+    std::string path = BuildPath({ kK8sApiKeyword, kApiVersion, kResourceNamePlural });
     BuildQueryParams(path, queryParams);
 
     // Execute ApiClient
@@ -111,8 +110,7 @@ template <>
 ApiResult<Pod::ListType> CoreApi::List<Pod>(const std::string& nameSpace, const QueryParams& queryParams) const
 {
     // Build Path
-    std::string path;
-    BuildPath(path, kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural);
+    std::string path = BuildPath({ kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural });
     BuildQueryParams(path, queryParams);
 
     // Execute ApiClient
@@ -132,8 +130,7 @@ const model::internal::common::DeleteOptions& options,
 const QueryParams& queryParams) const
 {
     // Create path
-    std::string path;
-    BuildPath(path, kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural, name);
+    std::string path = BuildPath({ kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural, name });
     BuildQueryParams(path, queryParams);
 
     // Parse resource to Json
@@ -155,8 +152,7 @@ const model::internal::common::DeleteOptions& options,
 const QueryParams& queryParams) const
 {
     // Create path
-    std::string path;
-    BuildPath(path, kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural);
+    std::string path = BuildPath({ kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural });
     BuildQueryParams(path, queryParams);
 
     // Parse resource to Json
@@ -183,13 +179,14 @@ const QueryParams& queryParams) const
     std::string path;
     switch(filter) {
     case PodUpdateFilter::kAll:
-        BuildPath(path, kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural, name);
+        path = BuildPath({ kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural, name });
         break;
     case PodUpdateFilter::kEphemeralContainer:
-        BuildPath(path, kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural, name, "ephemeralcontainers");
+        path = BuildPath(
+        { kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural, name, "ephemeralcontainers" });
         break;
     case PodUpdateFilter::kStatus:
-        BuildPath(path, kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural, name, "status");
+        path = BuildPath({ kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural, name, "status" });
         break;
     }
     BuildQueryParams(path, queryParams);
