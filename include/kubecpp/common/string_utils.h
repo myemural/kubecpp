@@ -17,44 +17,18 @@
 #ifndef STRING_UTILS_H_
 #define STRING_UTILS_H_
 
-#include <sstream>
+#include <initializer_list>
 #include <string>
 #include <unordered_map>
-#include <initializer_list>
 
 #include "kubecpp/common/constants.h"
 
 namespace kubecpp::common
 {
 
-inline std::string BuildPath(const std::initializer_list<std::string>& args)
-{
-    std::string path;
-    std::ostringstream stream;
-    for (const auto arg : args) {
-        stream << arg << constants::kPathSeparator;
-    }
-    path = stream.str();
-    path.pop_back();
-    return path;
-}
+std::string BuildPath(const std::initializer_list<std::string>& args);
 
-inline void BuildQueryParams(std::string& path, const std::unordered_map<std::string, std::string>& queryParams)
-{
-    if(!queryParams.empty()) {
-        path += constants::kQuerySeparator;
-        bool isFirst = true;
-        for(const auto& [paramKey, paramValue] : queryParams) {
-            if(!isFirst) {
-                path += constants::kQueryAnd;
-                isFirst = false;
-            }
-            path += paramKey;
-            path += constants::kQueryEqual;
-            path += paramValue;
-        }
-    }
-}
+void BuildQueryParams(std::string& path, const std::unordered_map<std::string, std::string>& queryParams);
 
 } // namespace kubecpp::common
 
