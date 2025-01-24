@@ -197,10 +197,23 @@ struct GlusterfsVolumeSource
 
 struct ISCSIVolumeSource
 {
+    Checked<std::string> Iqn{ "iqn", true, "description" };
+    Checked<std::int32_t> Lun{ "lun", true, "description" };
+    Checked<std::string> TargetPortal{ "targetPortal", true, "description" };
+    Checked<bool> ChapAuthDiscovery{ "chapAuthDiscovery", false, "description" };
+    Checked<bool> ChapAuthSession{ "chapAuthSession", false, "description" };
+    Checked<std::string> FsType{ "fsType", false, "description" };
+    Checked<std::string> InitiatorName{ "initiatorName", false, "description" };
+    Checked<std::string> IscsiInterface{ "iscsiInterface", false, "description" };
+    Checked<std::vector<std::string>> Portals{ "portals", false, "description" };
+    Checked<bool> ReadOnly{ "readOnly", false, "description" };
+    Checked<LocalObjectReference> SecretRef{ "secretRef", false, "description" };
 };
 
 struct ImageVolumeSource
 {
+    Checked<std::string> PullPolicy{ "pullPolicy", false, "description" };
+    Checked<std::string> Reference{ "reference", false, "description" };
 };
 
 struct NFSVolumeSource
