@@ -218,6 +218,9 @@ struct ImageVolumeSource
 
 struct NFSVolumeSource
 {
+    Checked<std::string> Path{ "path", true, "description" };
+    Checked<std::string> Server{ "server", true, "description" };
+    Checked<bool> ReadOnly{ "readOnly", false, "description" };
 };
 
 struct PhotonPersistentDiskVolumeSource
