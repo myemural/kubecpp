@@ -84,8 +84,15 @@ struct DownwardAPIVolumeSource
     Checked<std::vector<DownwardAPIVolumeFile>> Items{ "items", false, "description" };
 };
 
-struct ProjectedVolumeSource
+struct VolumeProjection
 {
+};
+
+struct ProjectedVolumeSource
+
+{
+    Checked<std::int32_t> DefaultMode{ "defaultMode", false, "description" };
+    Checked<std::vector<VolumeProjection>> Sources{ "sources", false, "description" };
 };
 
 struct EmptyDirVolumeSource
@@ -248,6 +255,14 @@ struct QuobyteVolumeSource
 
 struct RBDVolumeSource
 {
+    Checked<std::string> Image{ "image", true, "description" };
+    Checked<std::vector<std::string>> Monitors{ "monitors", true, "description" };
+    Checked<std::string> FsType{ "fsType", false, "description" };
+    Checked<std::string> Keyring{ "keyring", false, "description" };
+    Checked<std::string> Pool{ "pool", false, "description" };
+    Checked<bool> ReadOnly{ "readOnly", false, "description" };
+    Checked<LocalObjectReference> SecretRef{ "secretRef", false, "description" };
+    Checked<std::string> User{ "user", false, "description" };
 };
 
 struct ScaleIOVolumeSource
