@@ -225,14 +225,25 @@ struct NFSVolumeSource
 
 struct PhotonPersistentDiskVolumeSource
 {
+    Checked<std::string> PdID{ "pdID", true, "description" };
+    Checked<std::string> FsType{ "fsType", false, "description" };
 };
 
 struct PortworxVolumeSource
 {
+    Checked<std::string> VolumeID{ "volumeID", true, "description" };
+    Checked<std::string> FsType{ "fsType", false, "description" };
+    Checked<bool> ReadOnly{ "readOnly", false, "description" };
 };
 
 struct QuobyteVolumeSource
 {
+    Checked<std::string> Registry{ "registry", true, "description" };
+    Checked<std::string> Volume{ "volume", true, "description" };
+    Checked<std::string> Group{ "group", false, "description" };
+    Checked<bool> ReadOnly{ "readOnly", false, "description" };
+    Checked<std::string> Tenant{ "tenant", false, "description" };
+    Checked<std::string> User{ "user", false, "description" };
 };
 
 struct RBDVolumeSource
