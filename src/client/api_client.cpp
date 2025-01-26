@@ -66,6 +66,11 @@ ApiClient::ApiClient(const ApiConfig& config)
         sslConfig_.ClientCertFile           = CreateTempFile("kubeconfig", clientCertificate);
         const std::string clientKey         = userIt->User.ClientKeyData;
         sslConfig_.ClientKeyFile            = CreateTempFile("kubeconfig", clientKey);
+
+        // Get Bearer Token, if available
+        if(!userIt->User.Token.empty()) {
+            bearerToken_ = userIt->User.Token;
+        }
     }
 
     // Get server address and CA
@@ -91,19 +96,19 @@ ApiClient::ApiResponse ApiClient::Execute(const HttpMethod& method, const std::s
     cpr::ssl::CertFile{ sslConfig_.ClientCertFile }, cpr::ssl::KeyFile{ sslConfig_.ClientKeyFile });
 
     cpr::Response response;
-    std::string fullUrl = BuildPath({basePath_, path});
+    std::string fullUrl = BuildPath({ basePath_, path });
 
     /// TODO: This logic can be changed.
     if(method == HttpMethod::kPost) {
-        response = cpr::Post(cpr::Url{ fullUrl }, kDefaultHeader, cpr::Body(body), sslOpts);
+        response = cpr::Post(cpr::Url{ fullUrl }, kDefaultHeader, cpr::Body(body), sslOpts, cpr::Bearer{ bearerToken_ });
     } else if(method == HttpMethod::kGet) {
-        response = cpr::Get(cpr::Url{ fullUrl }, kDefaultHeader, sslOpts);
+        response = cpr::Get(cpr::Url{ fullUrl }, kDefaultHeader, sslOpts, cpr::Bearer{ bearerToken_ });
     } else if(method == HttpMethod::kDelete) {
-        response = cpr::Delete(cpr::Url{ fullUrl }, kDefaultHeader, cpr::Body(body), sslOpts);
+        response = cpr::Delete(cpr::Url{ fullUrl }, kDefaultHeader, cpr::Body(body), sslOpts, cpr::Bearer{ bearerToken_ });
     } else if(method == HttpMethod::kPut) {
-        response = cpr::Put(cpr::Url{ fullUrl }, kDefaultHeader, cpr::Body(body), sslOpts);
+        response = cpr::Put(cpr::Url{ fullUrl }, kDefaultHeader, cpr::Body(body), sslOpts, cpr::Bearer{ bearerToken_ });
     } else if(method == HttpMethod::kPatch) {
-        response = cpr::Patch(cpr::Url{ fullUrl }, kDefaultHeader, cpr::Body(body), sslOpts);
+        response = cpr::Patch(cpr::Url{ fullUrl }, kDefaultHeader, cpr::Body(body), sslOpts, cpr::Bearer{ bearerToken_ });
     }
 
     // For debugging

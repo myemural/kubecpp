@@ -60,6 +60,7 @@ public:
 private:
     std::string basePath_;
     SslConfig sslConfig_;
+    std::string bearerToken_;
 };
 
 } // namespace kubecpp::client
