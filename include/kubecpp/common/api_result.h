@@ -17,17 +17,28 @@
 #ifndef API_RESULT_H_
 #define API_RESULT_H_
 
+#include <optional>
+
 template <typename T>
 class ApiResult
 {
 public:
+    ApiResult(long responseCode)
+        : responseCode_{ responseCode }, data_{ std::nullopt }
+    {}
+
     ApiResult(long responseCode, T data)
         : responseCode_{ responseCode }, data_{ std::move(data) }
     {}
 
+    [[nodiscard]] bool HasData() const
+    {
+        return data_.has_value();
+    }
+
     [[nodiscard]] T GetData() const
     {
-        return data_;
+        return data_.value_or(T{});
     }
 
     [[nodiscard]] long GetResponseCode() const
@@ -37,7 +48,7 @@ public:
 
 private:
     long responseCode_;
-    T data_;
+    std::optional<T> data_;
 };
 
 #endif // API_RESULT_H_

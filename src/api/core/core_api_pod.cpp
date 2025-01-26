@@ -53,10 +53,12 @@ ApiResult<Pod> CoreApi::Create<Pod>(const std::string& nameSpace, const Pod& res
     const auto result = client_.Execute(client::HttpMethod::kPost, path, body);
 
     // Convert body to resource type
-    const Pod data = Pod::ParseFromJson(result.Body);
+    if(result.ErrorInfo.ErrorCode != 0L) {
+        const Pod data = Pod::ParseFromJson(result.Body);
+        return ApiResult<Pod>{ result.StatusCode, data };
+    }
 
-    // Return as ApiResult
-    return ApiResult<Pod>{ result.StatusCode, data };
+    return ApiResult<Pod>{ result.StatusCode };
 }
 
 template <>
@@ -83,10 +85,12 @@ CoreApi::Get<Pod>(const std::string& name, const std::string& nameSpace, const P
     auto result = client_.Execute(client::HttpMethod::kGet, path);
 
     // Convert body to resource type
-    const Pod data = Pod::ParseFromJson(result.Body);
+    if(result.ErrorInfo.ErrorCode != 0L) {
+        const Pod data = Pod::ParseFromJson(result.Body);
+        return ApiResult<Pod>{ result.StatusCode, data };
+    }
 
-    // Return as ApiResult
-    return ApiResult<Pod>{ result.StatusCode, data };
+    return ApiResult<Pod>{ result.StatusCode };
 }
 
 template <>
@@ -100,10 +104,12 @@ ApiResult<Pod::ListType> CoreApi::List<Pod>(const QueryParams& queryParams) cons
     auto result = client_.Execute(client::HttpMethod::kGet, path);
 
     // Convert body to resource type
-    const Pod::ListType data = Pod::ListType::ParseFromJson(result.Body);
+    if(result.ErrorInfo.ErrorCode != 0L) {
+        const Pod::ListType data = Pod::ListType::ParseFromJson(result.Body);
+        return ApiResult<Pod::ListType>{ result.StatusCode, data };
+    }
 
-    // Return as ApiResult
-    return ApiResult<Pod::ListType>{ result.StatusCode, data };
+    return ApiResult<Pod::ListType>{ result.StatusCode };
 }
 
 template <>
@@ -117,10 +123,12 @@ ApiResult<Pod::ListType> CoreApi::List<Pod>(const std::string& nameSpace, const 
     auto result = client_.Execute(client::HttpMethod::kGet, path);
 
     // Convert body to resource type
-    const Pod::ListType data = Pod::ListType::ParseFromJson(result.Body);
+    if(result.ErrorInfo.ErrorCode != 0L) {
+        const Pod::ListType data = Pod::ListType::ParseFromJson(result.Body);
+        return ApiResult<Pod::ListType>{ result.StatusCode, data };
+    }
 
-    // Return as ApiResult
-    return ApiResult<Pod::ListType>{ result.StatusCode, data };
+    return ApiResult<Pod::ListType>{ result.StatusCode };
 }
 
 template <>
@@ -140,10 +148,12 @@ const QueryParams& queryParams) const
     const auto result = client_.Execute(client::HttpMethod::kDelete, path, body);
 
     // Convert body to resource type
-    const Pod data = Pod::ParseFromJson(result.Body);
+    if(result.ErrorInfo.ErrorCode != 0L) {
+        const Pod data = Pod::ParseFromJson(result.Body);
+        return ApiResult<Pod>{ result.StatusCode, data };
+    }
 
-    // Return as ApiResult
-    return ApiResult<Pod>{ result.StatusCode, data };
+    return ApiResult<Pod>{ result.StatusCode };
 }
 
 template <>
@@ -162,10 +172,12 @@ const QueryParams& queryParams) const
     const auto result = client_.Execute(client::HttpMethod::kDelete, path, body);
 
     // Convert body to resource type
-    const Pod::ListType data = Pod::ListType::ParseFromJson(result.Body);
+    if(result.ErrorInfo.ErrorCode != 0L) {
+        const Pod::ListType data = Pod::ListType::ParseFromJson(result.Body);
+        return ApiResult<Pod::ListType>{ result.StatusCode, data };
+    }
 
-    // Return as ApiResult
-    return ApiResult<Pod::ListType>{ result.StatusCode, data };
+    return ApiResult<Pod::ListType>{ result.StatusCode };
 }
 
 template <>
@@ -198,10 +210,12 @@ const QueryParams& queryParams) const
     auto result = client_.Execute(client::HttpMethod::kPut, path, body);
 
     // Convert body to resource type
-    const Pod data = Pod::ParseFromJson(result.Body);
+    if(result.ErrorInfo.ErrorCode != 0L) {
+        const Pod data = Pod::ParseFromJson(result.Body);
+        return ApiResult<Pod>{ result.StatusCode, data };
+    }
 
-    // Return as ApiResult
-    return ApiResult<Pod>{ result.StatusCode, data };
+    return ApiResult<Pod>{ result.StatusCode };
 }
 
 template <>
@@ -211,7 +225,7 @@ ApiResult<Pod> CoreApi::Patch([[maybe_unused]] const std::string& name,
 [[maybe_unused]] const PodPatchFilter& filter,
 [[maybe_unused]] const QueryParams& queryParams) const
 {
-    return ApiResult<Pod>{ 200, Pod{} };
+    return ApiResult<Pod>{ 200 };
 }
 
 } // namespace kubecpp::api::core::v1
