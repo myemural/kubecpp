@@ -2,7 +2,20 @@
 
 ![](/docs/images/kubecpp_logo.png?raw=true)
 
-**kubecpp** is a community-maintained Kubernetes client API project written using C++17 standards (modern C++). The main goal of this project is to write a Kubernetes client API with modern C++ that has high usability. The main goal of the project is not performance and security. However, this may change in future versions.
+**kubecpp** is a community-maintained Kubernetes client API project written using C++17 standards (modern C++). The main goal of this project is to write a Kubernetes client API with modern C++ that has high usability. For now, performance and security is not considered as main goals. However, this may change in future versions.
+
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Build](#build)
+- [Usage](#usage)
+- [Environment Support](#environment-support)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+  - [Code of Conduct](#code-of-conduct)
+  - [How to Contribute?](#how-to-contribute)
+  - [Current Contributors](#current-contributors)
+- [License](#license)
+- [Contact](#contact)
 
 ## Getting Started
 
@@ -21,8 +34,8 @@ For compiling and installation:
 - Ninja 1.12+ (optional)
 
 Optional dependencies:
-- clang-format (LLVM)
-- clang-tidy (LLVM)
+- clang-format 19.1 (LLVM)
+- clang-tidy 19.1 (LLVM)
 
 ### Build
 
@@ -52,7 +65,7 @@ The output should be like this:
 conancenter: https://center2.conan.io [Verify SSL: True, Enabled: True]
 ```
 
-If it is not, you can see the [conan remote](https://docs.conan.io/1/reference/commands/misc/remote.html) reference page to change Conan remote. After everything is ready, you can install the `kubecpp` package to the system by running the `conan create` command in the main working directory.
+If it is not, you can see the [conan remote](https://docs.conan.io/1/reference/commands/misc/remote.html) reference page to change Conan remote. After everything is ready, you can install the project dependencies by running the `conan install` command in the main working directory.
 
 For Debug:
 
@@ -108,8 +121,10 @@ Since the `BUILD_EXAMPLES` cache variable is `ON` by default, the examples will 
 
 Currently, the following compilers are known to work:
 
-- MSVC 19.40+ (Windows)
-- GCC 13+ (Linux) 
+| Compiler | Minimum Version | Platforms  |
+| -------- | --------------- | ---------- |
+| MSVC     | 19.40+          | Windows    |
+| GCC      | 13+             | Linux, WSL |
 
 But we will test it on other compilers and versions as quickly as possible. We plan to increase this with local builds or using CI/CD.
 
@@ -136,10 +151,8 @@ This project is in POC (Proof of Concept) phase currently. Only models and opera
 
 Additionally, GitHub Actions integration will be added very soon. Also the first phase of the project lacks:
 - A proper error handling mechanism
-- JSON to model conversion
-- YAML to model conversion
-- Model to YAML conversion
-- A proper versionun and release scheme
+- JSON/YAML from/to model conversion
+- A proper versioning and release scheme
 - Unit testing integration
 
 ## Contributing
@@ -159,7 +172,7 @@ Maintainers
 
 ## License
 
-Distributed under the Apache-2.0 License. See `LICENSE` file for more information.
+Distributed under the Apache-2.0 License. See [LICENSE](/LICENSE) file for more information.
 
 ## Contact
 
