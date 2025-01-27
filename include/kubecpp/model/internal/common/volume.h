@@ -84,8 +84,34 @@ struct DownwardAPIVolumeSource
     Checked<std::vector<DownwardAPIVolumeFile>> Items{ "items", false, "description" };
 };
 
+struct ClusterTrustBundleProjection
+{
+};
+
+struct ConfigMapProjection
+{
+};
+
+struct DownwardAPIProjection
+{
+    Checked<std::vector<DownwardAPIVolumeFile>> Items{ "items", false, "description" };
+};
+
+struct SecretProjection
+{
+};
+
+struct ServiceAccountTokenProjection
+{
+};
+
 struct VolumeProjection
 {
+    Checked<ClusterTrustBundleProjection> ClusterTrustBundle{ "clusterTrustBundle", false, "description" };
+    Checked<ConfigMapProjection> ConfigMap{ "configMap", false, "description" };
+    Checked<DownwardAPIProjection> DownwardAPI{ "downwardAPI", false, "description" };
+    Checked<SecretProjection> Secret{ "secret", false, "description" };
+    Checked<ServiceAccountTokenProjection> ServiceAccountToken{ "serviceAccountToken", false, "description" };
 };
 
 struct ProjectedVolumeSource
