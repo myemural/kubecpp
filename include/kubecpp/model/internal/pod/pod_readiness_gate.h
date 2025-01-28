@@ -27,6 +27,7 @@ struct PodReadinessGate
     Checked<std::string> ConditionType{ "conditionType", true, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static PodReadinessGate ParseFromJson(const std::string& jsonData);
 };
 
 struct PodReadinessGateBuilder

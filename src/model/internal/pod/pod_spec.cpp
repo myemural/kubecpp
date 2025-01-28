@@ -50,7 +50,10 @@ PodSpec PodSpec::ParseFromJson(const std::string& jsonData)
     result.ImagePullSecrets, result.EnableServiceLinks, result.Os, result.Volumes, result.NodeSelector, result.NodeName,
     result.Affinity, result.Tolerations, result.SchedulerName, result.RuntimeClassName, result.PriorityClassName,
     result.Priority, result.PreemptionPolicy, result.TopologySpreadConstraints, result.Overhead, result.RestartPolicy,
-    result.TerminationGracePeriodSeconds, result.ActiveDeadlineSeconds);
+    result.TerminationGracePeriodSeconds, result.ActiveDeadlineSeconds, result.ReadinessGates, result.Hostname,
+    result.SetHostnameAsFQDN, result.Subdomain, result.HostAliases, result.DnsConfig, result.DnsPolicy, result.HostNetwork,
+    result.HostPID, result.HostIPC, result.ShareProcessNamespace, result.ServiceAccountName, result.AutomountServiceAccountToken,
+    result.SecurityContext, result.HostUsers);
     return result;
 }
 

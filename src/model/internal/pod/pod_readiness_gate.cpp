@@ -26,6 +26,13 @@ std::string PodReadinessGate::ParseToJson() const
     return ParseFieldsToJson(ConditionType);
 }
 
+PodReadinessGate PodReadinessGate::ParseFromJson(const std::string& jsonData)
+{
+    PodReadinessGate result;
+    ParseFieldsFromJson(jsonData, result.ConditionType);
+    return result;
+}
+
 PodReadinessGateBuilder& PodReadinessGateBuilder::ConditionType(const std::string& conditionType)
 {
     podReadinessGate_.ConditionType = conditionType;

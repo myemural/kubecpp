@@ -30,6 +30,7 @@ struct PodDNSConfigOption
     Checked<std::string> Value{ "value", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static PodDNSConfigOption ParseFromJson(const std::string& jsonData);
 };
 
 struct PodDNSConfig
@@ -39,6 +40,7 @@ struct PodDNSConfig
     Checked<std::vector<std::string>> Searches{ "searches", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static PodDNSConfig ParseFromJson(const std::string& jsonData);
 };
 
 struct PodDNSConfigOptionBuilder

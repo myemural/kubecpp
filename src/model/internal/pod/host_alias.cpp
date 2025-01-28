@@ -16,7 +16,7 @@
 
 #include "kubecpp/model/internal/pod/host_alias.h"
 
-#include "kubecpp/common/json_utils.h"
+#include "kubecpp/common/json_utils.h",
 
 namespace kubecpp::model::internal::pod
 {
@@ -24,6 +24,13 @@ namespace kubecpp::model::internal::pod
 std::string HostAlias::ParseToJson() const
 {
     return ParseFieldsToJson(Ip, HostNames);
+}
+
+HostAlias HostAlias::ParseFromJson(const std::string& jsonData)
+{
+    HostAlias result;
+    ParseFieldsFromJson(jsonData, result.Ip, result.HostNames);
+    return result;
 }
 
 HostAliasBuilder& HostAliasBuilder::Ip(const std::string& ip)

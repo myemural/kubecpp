@@ -30,6 +30,7 @@ struct HostAlias
     Checked<std::vector<std::string>> HostNames{ "hostNames", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static HostAlias ParseFromJson(const std::string& jsonData);
 };
 
 struct HostAliasBuilder

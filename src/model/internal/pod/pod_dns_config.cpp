@@ -26,9 +26,23 @@ std::string PodDNSConfigOption::ParseToJson() const
     return ParseFieldsToJson(Name, Value);
 }
 
+PodDNSConfigOption PodDNSConfigOption::ParseFromJson(const std::string& jsonData)
+{
+    PodDNSConfigOption result;
+    ParseFieldsFromJson(jsonData, result.Name, result.Value);
+    return result;
+}
+
 std::string PodDNSConfig::ParseToJson() const
 {
     return ParseFieldsToJson(Nameservers, Options, Searches);
+}
+
+PodDNSConfig PodDNSConfig::ParseFromJson(const std::string& jsonData)
+{
+    PodDNSConfig result;
+    ParseFieldsFromJson(jsonData, result.Nameservers, result.Options, result.Searches);
+    return result;
 }
 
 PodDNSConfigOptionBuilder& PodDNSConfigOptionBuilder::Name(const std::string& name)

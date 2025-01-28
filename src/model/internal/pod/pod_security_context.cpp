@@ -32,4 +32,11 @@ std::string PodSecurityContext::ParseToJson() const
     SeccompProfile, SeLinuxOptions, SupplementalGroups, SupplementalGroupsPolicy, Sysctls, WindowsOptions);
 }
 
+PodSecurityContext PodSecurityContext::ParseFromJson(const std::string& jsonData)
+{
+    /// TODO: Will be implemented later.
+    PodSecurityContext result;
+    return result;
+}
+
 } // namespace kubecpp::model::internal::pod
