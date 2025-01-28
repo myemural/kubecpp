@@ -53,7 +53,7 @@ PodSpec PodSpec::ParseFromJson(const std::string& jsonData)
     result.TerminationGracePeriodSeconds, result.ActiveDeadlineSeconds, result.ReadinessGates, result.Hostname,
     result.SetHostnameAsFQDN, result.Subdomain, result.HostAliases, result.DnsConfig, result.DnsPolicy, result.HostNetwork,
     result.HostPID, result.HostIPC, result.ShareProcessNamespace, result.ServiceAccountName, result.AutomountServiceAccountToken,
-    result.SecurityContext, result.HostUsers);
+    result.SecurityContext, result.HostUsers, result.ResourceClaims, result.SchedulingGates, result.ServiceAccount);
     return result;
 }
 

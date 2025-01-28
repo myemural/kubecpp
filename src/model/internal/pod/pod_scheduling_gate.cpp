@@ -26,4 +26,11 @@ std::string PodSchedulingGate::ParseToJson() const
     return ParseFieldsToJson(Name);
 }
 
+PodSchedulingGate PodSchedulingGate::ParseFromJson(const std::string& jsonData)
+{
+    PodSchedulingGate result;
+    ParseFieldsFromJson(jsonData, result.Name);
+    return result;
+}
+
 } // namespace kubecpp::model::internal::pod

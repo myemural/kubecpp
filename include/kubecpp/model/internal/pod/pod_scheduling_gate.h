@@ -27,6 +27,7 @@ struct PodSchedulingGate
     Checked<std::string> Name{ "name", true, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static PodSchedulingGate ParseFromJson(const std::string& jsonData);
 };
 
 } // namespace kubecpp::model::internal::pod

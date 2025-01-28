@@ -29,6 +29,7 @@ struct PodResourceClaim
     Checked<std::string> ResourceClaimTemplateName{ "resourceClaimTemplateName", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static PodResourceClaim ParseFromJson(const std::string& jsonData);
 };
 
 } // namespace kubecpp::model::internal::pod

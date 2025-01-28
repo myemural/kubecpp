@@ -26,4 +26,11 @@ std::string PodResourceClaim::ParseToJson() const
     return ParseFieldsToJson(Name, ResourceClaimName, ResourceClaimTemplateName);
 }
 
+PodResourceClaim PodResourceClaim::ParseFromJson(const std::string& jsonData)
+{
+    PodResourceClaim result;
+    ParseFieldsFromJson(jsonData, result.ResourceClaimName, result.ResourceClaimTemplateName);
+    return result;
+}
+
 } // namespace kubecpp::model::internal::pod
