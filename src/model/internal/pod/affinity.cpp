@@ -66,4 +66,11 @@ std::string AffinityType::ParseToJson() const
     return ParseFieldsToJson(NodeAffinity, PodAffinity, PodAntiAffinity);
 }
 
+AffinityType AffinityType::ParseFromJson(const std::string& jsonData)
+{
+    /// TODO: Will be implemented later.
+    AffinityType result;
+    return result;
+}
+
 } // namespace kubecpp::model::internal::pod

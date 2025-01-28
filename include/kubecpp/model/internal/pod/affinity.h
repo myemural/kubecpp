@@ -112,6 +112,7 @@ struct AffinityType
     Checked<PodAntiAffinityType> PodAntiAffinity{ "podAntiAffinity", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static AffinityType ParseFromJson(const std::string& jsonData);
 };
 
 } // namespace kubecpp::model::internal::pod

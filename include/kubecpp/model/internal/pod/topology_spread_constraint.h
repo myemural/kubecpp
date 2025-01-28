@@ -38,6 +38,7 @@ struct TopologySpreadConstraint
     Checked<std::string> NodeTaintsPolicy{ "nodeTaintsPolicy", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static TopologySpreadConstraint ParseFromJson(const std::string& jsonData);
 };
 
 struct TopologySpreadConstraintBuilder

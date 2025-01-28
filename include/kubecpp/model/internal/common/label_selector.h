@@ -32,6 +32,7 @@ struct LabelSelectorRequirement
     Checked<std::vector<std::string>> Values{ "values", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static LabelSelectorRequirement ParseFromJson(const std::string& jsonData);
 };
 
 struct LabelSelector
@@ -40,6 +41,7 @@ struct LabelSelector
     Checked<std::unordered_map<std::string, std::string>> MatchLabels{ "matchLabels", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static LabelSelector ParseFromJson(const std::string& jsonData);
 };
 
 struct LabelSelectorRequirementBuilder

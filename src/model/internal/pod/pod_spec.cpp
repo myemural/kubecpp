@@ -26,6 +26,13 @@ std::string PodOs::ParseToJson() const
     return ParseFieldsToJson(Name);
 }
 
+PodOs PodOs::ParseFromJson(const std::string& jsonData)
+{
+    PodOs result;
+    ParseFieldsFromJson(jsonData, result.Name);
+    return result;
+}
+
 std::string PodSpec::ParseToJson() const
 {
     return ParseFieldsToJson(Containers, InitContainers, EphemeralContainers, ImagePullSecrets, EnableServiceLinks, Os,
@@ -38,9 +45,12 @@ std::string PodSpec::ParseToJson() const
 
 PodSpec PodSpec::ParseFromJson(const std::string& jsonData)
 {
-    /// TODO: Will be implemented later.
     PodSpec result;
-    ParseFieldsFromJson(jsonData, result.Containers);
+    ParseFieldsFromJson(jsonData, result.Containers, result.InitContainers, result.EphemeralContainers,
+    result.ImagePullSecrets, result.EnableServiceLinks, result.Os, result.Volumes, result.NodeSelector, result.NodeName,
+    result.Affinity, result.Tolerations, result.SchedulerName, result.RuntimeClassName, result.PriorityClassName,
+    result.Priority, result.PreemptionPolicy, result.TopologySpreadConstraints, result.Overhead, result.RestartPolicy,
+    result.TerminationGracePeriodSeconds, result.ActiveDeadlineSeconds);
     return result;
 }
 

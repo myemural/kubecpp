@@ -27,6 +27,14 @@ std::string TopologySpreadConstraint::ParseToJson() const
     NodeAffinityPolicy, NodeTaintsPolicy);
 }
 
+TopologySpreadConstraint TopologySpreadConstraint::ParseFromJson(const std::string& jsonData)
+{
+    TopologySpreadConstraint result;
+    ParseFieldsFromJson(jsonData, result.MaxSkew, result.TopologyKey, result.WhenUnsatisfiable, result.LabelSelector,
+    result.MatchLabelKeys, result.MinDomains, result.NodeAffinityPolicy, result.NodeTaintsPolicy);
+    return result;
+}
+
 TopologySpreadConstraintBuilder& TopologySpreadConstraintBuilder::MaxSkew(int32_t maxSkew)
 {
     topologySpreadConstraint_.MaxSkew = maxSkew;

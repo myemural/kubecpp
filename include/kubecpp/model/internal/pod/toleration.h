@@ -31,6 +31,7 @@ struct Toleration
     Checked<int64_t> TolerationSeconds{ "tolerationSeconds", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static Toleration ParseFromJson(const std::string& jsonData);
 };
 
 struct TolerationBuilder

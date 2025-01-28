@@ -342,6 +342,7 @@ struct Volume
     Checked<GitRepoVolumeSource> GitRepo{ "gitRepo", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static Volume ParseFromJson(const std::string& jsonData);
 };
 
 struct VolumeBuilder

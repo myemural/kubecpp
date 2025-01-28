@@ -26,6 +26,13 @@ std::string Toleration::ParseToJson() const
     return ParseFieldsToJson(Key, Operator, Value, Effect, TolerationSeconds);
 }
 
+Toleration Toleration::ParseFromJson(const std::string& jsonData)
+{
+    Toleration result;
+    ParseFieldsFromJson(jsonData, result.Key, result.Operator, result.Value, result.Effect, result.TolerationSeconds);
+    return result;
+}
+
 TolerationBuilder& TolerationBuilder::Key(const std::string& key)
 {
     toleration_.Key = key;

@@ -24,7 +24,16 @@ namespace kubecpp::model::internal::common
 
 std::string Volume::ParseToJson() const
 {
+    /// TODO: Will be implemented later.
     return ParseFieldsToJson(Name);
+}
+
+Volume Volume::ParseFromJson(const std::string& jsonData)
+{
+    /// TODO: Will be implemented later.
+    Volume result;
+    ParseFieldsFromJson(jsonData, result.Name);
+    return result;
 }
 
 VolumeBuilder& VolumeBuilder::Name(const std::string& name)

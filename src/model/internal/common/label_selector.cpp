@@ -26,9 +26,23 @@ std::string LabelSelectorRequirement::ParseToJson() const
     return ParseFieldsToJson(Key, Operator, Values);
 }
 
+LabelSelectorRequirement LabelSelectorRequirement::ParseFromJson(const std::string& jsonData)
+{
+    LabelSelectorRequirement result;
+    ParseFieldsFromJson(jsonData, result.Key, result.Operator, result.Values);
+    return result;
+}
+
 std::string LabelSelector::ParseToJson() const
 {
     return ParseFieldsToJson(MatchExpressions, MatchLabels);
+}
+
+LabelSelector LabelSelector::ParseFromJson(const std::string& jsonData)
+{
+    LabelSelector result;
+    ParseFieldsFromJson(jsonData, result.MatchExpressions, result.MatchLabels);
+    return result;
 }
 
 LabelSelectorRequirementBuilder& LabelSelectorRequirementBuilder::Key(const std::string& key)

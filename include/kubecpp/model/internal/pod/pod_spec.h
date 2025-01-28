@@ -44,6 +44,7 @@ struct PodOs
     Checked<std::string> Name{ "name", true, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static PodOs ParseFromJson(const std::string& jsonData);
 };
 
 struct PodSpec
