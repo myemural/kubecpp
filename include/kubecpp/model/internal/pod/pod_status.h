@@ -22,111 +22,133 @@
 
 #include "kubecpp/common/checked.h"
 #include "kubecpp/model/internal/common/resource_requirements.h"
-#include "kubecpp/model/internal/pod/status/host_ip.h"
-#include "kubecpp/model/internal/pod/status/pod_ip.h"
-#include "kubecpp/model/internal/pod/status/pod_condition.h"
-#include "kubecpp/model/internal/pod/status/pod_resource_claim_status.h"
 
 namespace kubecpp::model::internal::pod
 {
 
+struct HostIP
+{
+    Checked<std::string> Ip{ "ip", true, "description" };
+};
+
+struct PodIP
+{
+    Checked<std::string> Ip{ "ip", true, "description" };
+};
+
+struct PodCondition
+{
+    Checked<std::string> Status{ "status", true, "description" };
+    Checked<std::string> Type{ "type", true, "description" };
+    Checked<std::string> LastProbeTime{ "lastProbeTime", false, "description" };           // Time
+    Checked<std::string> LastTransitionTime{ "lastTransitionTime", false, "description" }; // Time
+    Checked<std::string> Message{ "message", false, "description" };
+    Checked<std::string> Reason{ "reason", false, "description" };
+};
+
 struct ResourceHealth
 {
     Checked<std::string> ResourceID{ "resourceID", true, "description" };
-    Checked<std::string> Health{ "health", true, "description" };
+    Checked<std::string> Health{ "health", false, "description" };
 };
 
 struct ResourceStatus
 {
     Checked<std::string> Name{ "name", true, "description" };
-    Checked<std::vector<ResourceHealth>> Resources{ "resources", true, "description" };
+    Checked<std::vector<ResourceHealth>> Resources{ "resources", false, "description" };
 };
 
 struct ContainerStateRunning
 {
-    Checked<std::string> StartedAt{ "startedAt", true, "description" }; // Time
+    Checked<std::string> StartedAt{ "startedAt", false, "description" }; // Time
 };
 
 struct ContainerStateTerminated
 {
-    Checked<std::string> ContainerID{ "containerID", true, "description" };
-    Checked<std::string> ExitCode{ "exitCode", true, "description" };
-    Checked<std::string> StartedAt{ "startedAt", true, "description" };   // Time
-    Checked<std::string> FinishedAt{ "finishedAt", true, "description" }; // Time
-    Checked<std::string> Message{ "message", true, "description" };
-    Checked<std::string> Reason{ "reason", true, "description" };
-    Checked<int32_t> Signal{ "signal", true, "description" };
+    Checked<std::string> ContainerID{ "containerID", false, "description" };
+    Checked<std::string> ExitCode{ "exitCode", false, "description" };
+    Checked<std::string> StartedAt{ "startedAt", false, "description" };   // Time
+    Checked<std::string> FinishedAt{ "finishedAt", false, "description" }; // Time
+    Checked<std::string> Message{ "message", false, "description" };
+    Checked<std::string> Reason{ "reason", false, "description" };
+    Checked<int32_t> Signal{ "signal", false, "description" };
 };
 
 struct ContainerStateWaiting
 {
-    Checked<std::string> Message{ "message", true, "description" };
-    Checked<std::string> Reason{ "reason", true, "description" };
+    Checked<std::string> Message{ "message", false, "description" };
+    Checked<std::string> Reason{ "reason", false, "description" };
 };
 
 struct ContainerState
 {
-    Checked<ContainerStateRunning> Running{ "running", true, "description" };
-    Checked<ContainerStateTerminated> Terminated{ "terminated", true, "description" };
-    Checked<ContainerStateWaiting> Waiting{ "Waiting", true, "description" };
+    Checked<ContainerStateRunning> Running{ "running", false, "description" };
+    Checked<ContainerStateTerminated> Terminated{ "terminated", false, "description" };
+    Checked<ContainerStateWaiting> Waiting{ "Waiting", false, "description" };
 };
 
 struct LinuxContainerUser
 {
     Checked<int64_t> Gid{ "gid", true, "description" };
     Checked<int64_t> Uid{ "uid", true, "description" };
-    Checked<std::vector<int64_t>> SupplementalGroups{ "supplementalGroups", true, "description" };
+    Checked<std::vector<int64_t>> SupplementalGroups{ "supplementalGroups", false, "description" };
 };
 
 struct ContainerUser
 {
-    Checked<LinuxContainerUser> Linux{ "linux", true, "description" };
+    Checked<LinuxContainerUser> Linux{ "linux", false, "description" };
 };
 
 struct VolumeMountStatus
 {
     Checked<std::string> MountPath{ "mountPath", true, "description" };
     Checked<std::string> Name{ "name", true, "description" };
-    Checked<bool> ReadOnly{ "readOnly", true, "description" };
-    Checked<std::string> RecursiveReadOnly{ "recursiveReadOnly", true, "description" };
+    Checked<bool> ReadOnly{ "readOnly", false, "description" };
+    Checked<std::string> RecursiveReadOnly{ "recursiveReadOnly", false, "description" };
 };
 
 struct ContainerStatus
 {
-    Checked<std::unordered_map<std::string, std::string>> AllocatedResources{ "allocatedResources", true, "description" }; // Quantity
-    Checked<std::vector<ResourceStatus>> AllocatedResourcesStatus{ "allocatedResourcesStatus", true, "description" };
-    Checked<std::string> ContainerID{ "containerID", true, "description" };
-    Checked<std::string> Image{ "image", true, "description" };
-    Checked<std::string> ImageID{ "imageID", true, "description" };
-    Checked<ContainerState> LastState{ "lastState", true, "description" };
+    Checked<std::unordered_map<std::string, std::string>> AllocatedResources{ "allocatedResources", false, "description" }; // Quantity
+    Checked<std::vector<ResourceStatus>> AllocatedResourcesStatus{ "allocatedResourcesStatus", false, "description" };
+    Checked<std::string> ContainerID{ "containerID", false, "description" };
+    Checked<std::string> Image{ "image", false, "description" };
+    Checked<std::string> ImageID{ "imageID", false, "description" };
+    Checked<ContainerState> LastState{ "lastState", false, "description" };
+    Checked<std::string> Name{ "name", false, "description" };
+    Checked<bool> Ready{ "ready", false, "description" };
+    Checked<common::ResourceRequirements> Resources{ "resources", false, "description" };
+    Checked<int32_t> RestartCount{ "restartCount", false, "description" };
+    Checked<bool> Started{ "started", false, "description" };
+    Checked<ContainerState> State{ "state", false, "description" };
+    Checked<ContainerUser> User{ "user", false, "description" };
+    Checked<std::vector<VolumeMountStatus>> VolumeMounts{ "volumeMounts", false, "description" };
+};
+
+struct PodResourceClaimStatus
+{
     Checked<std::string> Name{ "name", true, "description" };
-    Checked<bool> Ready{ "ready", true, "description" };
-    Checked<common::ResourceRequirements> Resources{ "resources", true, "description" };
-    Checked<int32_t> RestartCount{ "restartCount", true, "description" };
-    Checked<bool> Started{ "started", true, "description" };
-    Checked<ContainerState> State{ "state", true, "description" };
-    Checked<ContainerUser> User{ "user", true, "description" };
-    Checked<std::vector<VolumeMountStatus>> VolumeMounts{ "volumeMounts", true, "description" };
+    Checked<std::string> ResourceClaimName{ "resourceClaimName", false, "description" };
 };
 
 struct PodStatus
 {
-    Checked<std::string> NominatedNodeName{ "nominatedNodeName", true, "description" };
-    Checked<std::string> HostIp{ "hostIP", true, "description" };
-    Checked<std::vector<status::HostIP>> HostIPs{ "hostIPs", true, "description" };
-    Checked<std::string> StartTime{ "startTime", true, "description" }; // Time
-    Checked<std::string> Phase{ "phase", true, "description" };
-    Checked<std::string> Message{ "message", true, "description" };
-    Checked<std::string> Reason{ "reason", true, "description" };
-    Checked<std::string> PodIp{ "podIP", true, "description" };
-    Checked<std::vector<status::PodIP>> PodIPs{ "podIPs", true, "description" };
-    Checked<std::vector<status::PodCondition>> Conditions{ "conditions", true, "description" };
-    Checked<std::string> QosClass{ "qosClass", true, "description" };
-    Checked<std::vector<ContainerStatus>> InitContainerStatuses{ "InitContainerStatuses", true, "description" };
-    Checked<std::vector<ContainerStatus>> ContainerStatuses{ "containerStatuses", true, "description" };
-    Checked<std::vector<ContainerStatus>> EphemeralContainerStatuses{ "ephemeralContainerStatuses", true, "description" };
-    Checked<std::vector<status::PodResourceClaimStatus>> ResourceClaimStatuses{ "resourceClaimStatuses", true, "description" };
-    Checked<std::string> Resize{ "resize", true, "description" };
+    Checked<std::string> NominatedNodeName{ "nominatedNodeName", false, "description" };
+    Checked<std::string> HostIp{ "hostIP", false, "description" };
+    Checked<std::vector<HostIP>> HostIPs{ "hostIPs", false, "description" };
+    Checked<std::string> StartTime{ "startTime", false, "description" }; // Time
+    Checked<std::string> Phase{ "phase", false, "description" };
+    Checked<std::string> Message{ "message", false, "description" };
+    Checked<std::string> Reason{ "reason", false, "description" };
+    Checked<std::string> PodIp{ "podIP", false, "description" };
+    Checked<std::vector<PodIP>> PodIPs{ "podIPs", false, "description" };
+    Checked<std::vector<PodCondition>> Conditions{ "conditions", false, "description" };
+    Checked<std::string> QosClass{ "qosClass", false, "description" };
+    Checked<std::vector<ContainerStatus>> InitContainerStatuses{ "InitContainerStatuses", false, "description" };
+    Checked<std::vector<ContainerStatus>> ContainerStatuses{ "containerStatuses", false, "description" };
+    Checked<std::vector<ContainerStatus>> EphemeralContainerStatuses{ "ephemeralContainerStatuses", false, "description" };
+    Checked<std::vector<PodResourceClaimStatus>> ResourceClaimStatuses{ "resourceClaimStatuses", false, "description" };
+    Checked<std::string> Resize{ "resize", false, "description" };
 
     static PodStatus ParseFromJson(const std::string& jsonData);
 };
