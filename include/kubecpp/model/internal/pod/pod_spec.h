@@ -21,20 +21,12 @@
 #include <vector>
 
 #include "kubecpp/common/checked.h"
-#include "kubecpp/common/json_utils.h"
 #include "kubecpp/model/internal/common/local_object_reference.h"
 #include "kubecpp/model/internal/common/volume.h"
-#include "kubecpp/model/internal/pod/affinity.h"
 #include "kubecpp/model/internal/pod/container.h"
-#include "kubecpp/model/internal/pod/ephemeral_container.h"
-#include "kubecpp/model/internal/pod/host_alias.h"
-#include "kubecpp/model/internal/pod/pod_dns_config.h"
-#include "kubecpp/model/internal/pod/pod_readiness_gate.h"
-#include "kubecpp/model/internal/pod/pod_resource_claim.h"
-#include "kubecpp/model/internal/pod/pod_scheduling_gate.h"
+#include "kubecpp/model/internal/pod/node_affinity.h"
+#include "kubecpp/model/internal/pod/pod_affinity.h"
 #include "kubecpp/model/internal/pod/pod_security_context.h"
-#include "kubecpp/model/internal/pod/toleration.h"
-#include "kubecpp/model/internal/pod/topology_spread_constraint.h"
 
 namespace kubecpp::model::internal::pod
 {
@@ -45,6 +37,97 @@ struct PodOs
 
     [[nodiscard]] std::string ParseToJson() const;
     static PodOs ParseFromJson(const std::string& jsonData);
+};
+
+struct AffinityType
+{
+    Checked<NodeAffinityType> NodeAffinity{ "nodeAffinity", false, "description" };
+    Checked<PodAffinityType> PodAffinity{ "podAffinity", false, "description" };
+    Checked<PodAntiAffinityType> PodAntiAffinity{ "podAntiAffinity", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static AffinityType ParseFromJson(const std::string& jsonData);
+};
+
+struct Toleration
+{
+    Checked<std::string> Key{ "key", false, "description" };
+    Checked<std::string> Operator{ "operator", false, "description" };
+    Checked<std::string> Value{ "value", false, "description" };
+    Checked<std::string> Effect{ "effect", false, "description" };
+    Checked<int64_t> TolerationSeconds{ "tolerationSeconds", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static Toleration ParseFromJson(const std::string& jsonData);
+};
+
+struct TopologySpreadConstraint
+{
+    Checked<int32_t> MaxSkew{ "maxSkew", true, "description" };
+    Checked<std::string> TopologyKey{ "topologyKey", true, "description" };
+    Checked<std::string> WhenUnsatisfiable{ "whenUnsatisfiable", true, "description" };
+    Checked<common::LabelSelector> LabelSelector{ "labelSelector", false, "description" };
+    Checked<std::vector<std::string>> MatchLabelKeys{ "matchLabelKeys", false, "description" };
+    Checked<int32_t> MinDomains{ "minDomains", false, "description" };
+    Checked<std::string> NodeAffinityPolicy{ "nodeAffinityPolicy", false, "description" };
+    Checked<std::string> NodeTaintsPolicy{ "nodeTaintsPolicy", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static TopologySpreadConstraint ParseFromJson(const std::string& jsonData);
+};
+
+struct PodReadinessGate
+{
+    Checked<std::string> ConditionType{ "conditionType", true, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static PodReadinessGate ParseFromJson(const std::string& jsonData);
+};
+
+struct HostAlias
+{
+    Checked<std::string> Ip{ "ip", true, "description" };
+    Checked<std::vector<std::string>> HostNames{ "hostNames", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static HostAlias ParseFromJson(const std::string& jsonData);
+};
+
+struct PodDNSConfigOption
+{
+    Checked<std::string> Name{ "name", true, "description" };
+    Checked<std::string> Value{ "value", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static PodDNSConfigOption ParseFromJson(const std::string& jsonData);
+};
+
+struct PodDNSConfig
+{
+    Checked<std::vector<std::string>> Nameservers{ "nameservers", false, "description" };
+    Checked<std::vector<PodDNSConfigOption>> Options{ "options", false, "description" };
+    Checked<std::vector<std::string>> Searches{ "searches", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static PodDNSConfig ParseFromJson(const std::string& jsonData);
+};
+
+struct PodResourceClaim
+{
+    Checked<std::string> Name{ "name", true, "description" };
+    Checked<std::string> ResourceClaimName{ "resourceClaimName", false, "description" };
+    Checked<std::string> ResourceClaimTemplateName{ "resourceClaimTemplateName", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static PodResourceClaim ParseFromJson(const std::string& jsonData);
+};
+
+struct PodSchedulingGate
+{
+    Checked<std::string> Name{ "name", true, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static PodSchedulingGate ParseFromJson(const std::string& jsonData);
 };
 
 struct PodSpec
@@ -187,6 +270,96 @@ struct PodSpecBuilder
 
 private:
     PodSpec podSpec_;
+};
+
+struct TolerationBuilder
+{
+    TolerationBuilder& Key(const std::string& key);
+
+    TolerationBuilder& Operator(const std::string& oprt);
+
+    TolerationBuilder& Value(const std::string& value);
+
+    TolerationBuilder& Effect(const std::string& effect);
+
+    TolerationBuilder& TolerationSeconds(int64_t tolerationSeconds);
+
+    Toleration Build();
+
+private:
+    Toleration toleration_;
+};
+
+struct TopologySpreadConstraintBuilder
+{
+    TopologySpreadConstraintBuilder& MaxSkew(int32_t maxSkew);
+
+    TopologySpreadConstraintBuilder& TopologyKey(const std::string& topologyKey);
+
+    TopologySpreadConstraintBuilder& WhenUnsatisfiable(const std::string& whenUnsatisfiable);
+
+    TopologySpreadConstraintBuilder& LabelSelector(const common::LabelSelector& labelSelector);
+
+    TopologySpreadConstraintBuilder& MatchLabelKeys(const std::vector<std::string>& matchLabelKeys);
+
+    TopologySpreadConstraintBuilder& MinDomains(int32_t minDomains);
+
+    TopologySpreadConstraintBuilder& NodeAffinityPolicy(const std::string& nodeAffinityPolicy);
+
+    TopologySpreadConstraintBuilder& NodeTaintsPolicy(const std::string& nodeTaintsPolicy);
+
+    TopologySpreadConstraint Build();
+
+private:
+    TopologySpreadConstraint topologySpreadConstraint_;
+};
+
+struct PodReadinessGateBuilder
+{
+    PodReadinessGateBuilder& ConditionType(const std::string& conditionType);
+
+    PodReadinessGate Build();
+
+private:
+    PodReadinessGate podReadinessGate_;
+};
+
+struct HostAliasBuilder
+{
+    HostAliasBuilder& Ip(const std::string& ip);
+
+    HostAliasBuilder& HostNames(const std::vector<std::string>& hostNames);
+
+    HostAlias Build();
+
+private:
+    HostAlias hostAlias_;
+};
+
+struct PodDNSConfigOptionBuilder
+{
+    PodDNSConfigOptionBuilder& Name(const std::string& name);
+
+    PodDNSConfigOptionBuilder& Value(const std::string& value);
+
+    PodDNSConfigOption Build();
+
+private:
+    PodDNSConfigOption podDNSConfigOption_;
+};
+
+struct PodDNSConfigBuilder
+{
+    PodDNSConfigBuilder& Nameservers(const std::vector<std::string>& nameservers);
+
+    PodDNSConfigBuilder& Options(const std::vector<PodDNSConfigOption>& options);
+
+    PodDNSConfigBuilder& Searches(const std::vector<std::string>& searches);
+
+    PodDNSConfig Build();
+
+private:
+    PodDNSConfig podDNSConfig_;
 };
 
 } // namespace kubecpp::model::internal::pod

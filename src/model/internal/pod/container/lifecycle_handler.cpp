@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-#include "kubecpp/model/internal/pod/container/container_port.h"
+#include "kubecpp/model/internal/pod/container/lifecycle_handler.h"
 
 #include "kubecpp/common/json_utils.h"
 
 namespace kubecpp::model::internal::pod::container
 {
 
-std::string ContainerPortType::ParseToJson() const
+std::string LifecycleHandler::ParseToJson() const
 {
-    return ParseFieldsToJson(ContainerPort, HostIP, HostPort, Name, Protocol);
+    return ParseFieldsToJson(Exec, HttpGet, Sleep, TcpSocket);
 }
 
 } // namespace kubecpp::model::internal::pod::container

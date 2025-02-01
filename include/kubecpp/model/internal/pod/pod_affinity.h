@@ -14,40 +14,16 @@
  * limitations under the License.
  */
 
-#ifndef AFFINITY_H_
-#define AFFINITY_H_
+#ifndef POD_AFFINITY_H_
+#define POD_AFFINITY_H_
 
 #include <vector>
 
 #include "kubecpp/common/checked.h"
 #include "kubecpp/model/internal/common/label_selector.h"
-#include "kubecpp/model/internal/common/node_selector_requirement.h"
 
 namespace kubecpp::model::internal::pod
 {
-
-struct NodeSelectorTerm
-{
-    Checked<common::NodeSelectorRequirement> MatchExpressions{ "matchExpressions", false, "description" };
-    Checked<common::NodeSelectorRequirement> MatchFields{ "matchFields", false, "description" };
-
-    [[nodiscard]] std::string ParseToJson() const;
-};
-
-struct PreferredSchedulingTerm
-{
-    Checked<NodeSelectorTerm> Preference{ "preference", true, "description" };
-    Checked<int32_t> Weight{ "weight", true, "description" };
-
-    [[nodiscard]] std::string ParseToJson() const;
-};
-
-struct NodeSelector
-{
-    Checked<std::vector<NodeSelectorTerm>> NodeSelectorTerms{ "nodeSelectorTerms", true, "description" };
-
-    [[nodiscard]] std::string ParseToJson() const;
-};
 
 struct PodAffinityTermType
 {
@@ -65,18 +41,6 @@ struct WeightedPodAffinityTerm
 {
     Checked<PodAffinityTermType> PodAffinityTerm{ "podAffinityTerm", true, "description" };
     Checked<int32_t> Weight{ "weight", true, "description" };
-
-    [[nodiscard]] std::string ParseToJson() const;
-};
-
-struct NodeAffinityType
-{
-    Checked<std::vector<PreferredSchedulingTerm>> PreferredDuringSchedulingIgnoredDuringExecution{
-        "preferredDuringSchedulingIgnoredDuringExecution", false, "description"
-    };
-    Checked<NodeSelector> RequiredDuringSchedulingIgnoredDuringExecution{
-        "requiredDuringSchedulingIgnoredDuringExecution", false, "description"
-    };
 
     [[nodiscard]] std::string ParseToJson() const;
 };
@@ -105,16 +69,6 @@ struct PodAntiAffinityType
     [[nodiscard]] std::string ParseToJson() const;
 };
 
-struct AffinityType
-{
-    Checked<NodeAffinityType> NodeAffinity{ "nodeAffinity", false, "description" };
-    Checked<PodAffinityType> PodAffinity{ "podAffinity", false, "description" };
-    Checked<PodAntiAffinityType> PodAntiAffinity{ "podAntiAffinity", false, "description" };
-
-    [[nodiscard]] std::string ParseToJson() const;
-    static AffinityType ParseFromJson(const std::string& jsonData);
-};
-
 } // namespace kubecpp::model::internal::pod
 
-#endif // AFFINITY_H_
+#endif // POD_AFFINITY_H_

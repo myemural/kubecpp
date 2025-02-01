@@ -35,6 +35,7 @@ struct ManagedFieldsEntry
     Checked<std::string> Manager{ "manager", false, "description" };
     Checked<std::string> Operation{ "operation", false, "description" };
     Checked<std::string> Subresource{ "subresource", false, "description" };
+    Checked<std::string> Time{ "time", false, "description" }; // Time
 
     [[nodiscard]] std::string ParseToJson() const;
     static ManagedFieldsEntry ParseFromJson(const std::string& jsonData);
@@ -46,8 +47,8 @@ struct OwnerReference
     Checked<std::string> Kind{ "kind", true, "description" };
     Checked<std::string> Name{ "name", true, "description" };
     Checked<std::string> Uid{ "uid", true, "description" };
-    Checked<bool> Controller{ "controller", false, "description" };
     Checked<bool> BlockOwnerDeletion{ "blockOwnerDeletion", false, "description" };
+    Checked<bool> Controller{ "controller", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
     static OwnerReference ParseFromJson(const std::string& jsonData);
@@ -60,6 +61,7 @@ struct ObjectMeta
     Checked<std::string> Namespace{ "namespace", false, "description", std::make_shared<validator::DnsLabelNameValidator>() };
     Checked<std::unordered_map<std::string, std::string>> Labels{ "labels", false, "description",
         std::make_shared<validator::LabelKeyValueValidator>() };
+    Checked<std::unordered_map<std::string, std::string>> Annotations{ "annotations", false, "description" };
     Checked<std::vector<std::string>> Finalizers{ "finalizers", false, "description" };
     Checked<std::vector<ManagedFieldsEntry>> ManagedFields{ "managedFields", false, "description" };
     Checked<std::vector<OwnerReference>> OwnerReferences{ "ownerReferences", false, "description" };

@@ -23,39 +23,40 @@ namespace kubecpp::model::internal::common
 
 std::string ManagedFieldsEntry::ParseToJson() const
 {
-    return ParseFieldsToJson(ApiVersion, FieldsType, FieldsV1, Manager, Operation, Subresource);
+    return ParseFieldsToJson(ApiVersion, FieldsType, FieldsV1, Manager, Operation, Subresource, Time);
 }
 
 ManagedFieldsEntry ManagedFieldsEntry::ParseFromJson(const std::string& jsonData)
 {
     ManagedFieldsEntry result;
     ParseFieldsFromJson(jsonData, result.ApiVersion, result.FieldsType, result.FieldsV1, result.Manager,
-    result.Operation, result.Subresource);
+    result.Operation, result.Subresource, result.Time);
     return result;
 }
 
 std::string OwnerReference::ParseToJson() const
 {
-    return ParseFieldsToJson(ApiVersion, Kind, Name, Uid, Controller, BlockOwnerDeletion);
+    return ParseFieldsToJson(ApiVersion, Kind, Name, Uid, BlockOwnerDeletion, Controller);
 }
 
 OwnerReference OwnerReference::ParseFromJson(const std::string& jsonData)
 {
     OwnerReference result;
-    ParseFieldsFromJson(jsonData, result.ApiVersion, result.Kind, result.Name, result.Uid, result.Controller, result.BlockOwnerDeletion);
+    ParseFieldsFromJson(
+    jsonData, result.ApiVersion, result.Kind, result.Name, result.Uid, result.BlockOwnerDeletion, result.Controller);
     return result;
 }
 
 std::string ObjectMeta::ParseToJson() const
 {
-    return ParseFieldsToJson(Name, GenerateName, Namespace, Labels, Finalizers, ManagedFields, OwnerReferences);
+    return ParseFieldsToJson(Name, GenerateName, Namespace, Labels, Annotations, Finalizers, ManagedFields, OwnerReferences);
 }
 
 ObjectMeta ObjectMeta::ParseFromJson(const std::string& jsonData)
 {
     ObjectMeta result;
-    ParseFieldsFromJson(jsonData, result.Name, result.GenerateName, result.Namespace, result.Labels, result.Finalizers,
-    result.ManagedFields, result.OwnerReferences, result.CreationTimestamp, result.DeletionGracePeriodSeconds,
+    ParseFieldsFromJson(jsonData, result.Name, result.GenerateName, result.Namespace, result.Labels, result.Annotations,
+    result.Finalizers, result.ManagedFields, result.OwnerReferences, result.CreationTimestamp, result.DeletionGracePeriodSeconds,
     result.DeletionTimestamp, result.Generation, result.ResourceVersion, result.SelfLink, result.Uid);
     return result;
 }

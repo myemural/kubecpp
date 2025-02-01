@@ -14,22 +14,31 @@
  * limitations under the License.
  */
 
-#ifndef POD_SCHEDULING_NAME_H_
-#define POD_SCHEDULING_NAME_H_
+#include "kubecpp/model/internal/pod/node_affinity.h"
 
-#include "kubecpp/common/checked.h"
+#include "kubecpp/common/json_utils.h"
 
 namespace kubecpp::model::internal::pod
 {
 
-struct PodSchedulingGate
+std::string NodeSelectorTerm::ParseToJson() const
 {
-    Checked<std::string> Name{ "name", true, "description" };
+    return ParseFieldsToJson(MatchExpressions, MatchFields);
+}
 
-    [[nodiscard]] std::string ParseToJson() const;
-    static PodSchedulingGate ParseFromJson(const std::string& jsonData);
-};
+std::string PreferredSchedulingTerm::ParseToJson() const
+{
+    return ParseFieldsToJson(Preference, Weight);
+}
+
+std::string NodeSelector::ParseToJson() const
+{
+    return ParseFieldsToJson(NodeSelectorTerms);
+}
+
+std::string NodeAffinityType::ParseToJson() const
+{
+    return ParseFieldsToJson(PreferredDuringSchedulingIgnoredDuringExecution, RequiredDuringSchedulingIgnoredDuringExecution);
+}
 
 } // namespace kubecpp::model::internal::pod
-
-#endif // POD_SCHEDULING_NAME_H_

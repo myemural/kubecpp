@@ -22,6 +22,7 @@
 #include <vector>
 
 #include "kubecpp/common/checked.h"
+#include "kubecpp/model/internal/common/label_selector.h"
 #include "kubecpp/model/internal/common/local_object_reference.h"
 #include "kubecpp/model/internal/common/object_field_selector.h"
 #include "kubecpp/model/internal/common/object_meta.h"
@@ -86,10 +87,18 @@ struct DownwardAPIVolumeSource
 
 struct ClusterTrustBundleProjection
 {
+    Checked<std::string> Path{ "path", true, "description" };
+    Checked<common::LabelSelector> LabelSelector{ "labelSelector", false, "description" };
+    Checked<std::string> Name{ "name", false, "description" };
+    Checked<bool> Optional{ "optional", false, "description" };
+    Checked<std::string> SignerName{ "signerName", false, "description" };
 };
 
 struct ConfigMapProjection
 {
+    Checked<std::string> Name{ "name", false, "description" };
+    Checked<bool> Optional{ "optional", false, "description" };
+    Checked<std::vector<KeyToPath>> Items{ "items", false, "description" };
 };
 
 struct DownwardAPIProjection
@@ -99,10 +108,16 @@ struct DownwardAPIProjection
 
 struct SecretProjection
 {
+    Checked<std::string> Name{ "name", false, "description" };
+    Checked<bool> Optional{ "optional", false, "description" };
+    Checked<std::vector<KeyToPath>> Items{ "items", false, "description" };
 };
 
 struct ServiceAccountTokenProjection
 {
+    Checked<std::string> Path{ "path", true, "description" };
+    Checked<std::string> Audience{ "audience", false, "description" };
+    Checked<std::int64_t> ExpirationSeconds{ "expirationSeconds", false, "description" };
 };
 
 struct VolumeProjection
@@ -165,6 +180,7 @@ struct CephFSVolumeSource
     Checked<bool> ReadOnly{ "readOnly", false, "description" };
     Checked<std::string> SecretFile{ "secretFile", false, "description" };
     Checked<LocalObjectReference> SecretRef{ "secretRef", false, "description" };
+    Checked<std::string> User{ "user", false, "description" };
 };
 
 struct CinderVolumeSource
@@ -293,18 +309,40 @@ struct RBDVolumeSource
 
 struct ScaleIOVolumeSource
 {
+    Checked<std::string> Gateway{ "gateway", true, "description" };
+    Checked<LocalObjectReference> SecretRef{ "secretRef", true, "description" };
+    Checked<std::string> System{ "system", true, "description" };
+    Checked<std::string> FsType{ "fsType", false, "description" };
+    Checked<std::string> ProtectionDomain{ "protectionDomain", false, "description" };
+    Checked<bool> ReadOnly{ "readOnly", false, "description" };
+    Checked<bool> SslEnabled{ "sslEnabled", false, "description" };
+    Checked<std::string> StorageMode{ "storageMode", false, "description" };
+    Checked<std::string> StoragePool{ "storagePool", false, "description" };
+    Checked<std::string> VolumeName{ "volumeName", false, "description" };
 };
 
 struct StorageOSVolumeSource
 {
+    Checked<std::string> FsType{ "fsType", false, "description" };
+    Checked<bool> ReadOnly{ "readOnly", false, "description" };
+    Checked<LocalObjectReference> SecretRef{ "secretRef", false, "description" };
+    Checked<std::string> VolumeName{ "volumeName", false, "description" };
+    Checked<std::string> VolumeNamespace{ "volumeNamespace", false, "description" };
 };
 
 struct VsphereVirtualDiskVolumeSource
 {
+    Checked<std::string> VolumePath{ "volumePath", true, "description" };
+    Checked<std::string> FsType{ "fsType", false, "description" };
+    Checked<std::string> StoragePolicyID{ "storagePolicyID", false, "description" };
+    Checked<std::string> StoragePolicyName{ "storagePolicyName", false, "description" };
 };
 
 struct GitRepoVolumeSource
 {
+    Checked<std::string> Repository{ "repository", true, "description" };
+    Checked<std::string> Directory{ "directory", false, "description" };
+    Checked<std::string> Revision{ "revision", false, "description" };
 };
 
 struct Volume

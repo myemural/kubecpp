@@ -21,6 +21,66 @@
 namespace kubecpp::model::internal::pod
 {
 
+std::string ContainerPortType::ParseToJson() const
+{
+    return ParseFieldsToJson(ContainerPort, HostIP, HostPort, Name, Protocol);
+}
+
+std::string SecretKeySelector::ParseToJson() const
+{
+    return ParseFieldsToJson(Key, Name, Optional);
+}
+
+std::string ConfigMapKeySelector::ParseToJson() const
+{
+    return ParseFieldsToJson(Key, Name, Optional);
+}
+
+std::string EnvVarSource::ParseToJson() const
+{
+    return ParseFieldsToJson(ConfigMapKeyRef, FieldRef, ResourceFieldRef, SecretKeyRef);
+}
+
+std::string EnvVar::ParseToJson() const
+{
+    return ParseFieldsToJson(Name, Value, ValueFrom);
+}
+
+std::string SecretEnvSource::ParseToJson() const
+{
+    return ParseFieldsToJson(Name, Optional);
+}
+
+std::string ConfigMapEnvSource::ParseToJson() const
+{
+    return ParseFieldsToJson(Name, Optional);
+}
+
+std::string EnvFromSource::ParseToJson() const
+{
+    return ParseFieldsToJson(ConfigMapRef, Prefix, SecretRef);
+}
+
+std::string VolumeMount::ParseToJson() const
+{
+    return ParseFieldsToJson(MountPath, Name, MountPropagation, ReadOnly, RecursiveReadOnly, SubPath, SubPathExpr);
+}
+
+std::string VolumeDevice::ParseToJson() const
+{
+    return ParseFieldsToJson(DevicePath, Name);
+}
+
+std::string ContainerResizePolicy::ParseToJson() const
+{
+    return ParseFieldsToJson(ResourceName, RestartPolicy);
+}
+
+std::string LifecycleType::ParseToJson() const
+{
+    return ParseFieldsToJson(PostStart, PreStop);
+}
+
 std::string Container::ParseToJson() const
 {
     return ParseFieldsToJson(Name, Image, ImagePullPolicy, Command, Args, WorkingDir, Ports, Env, EnvFrom, VolumeMounts,
@@ -34,6 +94,13 @@ Container Container::ParseFromJson(const std::string& jsonData)
     Container result;
     ParseFieldsFromJson(jsonData, result.Name);
     return result;
+}
+
+std::string EphemeralContainer::ParseToJson() const
+{
+    return ParseFieldsToJson(Name, TargetContainerName, Image, ImagePullPolicy, Command, Args, WorkingDir, Env, EnvFrom,
+    VolumeMounts, VolumeDevices, ResizePolicy, TerminationMessagePath, TerminationMessagePolicy, RestartPolicy,
+    SecurityContext, Stdin, StdinOnce, Tty);
 }
 
 ContainerBuilder& ContainerBuilder::Name(const std::string& name)
@@ -72,31 +139,31 @@ ContainerBuilder& ContainerBuilder::WorkingDir(const std::string& workingDir)
     return *this;
 }
 
-ContainerBuilder& ContainerBuilder::Ports(const std::vector<container::ContainerPortType>& ports)
+ContainerBuilder& ContainerBuilder::Ports(const std::vector<ContainerPortType>& ports)
 {
     container_.Ports = ports;
     return *this;
 }
 
-ContainerBuilder& ContainerBuilder::Env(const std::vector<container::EnvVar>& env)
+ContainerBuilder& ContainerBuilder::Env(const std::vector<EnvVar>& env)
 {
     container_.Env = env;
     return *this;
 }
 
-ContainerBuilder& ContainerBuilder::EnvFrom(const std::vector<container::EnvFromSource>& envFrom)
+ContainerBuilder& ContainerBuilder::EnvFrom(const std::vector<EnvFromSource>& envFrom)
 {
     container_.EnvFrom = envFrom;
     return *this;
 }
 
-ContainerBuilder& ContainerBuilder::VolumeMounts(const std::vector<container::VolumeMount>& volumeMounts)
+ContainerBuilder& ContainerBuilder::VolumeMounts(const std::vector<VolumeMount>& volumeMounts)
 {
     container_.VolumeMounts = volumeMounts;
     return *this;
 }
 
-ContainerBuilder& ContainerBuilder::VolumeDevices(const std::vector<container::VolumeDevice>& volumeDevices)
+ContainerBuilder& ContainerBuilder::VolumeDevices(const std::vector<VolumeDevice>& volumeDevices)
 {
     container_.VolumeDevices = volumeDevices;
     return *this;
@@ -108,13 +175,13 @@ ContainerBuilder& ContainerBuilder::Resources(const common::ResourceRequirements
     return *this;
 }
 
-ContainerBuilder& ContainerBuilder::ResizePolicy(const std::vector<container::ContainerResizePolicy>& resizePolicy)
+ContainerBuilder& ContainerBuilder::ResizePolicy(const std::vector<ContainerResizePolicy>& resizePolicy)
 {
     container_.ResizePolicy = resizePolicy;
     return *this;
 }
 
-ContainerBuilder& ContainerBuilder::Lifecycle(const container::Lifecycle& lifecycle)
+ContainerBuilder& ContainerBuilder::Lifecycle(const LifecycleType& lifecycle)
 {
     container_.Lifecycle = lifecycle;
     return *this;
@@ -183,6 +250,125 @@ ContainerBuilder& ContainerBuilder::Tty(bool tty)
 Container ContainerBuilder::Build()
 {
     return std::move(container_);
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::Name(const std::string& name)
+{
+    ephemeralContainer_.Name = name;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::TargetContainerName(const std::string& targetContainerName)
+{
+    ephemeralContainer_.TargetContainerName = targetContainerName;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::Image(const std::string& image)
+{
+    ephemeralContainer_.Image = image;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::ImagePullPolicy(const std::string& imagePullPolicy)
+{
+    ephemeralContainer_.ImagePullPolicy = imagePullPolicy;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::Command(const std::vector<std::string>& command)
+{
+    ephemeralContainer_.Command = command;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::Args(const std::vector<std::string>& args)
+{
+    ephemeralContainer_.Args = args;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::WorkingDir(const std::string& workingDir)
+{
+    ephemeralContainer_.WorkingDir = workingDir;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::Env(const std::vector<EnvVar>& env)
+{
+    ephemeralContainer_.Env = env;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::EnvFrom(const std::vector<EnvFromSource>& envFrom)
+{
+    ephemeralContainer_.EnvFrom = envFrom;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::VolumeMounts(const std::vector<VolumeMount>& volumeMounts)
+{
+    ephemeralContainer_.VolumeMounts = volumeMounts;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::VolumeDevices(const std::vector<VolumeDevice>& volumeDevices)
+{
+    ephemeralContainer_.VolumeDevices = volumeDevices;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::ResizePolicy(const std::vector<ContainerResizePolicy>& resizePolicy)
+{
+    ephemeralContainer_.ResizePolicy = resizePolicy;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::TerminationMessagePath(const std::string& terminationMessagePath)
+{
+    ephemeralContainer_.TerminationMessagePath = terminationMessagePath;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::TerminationMessagePolicy(const std::string& terminationMessagePolicy)
+{
+    ephemeralContainer_.TerminationMessagePolicy = terminationMessagePolicy;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::RestartPolicy(const std::string& restartPolicy)
+{
+    ephemeralContainer_.RestartPolicy = restartPolicy;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::SecurityContext(const container::SecurityContext& securityContext)
+{
+    ephemeralContainer_.SecurityContext = securityContext;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::Stdin(bool stdIn)
+{
+    ephemeralContainer_.Stdin = stdIn;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::StdinOnce(bool stdinOnce)
+{
+    ephemeralContainer_.StdinOnce = stdinOnce;
+    return *this;
+}
+
+EphemeralContainerBuilder& EphemeralContainerBuilder::Tty(bool tty)
+{
+    ephemeralContainer_.Tty = tty;
+    return *this;
+}
+
+EphemeralContainer EphemeralContainerBuilder::Build()
+{
+    return std::move(ephemeralContainer_);
 }
 
 } // namespace kubecpp::model::internal::pod

@@ -14,34 +14,31 @@
  * limitations under the License.
  */
 
-#include "kubecpp/model/internal/pod/pod_readiness_gate.h"
+#include "kubecpp/model/internal/pod/pod_affinity.h"
 
 #include "kubecpp/common/json_utils.h"
 
 namespace kubecpp::model::internal::pod
 {
 
-std::string PodReadinessGate::ParseToJson() const
+std::string PodAffinityTermType::ParseToJson() const
 {
-    return ParseFieldsToJson(ConditionType);
+    return ParseFieldsToJson(TopologyKey, LabelSelector, MatchLabelKeys, MismatchLabelKeys, NamespaceSelector, Namespaces);
 }
 
-PodReadinessGate PodReadinessGate::ParseFromJson(const std::string& jsonData)
+std::string WeightedPodAffinityTerm::ParseToJson() const
 {
-    PodReadinessGate result;
-    ParseFieldsFromJson(jsonData, result.ConditionType);
-    return result;
+    return ParseFieldsToJson(PodAffinityTerm, Weight);
 }
 
-PodReadinessGateBuilder& PodReadinessGateBuilder::ConditionType(const std::string& conditionType)
+std::string PodAffinityType::ParseToJson() const
 {
-    podReadinessGate_.ConditionType = conditionType;
-    return *this;
+    return ParseFieldsToJson(PreferredDuringSchedulingIgnoredDuringExecution, RequiredDuringSchedulingIgnoredDuringExecution);
 }
 
-PodReadinessGate PodReadinessGateBuilder::Build()
+std::string PodAntiAffinityType::ParseToJson() const
 {
-    return std::move(podReadinessGate_);
+    return ParseFieldsToJson(PreferredDuringSchedulingIgnoredDuringExecution, RequiredDuringSchedulingIgnoredDuringExecution);
 }
 
 } // namespace kubecpp::model::internal::pod

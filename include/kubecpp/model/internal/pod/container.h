@@ -20,19 +20,125 @@
 #include <vector>
 
 #include "kubecpp/common/checked.h"
+#include "kubecpp/model/internal/common/object_field_selector.h"
+#include "kubecpp/model/internal/common/resource_field_selector.h"
 #include "kubecpp/model/internal/common/resource_requirements.h"
-#include "kubecpp/model/internal/pod/container/container_port.h"
-#include "kubecpp/model/internal/pod/container/container_resize_policy.h"
-#include "kubecpp/model/internal/pod/container/env_from_source.h"
-#include "kubecpp/model/internal/pod/container/env_var.h"
-#include "kubecpp/model/internal/pod/container/lifecycle.h"
+#include "kubecpp/model/internal/pod/container/lifecycle_handler.h"
 #include "kubecpp/model/internal/pod/container/probe.h"
 #include "kubecpp/model/internal/pod/container/security_context.h"
-#include "kubecpp/model/internal/pod/container/volume_device.h"
-#include "kubecpp/model/internal/pod/container/volume_mount.h"
 
 namespace kubecpp::model::internal::pod
 {
+
+struct ContainerPortType
+{
+    Checked<int32_t> ContainerPort{ "containerPort", true, "description" };
+    Checked<std::string> HostIP{ "hostIP", false, "description" };
+    Checked<int32_t> HostPort{ "hostPort", false, "description" };
+    Checked<std::string> Name{ "name", false, "description" };
+    Checked<std::string> Protocol{ "protocol", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+};
+
+struct SecretKeySelector
+{
+    Checked<std::string> Key{ "key", true, "description" };
+    Checked<std::string> Name{ "name", false, "description" };
+    Checked<bool> Optional{ "optional", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+};
+
+struct ConfigMapKeySelector
+{
+    Checked<std::string> Key{ "key", true, "description" };
+    Checked<std::string> Name{ "name", false, "description" };
+    Checked<bool> Optional{ "optional", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+};
+
+struct EnvVarSource
+{
+    Checked<ConfigMapKeySelector> ConfigMapKeyRef{ "configMapKeyRef", false, "description" };
+    Checked<common::ObjectFieldSelector> FieldRef{ "fieldRef", false, "description" };
+    Checked<common::ResourceFieldSelector> ResourceFieldRef{ "resourceFieldRef", false, "description" };
+    Checked<SecretKeySelector> SecretKeyRef{ "secretKeyRef", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+};
+
+struct EnvVar
+{
+    Checked<std::string> Name{ "name", true, "description" };
+    Checked<std::string> Value{ "value", false, "description" };
+    Checked<EnvVarSource> ValueFrom{ "valueFrom", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+};
+
+struct SecretEnvSource
+{
+    Checked<std::string> Name{ "name", false, "description" };
+    Checked<bool> Optional{ "optional", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+};
+
+struct ConfigMapEnvSource
+{
+    Checked<std::string> Name{ "name", false, "description" };
+    Checked<bool> Optional{ "optional", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+};
+
+struct EnvFromSource
+{
+    Checked<ConfigMapEnvSource> ConfigMapRef{ "configMapRef", false, "description" };
+    Checked<std::string> Prefix{ "prefix", false, "description" };
+    Checked<SecretEnvSource> SecretRef{ "secretRef", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+};
+
+struct VolumeMount
+{
+    Checked<std::string> MountPath{ "mountPath", true, "description" };
+    Checked<std::string> Name{ "name", true, "description" };
+    Checked<std::string> MountPropagation{ "mountPropagation", false, "description" };
+    Checked<bool> ReadOnly{ "readOnly", false, "description" };
+    Checked<std::string> RecursiveReadOnly{ "recursiveReadOnly", false, "description" };
+    Checked<std::string> SubPath{ "subPath", false, "description" };
+    Checked<std::string> SubPathExpr{ "subPathExpr", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+};
+
+struct VolumeDevice
+{
+    Checked<std::string> DevicePath{ "devicePath", true, "description" };
+    Checked<std::string> Name{ "name", true, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+};
+
+struct ContainerResizePolicy
+{
+    Checked<std::string> ResourceName{ "resourceName", true, "description" };
+    Checked<std::string> RestartPolicy{ "restartPolicy", true, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+};
+
+struct LifecycleType
+{
+    Checked<container::LifecycleHandler> PostStart{ "postStart", false, "description" };
+    Checked<container::LifecycleHandler> PreStop{ "preStop", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+};
 
 struct Container
 {
@@ -42,14 +148,14 @@ struct Container
     Checked<std::vector<std::string>> Command{ "command", false, "description" };
     Checked<std::vector<std::string>> Args{ "args", false, "description" };
     Checked<std::string> WorkingDir{ "workingDir", false, "description" };
-    Checked<std::vector<container::ContainerPortType>> Ports{ "ports", false, "description" };
-    Checked<std::vector<container::EnvVar>> Env{ "env", false, "description" };
-    Checked<std::vector<container::EnvFromSource>> EnvFrom{ "envFrom", false, "description" };
-    Checked<std::vector<container::VolumeMount>> VolumeMounts{ "volumeMounts", false, "description" };
-    Checked<std::vector<container::VolumeDevice>> VolumeDevices{ "volumeDevices", false, "description" };
+    Checked<std::vector<ContainerPortType>> Ports{ "ports", false, "description" };
+    Checked<std::vector<EnvVar>> Env{ "env", false, "description" };
+    Checked<std::vector<EnvFromSource>> EnvFrom{ "envFrom", false, "description" };
+    Checked<std::vector<VolumeMount>> VolumeMounts{ "volumeMounts", false, "description" };
+    Checked<std::vector<VolumeDevice>> VolumeDevices{ "volumeDevices", false, "description" };
     Checked<common::ResourceRequirements> Resources{ "resources", false, "description" };
-    Checked<std::vector<container::ContainerResizePolicy>> ResizePolicy{ "resizePolicy", false, "description" };
-    Checked<container::Lifecycle> Lifecycle{ "lifecycle", false, "description" };
+    Checked<std::vector<ContainerResizePolicy>> ResizePolicy{ "resizePolicy", false, "description" };
+    Checked<LifecycleType> Lifecycle{ "lifecycle", false, "description" };
     Checked<std::string> TerminationMessagePath{ "terminationMessagePath", false, "description" };
     Checked<std::string> TerminationMessagePolicy{ "terminationMessagePolicy", false, "description" };
     Checked<container::Probe> LivenessProbe{ "livenessProbe", false, "description" };
@@ -63,6 +169,31 @@ struct Container
 
     [[nodiscard]] std::string ParseToJson() const;
     static Container ParseFromJson(const std::string& jsonData);
+};
+
+struct EphemeralContainer
+{
+    Checked<std::string> Name{ "name", true, "description" };
+    Checked<std::string> TargetContainerName{ "targetContainerName", true, "description" };
+    Checked<std::string> Image{ "image", false, "description" };
+    Checked<std::string> ImagePullPolicy{ "imagePullPolicy", false, "description" };
+    Checked<std::vector<std::string>> Command{ "command", false, "description" };
+    Checked<std::vector<std::string>> Args{ "args", false, "description" };
+    Checked<std::string> WorkingDir{ "workingDir", false, "description" };
+    Checked<std::vector<EnvVar>> Env{ "env", false, "description" };
+    Checked<std::vector<EnvFromSource>> EnvFrom{ "envFrom", false, "description" };
+    Checked<std::vector<VolumeMount>> VolumeMounts{ "volumeMounts", false, "description" };
+    Checked<std::vector<VolumeDevice>> VolumeDevices{ "volumeDevices", false, "description" };
+    Checked<std::vector<ContainerResizePolicy>> ResizePolicy{ "resizePolicy", false, "description" };
+    Checked<std::string> TerminationMessagePath{ "terminationMessagePath", false, "description" };
+    Checked<std::string> TerminationMessagePolicy{ "terminationMessagePolicy", false, "description" };
+    Checked<std::string> RestartPolicy{ "restartPolicy", false, "description" };
+    Checked<bool> Stdin{ "stdin", false, "description" };
+    Checked<bool> StdinOnce{ "stdinOnce", false, "description" };
+    Checked<bool> Tty{ "tty", false, "description" };
+    Checked<container::SecurityContext> SecurityContext{ "securityContext", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
 };
 
 struct ContainerBuilder
@@ -79,21 +210,21 @@ struct ContainerBuilder
 
     ContainerBuilder& WorkingDir(const std::string& workingDir);
 
-    ContainerBuilder& Ports(const std::vector<container::ContainerPortType>& ports);
+    ContainerBuilder& Ports(const std::vector<ContainerPortType>& ports);
 
-    ContainerBuilder& Env(const std::vector<container::EnvVar>& env);
+    ContainerBuilder& Env(const std::vector<EnvVar>& env);
 
-    ContainerBuilder& EnvFrom(const std::vector<container::EnvFromSource>& envFrom);
+    ContainerBuilder& EnvFrom(const std::vector<EnvFromSource>& envFrom);
 
-    ContainerBuilder& VolumeMounts(const std::vector<container::VolumeMount>& volumeMounts);
+    ContainerBuilder& VolumeMounts(const std::vector<VolumeMount>& volumeMounts);
 
-    ContainerBuilder& VolumeDevices(const std::vector<container::VolumeDevice>& volumeDevices);
+    ContainerBuilder& VolumeDevices(const std::vector<VolumeDevice>& volumeDevices);
 
     ContainerBuilder& Resources(const common::ResourceRequirements& resources);
 
-    ContainerBuilder& ResizePolicy(const std::vector<container::ContainerResizePolicy>& resizePolicy);
+    ContainerBuilder& ResizePolicy(const std::vector<ContainerResizePolicy>& resizePolicy);
 
-    ContainerBuilder& Lifecycle(const container::Lifecycle& lifecycle);
+    ContainerBuilder& Lifecycle(const LifecycleType& lifecycle);
 
     ContainerBuilder& TerminationMessagePath(const std::string& terminationMessagePath);
 
@@ -119,6 +250,52 @@ struct ContainerBuilder
 
 private:
     Container container_;
+};
+
+struct EphemeralContainerBuilder
+{
+    EphemeralContainerBuilder& Name(const std::string& name);
+
+    EphemeralContainerBuilder& TargetContainerName(const std::string& targetContainerName);
+
+    EphemeralContainerBuilder& Image(const std::string& image);
+
+    EphemeralContainerBuilder& ImagePullPolicy(const std::string& imagePullPolicy);
+
+    EphemeralContainerBuilder& Command(const std::vector<std::string>& command);
+
+    EphemeralContainerBuilder& Args(const std::vector<std::string>& args);
+
+    EphemeralContainerBuilder& WorkingDir(const std::string& workingDir);
+
+    EphemeralContainerBuilder& Env(const std::vector<EnvVar>& env);
+
+    EphemeralContainerBuilder& EnvFrom(const std::vector<EnvFromSource>& envFrom);
+
+    EphemeralContainerBuilder& VolumeMounts(const std::vector<VolumeMount>& volumeMounts);
+
+    EphemeralContainerBuilder& VolumeDevices(const std::vector<VolumeDevice>& volumeDevices);
+
+    EphemeralContainerBuilder& ResizePolicy(const std::vector<ContainerResizePolicy>& resizePolicy);
+
+    EphemeralContainerBuilder& TerminationMessagePath(const std::string& terminationMessagePath);
+
+    EphemeralContainerBuilder& TerminationMessagePolicy(const std::string& terminationMessagePolicy);
+
+    EphemeralContainerBuilder& RestartPolicy(const std::string& restartPolicy);
+
+    EphemeralContainerBuilder& SecurityContext(const container::SecurityContext& securityContext);
+
+    EphemeralContainerBuilder& Stdin(bool stdIn);
+
+    EphemeralContainerBuilder& StdinOnce(bool stdinOnce);
+
+    EphemeralContainerBuilder& Tty(bool tty);
+
+    EphemeralContainer Build();
+
+private:
+    EphemeralContainer ephemeralContainer_;
 };
 
 } // namespace kubecpp::model::internal::pod

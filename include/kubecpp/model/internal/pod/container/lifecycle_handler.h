@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef LIFECYCLE_H_
-#define LIFECYCLE_H_
+#ifndef LIFECYCLE_HANDLER_H_
+#define LIFECYCLE_HANDLER_H_
 
 #include "kubecpp/common/checked.h"
 #include "kubecpp/model/internal/pod/container/exec_action.h"
@@ -36,14 +36,6 @@ struct LifecycleHandler
     [[nodiscard]] std::string ParseToJson() const;
 };
 
-struct Lifecycle
-{
-    Checked<LifecycleHandler> PostStart{ "postStart", false, "description" };
-    Checked<LifecycleHandler> PreStop{ "preStop", false, "description" };
-
-    [[nodiscard]] std::string ParseToJson() const;
-};
-
 } // namespace kubecpp::model::internal::pod::container
 
-#endif // LIFECYCLE_H_
+#endif // LIFECYCLE_HANDLER_H_
