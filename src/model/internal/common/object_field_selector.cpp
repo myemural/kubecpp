@@ -26,6 +26,13 @@ std::string ObjectFieldSelector::ParseToJson() const
     return ParseFieldsToJson(FieldPath, ApiVersion);
 }
 
+ObjectFieldSelector ObjectFieldSelector::ParseFromJson(const std::string& jsonData)
+{
+    ObjectFieldSelector result;
+    ParseFieldsFromJson(jsonData, result.FieldPath, result.ApiVersion);
+    return result;
+}
+
 ObjectFieldSelectorBuilder& ObjectFieldSelectorBuilder::FieldPath(const std::string& fieldPath)
 {
     objectFieldSelector_.FieldPath = fieldPath;

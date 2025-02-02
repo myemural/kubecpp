@@ -23,13 +23,15 @@ namespace kubecpp::model::internal::common
 
 std::string ManagedFieldsEntry::ParseToJson() const
 {
-    return ParseFieldsToJson(ApiVersion, FieldsType, FieldsV1, Manager, Operation, Subresource, Time);
+    /// TODO: FieldsV1 will be handled later.
+    return ParseFieldsToJson(ApiVersion, FieldsType, Manager, Operation, Subresource, Time);
 }
 
 ManagedFieldsEntry ManagedFieldsEntry::ParseFromJson(const std::string& jsonData)
 {
+    /// TODO: FieldsV1 will be handled later.
     ManagedFieldsEntry result;
-    ParseFieldsFromJson(jsonData, result.ApiVersion, result.FieldsType, result.FieldsV1, result.Manager,
+    ParseFieldsFromJson(jsonData, result.ApiVersion, result.FieldsType, result.Manager,
     result.Operation, result.Subresource, result.Time);
     return result;
 }

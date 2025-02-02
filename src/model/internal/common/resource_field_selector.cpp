@@ -26,6 +26,13 @@ std::string ResourceFieldSelector::ParseToJson() const
     return ParseFieldsToJson(Resource, ContainerName, Divisor);
 }
 
+ResourceFieldSelector ResourceFieldSelector::ParseFromJson(const std::string& jsonData)
+{
+    ResourceFieldSelector result;
+    ParseFieldsFromJson(jsonData, result.Resource, result.ContainerName, result.Divisor);
+    return result;
+}
+
 ResourceFieldSelectorBuilder& ResourceFieldSelectorBuilder::Resource(const std::string& resource)
 {
     resourceFieldSelector_.Resource = resource;

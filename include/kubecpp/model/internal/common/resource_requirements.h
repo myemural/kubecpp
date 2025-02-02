@@ -31,6 +31,7 @@ struct ResourceClaim
     Checked<std::string> Request{ "request", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static ResourceClaim ParseFromJson(const std::string& jsonData);
 };
 
 struct ResourceRequirements
@@ -40,6 +41,7 @@ struct ResourceRequirements
     Checked<std::unordered_map<std::string, std::string>> Requests{ "requests", false, "description" }; // Quantity
 
     [[nodiscard]] std::string ParseToJson() const;
+    static ResourceRequirements ParseFromJson(const std::string& jsonData);
 };
 
 } // namespace kubecpp::model::internal::common

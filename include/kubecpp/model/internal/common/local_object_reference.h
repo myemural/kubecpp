@@ -27,6 +27,7 @@ struct LocalObjectReference
     Checked<std::string> Name{ "name", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static LocalObjectReference ParseFromJson(const std::string& jsonData);
 };
 
 struct LocalObjectReferenceBuilder

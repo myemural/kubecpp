@@ -74,8 +74,7 @@ inline void SetField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const C
 }
 
 template <typename T>
-inline void
-SetField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const Checked<std::unordered_map<std::string, T>>& field)
+inline void SetField(rapidjson::Writer<rapidjson::StringBuffer>& writer, const Checked<std::unordered_map<std::string, T>>& field)
 {
     if(field.HasValue()) {
         writer.Key(field.GetKeyName().c_str());
@@ -145,7 +144,15 @@ inline void GetField(const rapidjson::Document& doc, Checked<std::vector<T>>& fi
             }
             field = std::move(arrayField);
         } else {
-            /// TODO: Will be implemented.
+            std::vector<T> arrayField;
+            for(const auto& item : it->value.GetArray()) {
+                rapidjson::StringBuffer sb;
+                rapidjson::Writer<rapidjson::StringBuffer> writer(sb);
+                item.Accept(writer);
+                std::string s = sb.GetString();
+                arrayField.push_back(T::ParseFromJson(s));
+            }
+            field = std::move(arrayField);
         }
     }
 }

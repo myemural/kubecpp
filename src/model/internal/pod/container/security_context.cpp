@@ -32,4 +32,11 @@ std::string SecurityContext::ParseToJson() const
     ReadOnlyRootFilesystem, RunAsUser, RunAsNonRoot, RunAsGroup, SeLinuxOptions, SeccompProfile, WindowsOptions);
 }
 
+SecurityContext SecurityContext::ParseFromJson(const std::string& jsonData)
+{
+    /// TODO: To be implemented later.
+    SecurityContext result;
+    return result;
+}
+
 } // namespace kubecpp::model::internal::pod::container

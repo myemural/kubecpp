@@ -27,4 +27,11 @@ std::string Probe::ParseToJson() const
     PeriodSeconds, TimeoutSeconds, FailureThreshold, SuccessThreshold, Grpc);
 }
 
+Probe Probe::ParseFromJson(const std::string& jsonData)
+{
+    /// TODO: To be implemented later.
+    Probe result;
+    return result;
+}
+
 } // namespace kubecpp::model::internal::pod::container

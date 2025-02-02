@@ -26,6 +26,13 @@ std::string LocalObjectReference::ParseToJson() const
     return ParseFieldsToJson(Name);
 }
 
+LocalObjectReference LocalObjectReference::ParseFromJson(const std::string& jsonData)
+{
+    LocalObjectReference result;
+    ParseFieldsFromJson(jsonData, result.Name);
+    return result;
+}
+
 LocalObjectReferenceBuilder& LocalObjectReferenceBuilder::Name(const std::string& name)
 {
     localObjectReference_.Name = name;

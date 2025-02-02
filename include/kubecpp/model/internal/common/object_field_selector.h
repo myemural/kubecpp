@@ -28,6 +28,7 @@ struct ObjectFieldSelector
     Checked<std::string> ApiVersion{ "apiVersion", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static ObjectFieldSelector ParseFromJson(const std::string& jsonData);
 };
 
 struct ObjectFieldSelectorBuilder

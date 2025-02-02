@@ -26,9 +26,23 @@ std::string ResourceClaim::ParseToJson() const
     return ParseFieldsToJson(Name, Request);
 }
 
+ResourceClaim ResourceClaim::ParseFromJson(const std::string& jsonData)
+{
+    ResourceClaim result;
+    ParseFieldsFromJson(jsonData, result.Name, result.Request);
+    return result;
+}
+
 std::string ResourceRequirements::ParseToJson() const
 {
     return ParseFieldsToJson(Claims, Limits, Requests);
+}
+
+ResourceRequirements ResourceRequirements::ParseFromJson(const std::string& jsonData)
+{
+    ResourceRequirements result;
+    ParseFieldsFromJson(jsonData, result.Claims, result.Limits, result.Requests);
+    return result;
 }
 
 } // namespace kubecpp::model::internal::common

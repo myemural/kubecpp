@@ -26,9 +26,23 @@ std::string ContainerPortType::ParseToJson() const
     return ParseFieldsToJson(ContainerPort, HostIP, HostPort, Name, Protocol);
 }
 
+ContainerPortType ContainerPortType::ParseFromJson(const std::string& jsonData)
+{
+    ContainerPortType result;
+    ParseFieldsFromJson(jsonData, result.ContainerPort, result.HostIP, result.HostPort, result.Name, result.Protocol);
+    return result;
+}
+
 std::string SecretKeySelector::ParseToJson() const
 {
     return ParseFieldsToJson(Key, Name, Optional);
+}
+
+SecretKeySelector SecretKeySelector::ParseFromJson(const std::string& jsonData)
+{
+    SecretKeySelector result;
+    ParseFieldsFromJson(jsonData, result.Key, result.Name, result.Optional);
+    return result;
 }
 
 std::string ConfigMapKeySelector::ParseToJson() const
@@ -36,9 +50,23 @@ std::string ConfigMapKeySelector::ParseToJson() const
     return ParseFieldsToJson(Key, Name, Optional);
 }
 
+ConfigMapKeySelector ConfigMapKeySelector::ParseFromJson(const std::string& jsonData)
+{
+    ConfigMapKeySelector result;
+    ParseFieldsFromJson(jsonData, result.Key, result.Name, result.Optional);
+    return result;
+}
+
 std::string EnvVarSource::ParseToJson() const
 {
     return ParseFieldsToJson(ConfigMapKeyRef, FieldRef, ResourceFieldRef, SecretKeyRef);
+}
+
+EnvVarSource EnvVarSource::ParseFromJson(const std::string& jsonData)
+{
+    EnvVarSource result;
+    ParseFieldsFromJson(jsonData, result.ConfigMapKeyRef, result.FieldRef, result.ResourceFieldRef, result.SecretKeyRef);
+    return result;
 }
 
 std::string EnvVar::ParseToJson() const
@@ -46,9 +74,23 @@ std::string EnvVar::ParseToJson() const
     return ParseFieldsToJson(Name, Value, ValueFrom);
 }
 
+EnvVar EnvVar::ParseFromJson(const std::string& jsonData)
+{
+    EnvVar result;
+    ParseFieldsFromJson(jsonData, result.Name, result.Value, result.ValueFrom);
+    return result;
+}
+
 std::string SecretEnvSource::ParseToJson() const
 {
     return ParseFieldsToJson(Name, Optional);
+}
+
+SecretEnvSource SecretEnvSource::ParseFromJson(const std::string& jsonData)
+{
+    SecretEnvSource result;
+    ParseFieldsFromJson(jsonData, result.Name, result.Optional);
+    return result;
 }
 
 std::string ConfigMapEnvSource::ParseToJson() const
@@ -56,9 +98,23 @@ std::string ConfigMapEnvSource::ParseToJson() const
     return ParseFieldsToJson(Name, Optional);
 }
 
+ConfigMapEnvSource ConfigMapEnvSource::ParseFromJson(const std::string& jsonData)
+{
+    ConfigMapEnvSource result;
+    ParseFieldsFromJson(jsonData, result.Name, result.Optional);
+    return result;
+}
+
 std::string EnvFromSource::ParseToJson() const
 {
     return ParseFieldsToJson(ConfigMapRef, Prefix, SecretRef);
+}
+
+EnvFromSource EnvFromSource::ParseFromJson(const std::string& jsonData)
+{
+    EnvFromSource result;
+    ParseFieldsFromJson(jsonData, result.ConfigMapRef, result.Prefix, result.SecretRef);
+    return result;
 }
 
 std::string VolumeMount::ParseToJson() const
@@ -66,9 +122,24 @@ std::string VolumeMount::ParseToJson() const
     return ParseFieldsToJson(MountPath, Name, MountPropagation, ReadOnly, RecursiveReadOnly, SubPath, SubPathExpr);
 }
 
+VolumeMount VolumeMount::ParseFromJson(const std::string& jsonData)
+{
+    VolumeMount result;
+    ParseFieldsFromJson(jsonData, result.MountPath, result.Name, result.MountPropagation, result.ReadOnly,
+    result.RecursiveReadOnly, result.SubPath, result.SubPathExpr);
+    return result;
+}
+
 std::string VolumeDevice::ParseToJson() const
 {
     return ParseFieldsToJson(DevicePath, Name);
+}
+
+VolumeDevice VolumeDevice::ParseFromJson(const std::string& jsonData)
+{
+    VolumeDevice result;
+    ParseFieldsFromJson(jsonData, result.DevicePath, result.Name);
+    return result;
 }
 
 std::string ContainerResizePolicy::ParseToJson() const
@@ -76,9 +147,23 @@ std::string ContainerResizePolicy::ParseToJson() const
     return ParseFieldsToJson(ResourceName, RestartPolicy);
 }
 
+ContainerResizePolicy ContainerResizePolicy::ParseFromJson(const std::string& jsonData)
+{
+    ContainerResizePolicy result;
+    ParseFieldsFromJson(jsonData, result.ResourceName, result.RestartPolicy);
+    return result;
+}
+
 std::string LifecycleType::ParseToJson() const
 {
     return ParseFieldsToJson(PostStart, PreStop);
+}
+
+LifecycleType LifecycleType::ParseFromJson(const std::string& jsonData)
+{
+    /// TODO: To be implemented later.
+    LifecycleType result;
+    return result;
 }
 
 std::string Container::ParseToJson() const
@@ -90,9 +175,12 @@ std::string Container::ParseToJson() const
 
 Container Container::ParseFromJson(const std::string& jsonData)
 {
-    /// TODO: Will be implemented later.
     Container result;
-    ParseFieldsFromJson(jsonData, result.Name);
+    ParseFieldsFromJson(jsonData, result.Name, result.Image, result.ImagePullPolicy, result.Command, result.Args,
+    result.WorkingDir, result.Ports, result.Env, result.EnvFrom, result.VolumeMounts, result.VolumeDevices,
+    result.Resources, result.ResizePolicy, result.Lifecycle, result.TerminationMessagePath,
+    result.TerminationMessagePolicy, result.LivenessProbe, result.ReadinessProbe, result.StartupProbe,
+    result.RestartPolicy, result.SecurityContext, result.Stdin, result.StdinOnce, result.Tty);
     return result;
 }
 
@@ -101,6 +189,16 @@ std::string EphemeralContainer::ParseToJson() const
     return ParseFieldsToJson(Name, TargetContainerName, Image, ImagePullPolicy, Command, Args, WorkingDir, Env, EnvFrom,
     VolumeMounts, VolumeDevices, ResizePolicy, TerminationMessagePath, TerminationMessagePolicy, RestartPolicy,
     SecurityContext, Stdin, StdinOnce, Tty);
+}
+
+EphemeralContainer EphemeralContainer::ParseFromJson(const std::string& jsonData)
+{
+    EphemeralContainer result;
+    ParseFieldsFromJson(jsonData, result.Name, result.TargetContainerName, result.Image, result.ImagePullPolicy,
+    result.Command, result.Args, result.WorkingDir, result.Env, result.EnvFrom, result.VolumeMounts,
+    result.VolumeDevices, result.ResizePolicy, result.TerminationMessagePath, result.TerminationMessagePolicy,
+    result.RestartPolicy, result.SecurityContext, result.Stdin, result.StdinOnce, result.Tty);
+    return result;
 }
 
 ContainerBuilder& ContainerBuilder::Name(const std::string& name)

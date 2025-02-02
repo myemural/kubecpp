@@ -52,6 +52,7 @@ struct SecurityContext
     Checked<security::WindowsSecurityContextOptions> WindowsOptions{ "windowsOptions", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static SecurityContext ParseFromJson(const std::string& jsonData);
 };
 
 } // namespace kubecpp::model::internal::pod::container

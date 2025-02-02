@@ -44,7 +44,9 @@ ApiResult<Pod> CoreApi::Create<Pod>(const std::string& nameSpace, const Pod& res
 {
     // Build path
     std::string path = BuildPath({ kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural });
-    BuildQueryParams(path, queryParams);
+    if(!queryParams.empty()) {
+        BuildQueryParams(path, queryParams);
+    }
 
     // Parse resource to Json
     const auto body = resource.ParseToJson();
@@ -53,7 +55,7 @@ ApiResult<Pod> CoreApi::Create<Pod>(const std::string& nameSpace, const Pod& res
     const auto result = client_.Execute(client::HttpMethod::kPost, path, body);
 
     // Convert body to resource type
-    if(result.ErrorInfo.ErrorCode != 0L) {
+    if(result.ErrorInfo.ErrorCode == 0L) {
         const Pod data = Pod::ParseFromJson(result.Body);
         return ApiResult<Pod>{ result.StatusCode, data };
     }
@@ -79,13 +81,16 @@ CoreApi::Get<Pod>(const std::string& name, const std::string& nameSpace, const P
         path = BuildPath({ kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural, name, "status" });
         break;
     }
-    BuildQueryParams(path, queryParams);
+
+    if(!queryParams.empty()) {
+        BuildQueryParams(path, queryParams);
+    }
 
     // Execute ApiClient
     auto result = client_.Execute(client::HttpMethod::kGet, path);
 
     // Convert body to resource type
-    if(result.ErrorInfo.ErrorCode != 0L) {
+    if(result.ErrorInfo.ErrorCode == 0L) {
         const Pod data = Pod::ParseFromJson(result.Body);
         return ApiResult<Pod>{ result.StatusCode, data };
     }
@@ -98,13 +103,15 @@ ApiResult<Pod::ListType> CoreApi::List<Pod>(const QueryParams& queryParams) cons
 {
     // Build Path
     std::string path = BuildPath({ kK8sApiKeyword, kApiVersion, kResourceNamePlural });
-    BuildQueryParams(path, queryParams);
+    if(!queryParams.empty()) {
+        BuildQueryParams(path, queryParams);
+    }
 
     // Execute ApiClient
     auto result = client_.Execute(client::HttpMethod::kGet, path);
 
     // Convert body to resource type
-    if(result.ErrorInfo.ErrorCode != 0L) {
+    if(result.ErrorInfo.ErrorCode == 0L) {
         const Pod::ListType data = Pod::ListType::ParseFromJson(result.Body);
         return ApiResult<Pod::ListType>{ result.StatusCode, data };
     }
@@ -117,13 +124,15 @@ ApiResult<Pod::ListType> CoreApi::List<Pod>(const std::string& nameSpace, const 
 {
     // Build Path
     std::string path = BuildPath({ kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural });
-    BuildQueryParams(path, queryParams);
+    if(!queryParams.empty()) {
+        BuildQueryParams(path, queryParams);
+    }
 
     // Execute ApiClient
     auto result = client_.Execute(client::HttpMethod::kGet, path);
 
     // Convert body to resource type
-    if(result.ErrorInfo.ErrorCode != 0L) {
+    if(result.ErrorInfo.ErrorCode == 0L) {
         const Pod::ListType data = Pod::ListType::ParseFromJson(result.Body);
         return ApiResult<Pod::ListType>{ result.StatusCode, data };
     }
@@ -139,7 +148,9 @@ const QueryParams& queryParams) const
 {
     // Create path
     std::string path = BuildPath({ kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural, name });
-    BuildQueryParams(path, queryParams);
+    if(!queryParams.empty()) {
+        BuildQueryParams(path, queryParams);
+    }
 
     // Parse resource to Json
     const auto body = options.ParseToJson();
@@ -148,7 +159,7 @@ const QueryParams& queryParams) const
     const auto result = client_.Execute(client::HttpMethod::kDelete, path, body);
 
     // Convert body to resource type
-    if(result.ErrorInfo.ErrorCode != 0L) {
+    if(result.ErrorInfo.ErrorCode == 0L) {
         const Pod data = Pod::ParseFromJson(result.Body);
         return ApiResult<Pod>{ result.StatusCode, data };
     }
@@ -163,7 +174,9 @@ const QueryParams& queryParams) const
 {
     // Create path
     std::string path = BuildPath({ kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural });
-    BuildQueryParams(path, queryParams);
+    if(!queryParams.empty()) {
+        BuildQueryParams(path, queryParams);
+    }
 
     // Parse resource to Json
     const auto body = options.ParseToJson();
@@ -172,7 +185,7 @@ const QueryParams& queryParams) const
     const auto result = client_.Execute(client::HttpMethod::kDelete, path, body);
 
     // Convert body to resource type
-    if(result.ErrorInfo.ErrorCode != 0L) {
+    if(result.ErrorInfo.ErrorCode == 0L) {
         const Pod::ListType data = Pod::ListType::ParseFromJson(result.Body);
         return ApiResult<Pod::ListType>{ result.StatusCode, data };
     }
@@ -201,7 +214,10 @@ const QueryParams& queryParams) const
         path = BuildPath({ kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural, name, "status" });
         break;
     }
-    BuildQueryParams(path, queryParams);
+
+    if(!queryParams.empty()) {
+        BuildQueryParams(path, queryParams);
+    }
 
     // Parse new resource to Json
     const auto body = newResource.ParseToJson();
@@ -210,7 +226,7 @@ const QueryParams& queryParams) const
     auto result = client_.Execute(client::HttpMethod::kPut, path, body);
 
     // Convert body to resource type
-    if(result.ErrorInfo.ErrorCode != 0L) {
+    if(result.ErrorInfo.ErrorCode == 0L) {
         const Pod data = Pod::ParseFromJson(result.Body);
         return ApiResult<Pod>{ result.StatusCode, data };
     }

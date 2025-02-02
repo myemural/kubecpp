@@ -40,6 +40,7 @@ struct Probe
     Checked<GRPCAction> Grpc{ "grpc", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static Probe ParseFromJson(const std::string& jsonData);
 };
 
 } // namespace kubecpp::model::internal::pod::container

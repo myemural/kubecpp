@@ -29,6 +29,7 @@ struct ResourceFieldSelector
     Checked<std::string> Divisor{ "divisor", false, "description" }; // std::string -> Quantity
 
     [[nodiscard]] std::string ParseToJson() const;
+    static ResourceFieldSelector ParseFromJson(const std::string& jsonData);
 };
 
 struct ResourceFieldSelectorBuilder

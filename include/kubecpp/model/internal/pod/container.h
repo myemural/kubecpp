@@ -39,6 +39,7 @@ struct ContainerPortType
     Checked<std::string> Protocol{ "protocol", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static ContainerPortType ParseFromJson(const std::string& jsonData);
 };
 
 struct SecretKeySelector
@@ -48,6 +49,7 @@ struct SecretKeySelector
     Checked<bool> Optional{ "optional", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static SecretKeySelector ParseFromJson(const std::string& jsonData);
 };
 
 struct ConfigMapKeySelector
@@ -57,6 +59,7 @@ struct ConfigMapKeySelector
     Checked<bool> Optional{ "optional", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static ConfigMapKeySelector ParseFromJson(const std::string& jsonData);
 };
 
 struct EnvVarSource
@@ -67,6 +70,7 @@ struct EnvVarSource
     Checked<SecretKeySelector> SecretKeyRef{ "secretKeyRef", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static EnvVarSource ParseFromJson(const std::string& jsonData);
 };
 
 struct EnvVar
@@ -76,6 +80,7 @@ struct EnvVar
     Checked<EnvVarSource> ValueFrom{ "valueFrom", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static EnvVar ParseFromJson(const std::string& jsonData);
 };
 
 struct SecretEnvSource
@@ -84,6 +89,7 @@ struct SecretEnvSource
     Checked<bool> Optional{ "optional", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static SecretEnvSource ParseFromJson(const std::string& jsonData);
 };
 
 struct ConfigMapEnvSource
@@ -92,6 +98,7 @@ struct ConfigMapEnvSource
     Checked<bool> Optional{ "optional", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static ConfigMapEnvSource ParseFromJson(const std::string& jsonData);
 };
 
 struct EnvFromSource
@@ -101,6 +108,7 @@ struct EnvFromSource
     Checked<SecretEnvSource> SecretRef{ "secretRef", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static EnvFromSource ParseFromJson(const std::string& jsonData);
 };
 
 struct VolumeMount
@@ -114,6 +122,7 @@ struct VolumeMount
     Checked<std::string> SubPathExpr{ "subPathExpr", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static VolumeMount ParseFromJson(const std::string& jsonData);
 };
 
 struct VolumeDevice
@@ -122,6 +131,7 @@ struct VolumeDevice
     Checked<std::string> Name{ "name", true, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static VolumeDevice ParseFromJson(const std::string& jsonData);
 };
 
 struct ContainerResizePolicy
@@ -130,6 +140,7 @@ struct ContainerResizePolicy
     Checked<std::string> RestartPolicy{ "restartPolicy", true, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static ContainerResizePolicy ParseFromJson(const std::string& jsonData);
 };
 
 struct LifecycleType
@@ -138,6 +149,7 @@ struct LifecycleType
     Checked<container::LifecycleHandler> PreStop{ "preStop", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static LifecycleType ParseFromJson(const std::string& jsonData);
 };
 
 struct Container
@@ -194,6 +206,7 @@ struct EphemeralContainer
     Checked<container::SecurityContext> SecurityContext{ "securityContext", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static EphemeralContainer ParseFromJson(const std::string& jsonData);
 };
 
 struct ContainerBuilder
