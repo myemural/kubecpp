@@ -26,4 +26,11 @@ std::string WindowsSecurityContextOptions::ParseToJson() const
     return ParseFieldsToJson(GmsaCredentialSpec, GmsaCredentialSpecName, HostProcess, RunAsUserName);
 }
 
+WindowsSecurityContextOptions WindowsSecurityContextOptions::ParseFromJson(const std::string& jsonData)
+{
+    WindowsSecurityContextOptions result;
+    ParseFieldsFromJson(jsonData, result.GmsaCredentialSpec, result.GmsaCredentialSpecName, result.HostProcess, result.RunAsUserName);
+    return result;
+}
+
 } // namespace kubecpp::model::internal::pod::security

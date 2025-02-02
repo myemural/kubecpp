@@ -30,6 +30,7 @@ struct SELinuxOptions
     Checked<std::string> User{ "user", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static SELinuxOptions ParseFromJson(const std::string& jsonData);
 };
 
 } // namespace kubecpp::model::internal::pod::security

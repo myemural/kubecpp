@@ -28,6 +28,7 @@ struct AppArmorProfile
     Checked<std::string> LocalhostProfile{ "localhostProfile", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static AppArmorProfile ParseFromJson(const std::string& jsonData);
 };
 
 } // namespace kubecpp::model::internal::pod::security

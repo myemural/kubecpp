@@ -26,6 +26,13 @@ std::string Sysctl::ParseToJson() const
     return ParseFieldsToJson(Name, Value);
 }
 
+Sysctl Sysctl::ParseFromJson(const std::string& jsonData)
+{
+    Sysctl result;
+    ParseFieldsFromJson(jsonData, result.Name, result.Value);
+    return result;
+}
+
 std::string PodSecurityContext::ParseToJson() const
 {
     return ParseFieldsToJson(AppArmorProfile, FsGroup, FsGroupChangePolicy, RunAsUser, RunAsNonRoot, RunAsGroup,
@@ -34,8 +41,10 @@ std::string PodSecurityContext::ParseToJson() const
 
 PodSecurityContext PodSecurityContext::ParseFromJson(const std::string& jsonData)
 {
-    /// TODO: Will be implemented later.
     PodSecurityContext result;
+    ParseFieldsFromJson(jsonData, result.AppArmorProfile, result.FsGroup, result.FsGroupChangePolicy, result.RunAsUser,
+    result.RunAsNonRoot, result.RunAsGroup, result.SeccompProfile, result.SeLinuxOptions, result.SupplementalGroups,
+    result.SupplementalGroupsPolicy, result.Sysctls, result.WindowsOptions);
     return result;
 }
 

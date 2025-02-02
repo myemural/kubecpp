@@ -30,6 +30,7 @@ struct WindowsSecurityContextOptions
     Checked<std::string> RunAsUserName{ "runAsUserName", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static WindowsSecurityContextOptions ParseFromJson(const std::string& jsonData);
 };
 
 } // namespace kubecpp::model::internal::pod::security

@@ -34,6 +34,7 @@ struct Sysctl
     Checked<std::string> Value{ "value", true, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static Sysctl ParseFromJson(const std::string& jsonData);
 };
 
 struct PodSecurityContext

@@ -26,4 +26,11 @@ std::string SELinuxOptions::ParseToJson() const
     return ParseFieldsToJson(Level, Role, Type, User);
 }
 
+SELinuxOptions SELinuxOptions::ParseFromJson(const std::string& jsonData)
+{
+    SELinuxOptions result;
+    ParseFieldsFromJson(jsonData, result.Level, result.Role, result.Type, result.User);
+    return result;
+}
+
 } // namespace kubecpp::model::internal::pod::security

@@ -26,4 +26,11 @@ std::string SeccompProfile::ParseToJson() const
     return ParseFieldsToJson(Type, LocalhostProfile);
 }
 
+SeccompProfile SeccompProfile::ParseFromJson(const std::string& jsonData)
+{
+    SeccompProfile result;
+    ParseFieldsFromJson(jsonData, result.Type, result.LocalhostProfile);
+    return result;
+}
+
 } // namespace kubecpp::model::internal::pod::security

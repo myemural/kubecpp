@@ -26,4 +26,11 @@ std::string AppArmorProfile::ParseToJson() const
     return ParseFieldsToJson(Type, LocalhostProfile);
 }
 
+AppArmorProfile AppArmorProfile::ParseFromJson(const std::string& jsonData)
+{
+    AppArmorProfile result;
+    ParseFieldsFromJson(jsonData, result.Type, result.LocalhostProfile);
+    return result;
+}
+
 } // namespace kubecpp::model::internal::pod::security

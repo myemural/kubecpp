@@ -28,6 +28,7 @@ struct SeccompProfile
     Checked<std::string> LocalhostProfile{ "localhostProfile", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static SeccompProfile ParseFromJson(const std::string& jsonData);
 };
 
 } // namespace kubecpp::model::internal::pod::security

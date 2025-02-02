@@ -143,6 +143,12 @@ inline void GetField(const rapidjson::Document& doc, Checked<std::vector<T>>& fi
                 arrayField.push_back(item.GetString());
             }
             field = std::move(arrayField);
+        } else if constexpr(std::is_same_v<std::int64_t, T>) {
+            std::vector<T> arrayField;
+            for(const auto& item : it->value.GetArray()) {
+                arrayField.push_back(item.GetInt64());
+            }
+            field = std::move(arrayField);
         } else {
             std::vector<T> arrayField;
             for(const auto& item : it->value.GetArray()) {
