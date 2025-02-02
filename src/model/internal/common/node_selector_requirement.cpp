@@ -26,4 +26,11 @@ std::string NodeSelectorRequirement::ParseToJson() const
     return ParseFieldsToJson(Key, Operator, Values);
 }
 
+NodeSelectorRequirement NodeSelectorRequirement::ParseFromJson(const std::string& jsonData)
+{
+    NodeSelectorRequirement result;
+    ParseFieldsFromJson(jsonData, result.Key, result.Operator, result.Values);
+    return result;
+}
+
 } // namespace kubecpp::model::internal::common

@@ -26,9 +26,24 @@ std::string PodAffinityTermType::ParseToJson() const
     return ParseFieldsToJson(TopologyKey, LabelSelector, MatchLabelKeys, MismatchLabelKeys, NamespaceSelector, Namespaces);
 }
 
+PodAffinityTermType PodAffinityTermType::ParseFromJson(const std::string& jsonData)
+{
+    PodAffinityTermType result;
+    ParseFieldsFromJson(jsonData, result.TopologyKey, result.LabelSelector, result.MatchLabelKeys,
+    result.MismatchLabelKeys, result.NamespaceSelector, result.Namespaces);
+    return result;
+}
+
 std::string WeightedPodAffinityTerm::ParseToJson() const
 {
     return ParseFieldsToJson(PodAffinityTerm, Weight);
+}
+
+WeightedPodAffinityTerm WeightedPodAffinityTerm::ParseFromJson(const std::string& jsonData)
+{
+    WeightedPodAffinityTerm result;
+    ParseFieldsFromJson(jsonData, result.PodAffinityTerm, result.Weight);
+    return result;
 }
 
 std::string PodAffinityType::ParseToJson() const
@@ -36,9 +51,25 @@ std::string PodAffinityType::ParseToJson() const
     return ParseFieldsToJson(PreferredDuringSchedulingIgnoredDuringExecution, RequiredDuringSchedulingIgnoredDuringExecution);
 }
 
+PodAffinityType PodAffinityType::ParseFromJson(const std::string& jsonData)
+{
+    PodAffinityType result;
+    ParseFieldsFromJson(jsonData, result.PreferredDuringSchedulingIgnoredDuringExecution,
+    result.RequiredDuringSchedulingIgnoredDuringExecution);
+    return result;
+}
+
 std::string PodAntiAffinityType::ParseToJson() const
 {
     return ParseFieldsToJson(PreferredDuringSchedulingIgnoredDuringExecution, RequiredDuringSchedulingIgnoredDuringExecution);
+}
+
+PodAntiAffinityType PodAntiAffinityType::ParseFromJson(const std::string& jsonData)
+{
+    PodAntiAffinityType result;
+    ParseFieldsFromJson(jsonData, result.PreferredDuringSchedulingIgnoredDuringExecution,
+    result.RequiredDuringSchedulingIgnoredDuringExecution);
+    return result;
 }
 
 } // namespace kubecpp::model::internal::pod

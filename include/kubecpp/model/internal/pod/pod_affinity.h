@@ -35,6 +35,7 @@ struct PodAffinityTermType
     Checked<std::vector<std::string>> Namespaces{ "namespaces", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static PodAffinityTermType ParseFromJson(const std::string& jsonData);
 };
 
 struct WeightedPodAffinityTerm
@@ -43,6 +44,7 @@ struct WeightedPodAffinityTerm
     Checked<int32_t> Weight{ "weight", true, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static WeightedPodAffinityTerm ParseFromJson(const std::string& jsonData);
 };
 
 struct PodAffinityType
@@ -55,6 +57,7 @@ struct PodAffinityType
     };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static PodAffinityType ParseFromJson(const std::string& jsonData);
 };
 
 struct PodAntiAffinityType
@@ -67,6 +70,7 @@ struct PodAntiAffinityType
     };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static PodAntiAffinityType ParseFromJson(const std::string& jsonData);
 };
 
 } // namespace kubecpp::model::internal::pod

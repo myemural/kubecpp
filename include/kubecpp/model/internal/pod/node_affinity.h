@@ -31,6 +31,7 @@ struct NodeSelectorTerm
     Checked<common::NodeSelectorRequirement> MatchFields{ "matchFields", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static NodeSelectorTerm ParseFromJson(const std::string& jsonData);
 };
 
 struct PreferredSchedulingTerm
@@ -39,6 +40,7 @@ struct PreferredSchedulingTerm
     Checked<int32_t> Weight{ "weight", true, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static PreferredSchedulingTerm ParseFromJson(const std::string& jsonData);
 };
 
 struct NodeSelector
@@ -46,6 +48,7 @@ struct NodeSelector
     Checked<std::vector<NodeSelectorTerm>> NodeSelectorTerms{ "nodeSelectorTerms", true, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static NodeSelector ParseFromJson(const std::string& jsonData);
 };
 
 struct NodeAffinityType
@@ -58,6 +61,7 @@ struct NodeAffinityType
     };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static NodeAffinityType ParseFromJson(const std::string& jsonData);
 };
 
 } // namespace kubecpp::model::internal::pod

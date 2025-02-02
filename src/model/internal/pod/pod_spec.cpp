@@ -40,8 +40,8 @@ std::string AffinityType::ParseToJson() const
 
 AffinityType AffinityType::ParseFromJson(const std::string& jsonData)
 {
-    /// TODO: Will be implemented later.
     AffinityType result;
+    ParseFieldsFromJson(jsonData, result.NodeAffinity, result.PodAffinity, result.PodAntiAffinity);
     return result;
 }
 
@@ -110,6 +110,13 @@ PodDNSConfigOption PodDNSConfigOption::ParseFromJson(const std::string& jsonData
 std::string PodDNSConfig::ParseToJson() const
 {
     return ParseFieldsToJson(Nameservers, Options, Searches);
+}
+
+PodDNSConfig PodDNSConfig::ParseFromJson(const std::string& jsonData)
+{
+    PodDNSConfig result;
+    ParseFieldsFromJson(jsonData, result.Nameservers, result.Options, result.Searches);
+    return result;
 }
 
 std::string PodResourceClaim::ParseToJson() const
@@ -524,13 +531,6 @@ HostAliasBuilder& HostAliasBuilder::HostNames(const std::vector<std::string>& ho
 HostAlias HostAliasBuilder::Build()
 {
     return std::move(hostAlias_);
-}
-
-PodDNSConfig PodDNSConfig::ParseFromJson(const std::string& jsonData)
-{
-    PodDNSConfig result;
-    ParseFieldsFromJson(jsonData, result.Nameservers, result.Options, result.Searches);
-    return result;
 }
 
 PodDNSConfigOptionBuilder& PodDNSConfigOptionBuilder::Name(const std::string& name)

@@ -26,9 +26,23 @@ std::string NodeSelectorTerm::ParseToJson() const
     return ParseFieldsToJson(MatchExpressions, MatchFields);
 }
 
+NodeSelectorTerm NodeSelectorTerm::ParseFromJson(const std::string& jsonData)
+{
+    NodeSelectorTerm result;
+    ParseFieldsFromJson(jsonData, result.MatchExpressions, result.MatchFields);
+    return result;
+}
+
 std::string PreferredSchedulingTerm::ParseToJson() const
 {
     return ParseFieldsToJson(Preference, Weight);
+}
+
+PreferredSchedulingTerm PreferredSchedulingTerm::ParseFromJson(const std::string& jsonData)
+{
+    PreferredSchedulingTerm result;
+    ParseFieldsFromJson(jsonData, result.Preference, result.Weight);
+    return result;
 }
 
 std::string NodeSelector::ParseToJson() const
@@ -36,9 +50,24 @@ std::string NodeSelector::ParseToJson() const
     return ParseFieldsToJson(NodeSelectorTerms);
 }
 
+NodeSelector NodeSelector::ParseFromJson(const std::string& jsonData)
+{
+    NodeSelector result;
+    ParseFieldsFromJson(jsonData, result.NodeSelectorTerms);
+    return result;
+}
+
 std::string NodeAffinityType::ParseToJson() const
 {
     return ParseFieldsToJson(PreferredDuringSchedulingIgnoredDuringExecution, RequiredDuringSchedulingIgnoredDuringExecution);
+}
+
+NodeAffinityType NodeAffinityType::ParseFromJson(const std::string& jsonData)
+{
+    NodeAffinityType result;
+    ParseFieldsFromJson(jsonData, result.PreferredDuringSchedulingIgnoredDuringExecution,
+    result.RequiredDuringSchedulingIgnoredDuringExecution);
+    return result;
 }
 
 } // namespace kubecpp::model::internal::pod

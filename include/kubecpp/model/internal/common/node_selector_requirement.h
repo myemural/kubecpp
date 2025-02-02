@@ -31,6 +31,7 @@ struct NodeSelectorRequirement
     Checked<std::vector<std::string>> Values{ "values", false, "description" }; // std::string -> Quantity
 
     [[nodiscard]] std::string ParseToJson() const;
+    static NodeSelectorRequirement ParseFromJson(const std::string& jsonData);
 };
 
 } // namespace kubecpp::model::internal::common
