@@ -26,4 +26,11 @@ std::string TCPSocketAction::ParseToJson() const
     return ParseFieldsToJson(Port, Host);
 }
 
+TCPSocketAction TCPSocketAction::ParseFromJson(const std::string& jsonData)
+{
+    TCPSocketAction result;
+    ParseFieldsFromJson(jsonData, result.Port, result.Host);
+    return result;
+}
+
 } // namespace kubecpp::model::internal::pod::container

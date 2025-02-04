@@ -26,4 +26,11 @@ std::string GRPCAction::ParseToJson() const
     return ParseFieldsToJson(Port, Service);
 }
 
+GRPCAction GRPCAction::ParseFromJson(const std::string& jsonData)
+{
+    GRPCAction result;
+    ParseFieldsFromJson(jsonData, result.Port, result.Service);
+    return result;
+}
+
 } // namespace kubecpp::model::internal::pod::container

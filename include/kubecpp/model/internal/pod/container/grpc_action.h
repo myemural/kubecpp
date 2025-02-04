@@ -28,6 +28,7 @@ struct GRPCAction
     Checked<std::string> Service{ "service", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static GRPCAction ParseFromJson(const std::string& jsonData);
 };
 
 } // namespace kubecpp::model::internal::pod::container

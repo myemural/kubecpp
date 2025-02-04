@@ -29,6 +29,7 @@ struct ExecAction
     Checked<std::vector<std::string>> Command{ "command", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static ExecAction ParseFromJson(const std::string& jsonData);
 };
 
 } // namespace kubecpp::model::internal::pod::container

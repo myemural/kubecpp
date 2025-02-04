@@ -26,4 +26,11 @@ std::string ExecAction::ParseToJson() const
     return ParseFieldsToJson(Command);
 }
 
+ExecAction ExecAction::ParseFromJson(const std::string& jsonData)
+{
+    ExecAction result;
+    ParseFieldsFromJson(jsonData, result.Command);
+    return result;
+}
+
 } // namespace kubecpp::model::internal::pod::container

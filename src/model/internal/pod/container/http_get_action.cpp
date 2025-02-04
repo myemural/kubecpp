@@ -26,9 +26,23 @@ std::string HTTPHeader::ParseToJson() const
     return ParseFieldsToJson(Name, Value);
 }
 
+HTTPHeader HTTPHeader::ParseFromJson(const std::string& jsonData)
+{
+    HTTPHeader result;
+    ParseFieldsFromJson(jsonData, result.Name, result.Value);
+    return result;
+}
+
 std::string HTTPGetAction::ParseToJson() const
 {
     return ParseFieldsToJson(Port, Host, HttpHeaders, Path, Scheme);
+}
+
+HTTPGetAction HTTPGetAction::ParseFromJson(const std::string& jsonData)
+{
+    HTTPGetAction result;
+    ParseFieldsFromJson(jsonData, result.Port, result.Host, result.HttpHeaders, result.Path, result.Scheme);
+    return result;
 }
 
 } // namespace kubecpp::model::internal::pod::container

@@ -26,4 +26,11 @@ std::string SleepAction::ParseToJson() const
     return ParseFieldsToJson(Seconds);
 }
 
+SleepAction SleepAction::ParseFromJson(const std::string& jsonData)
+{
+    SleepAction result;
+    ParseFieldsFromJson(jsonData, result.Seconds);
+    return result;
+}
+
 } // namespace kubecpp::model::internal::pod::container

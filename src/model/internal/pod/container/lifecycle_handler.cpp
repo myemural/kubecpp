@@ -26,4 +26,11 @@ std::string LifecycleHandler::ParseToJson() const
     return ParseFieldsToJson(Exec, HttpGet, Sleep, TcpSocket);
 }
 
+LifecycleHandler LifecycleHandler::ParseFromJson(const std::string& jsonData)
+{
+    LifecycleHandler result;
+    ParseFieldsFromJson(jsonData, result.Exec, result.HttpGet, result.Sleep, result.TcpSocket);
+    return result;
+}
+
 } // namespace kubecpp::model::internal::pod::container

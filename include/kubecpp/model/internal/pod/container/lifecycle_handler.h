@@ -34,6 +34,7 @@ struct LifecycleHandler
     Checked<TCPSocketAction> TcpSocket{ "tcpSocket", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static LifecycleHandler ParseFromJson(const std::string& jsonData);
 };
 
 } // namespace kubecpp::model::internal::pod::container

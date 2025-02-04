@@ -28,6 +28,7 @@ struct TCPSocketAction
     Checked<std::string> Host{ "host", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static TCPSocketAction ParseFromJson(const std::string& jsonData);
 };
 
 } // namespace kubecpp::model::internal::pod::container

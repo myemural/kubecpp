@@ -161,8 +161,8 @@ std::string LifecycleType::ParseToJson() const
 
 LifecycleType LifecycleType::ParseFromJson(const std::string& jsonData)
 {
-    /// TODO: To be implemented later.
     LifecycleType result;
+    ParseFieldsFromJson(jsonData, result.PostStart, result.PostStart);
     return result;
 }
 

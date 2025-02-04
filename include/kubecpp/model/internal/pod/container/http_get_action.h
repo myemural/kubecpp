@@ -30,6 +30,7 @@ struct HTTPHeader
     Checked<std::string> Value{ "value", true, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static HTTPHeader ParseFromJson(const std::string& jsonData);
 };
 
 struct HTTPGetAction
@@ -41,6 +42,7 @@ struct HTTPGetAction
     Checked<std::string> Scheme{ "scheme", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static HTTPGetAction ParseFromJson(const std::string& jsonData);
 };
 
 } // namespace kubecpp::model::internal::pod::container
