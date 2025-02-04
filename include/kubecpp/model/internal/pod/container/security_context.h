@@ -34,6 +34,7 @@ struct CapabilitiesType
     Checked<std::vector<std::string>> Drop{ "drop", false, "description" };
 
     [[nodiscard]] std::string ParseToJson() const;
+    static CapabilitiesType ParseFromJson(const std::string& jsonData);
 };
 
 struct SecurityContext

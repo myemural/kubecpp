@@ -26,6 +26,13 @@ std::string CapabilitiesType::ParseToJson() const
     return ParseFieldsToJson(Add, Drop);
 }
 
+CapabilitiesType CapabilitiesType::ParseFromJson(const std::string& jsonData)
+{
+    CapabilitiesType result;
+    ParseFieldsFromJson(jsonData, result.Add, result.Drop);
+    return result;
+}
+
 std::string SecurityContext::ParseToJson() const
 {
     return ParseFieldsToJson(AllowPrivilegeEscalation, AppArmorProfile, Capabilities, ProcMount, Privileged,
@@ -34,8 +41,10 @@ std::string SecurityContext::ParseToJson() const
 
 SecurityContext SecurityContext::ParseFromJson(const std::string& jsonData)
 {
-    /// TODO: To be implemented later.
     SecurityContext result;
+    ParseFieldsFromJson(jsonData, result.AllowPrivilegeEscalation, result.AppArmorProfile, result.Capabilities,
+    result.ProcMount, result.Privileged, result.ReadOnlyRootFilesystem, result.RunAsUser, result.RunAsNonRoot,
+    result.RunAsGroup, result.SeLinuxOptions, result.SeccompProfile, result.WindowsOptions);
     return result;
 }
 
