@@ -29,8 +29,10 @@ std::string Probe::ParseToJson() const
 
 Probe Probe::ParseFromJson(const std::string& jsonData)
 {
-    /// TODO: To be implemented later.
     Probe result;
+    ParseFieldsFromJson(jsonData, result.Exec, result.HttpGet, result.TcpSocket, result.InitialDelaySeconds,
+    result.TerminationGracePeriodSeconds, result.PeriodSeconds, result.TimeoutSeconds, result.FailureThreshold,
+    result.SuccessThreshold, result.Grpc);
     return result;
 }
 
