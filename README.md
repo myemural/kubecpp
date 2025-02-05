@@ -10,6 +10,7 @@
 - [Usage](#usage)
 - [Environment Support](#environment-support)
 - [Roadmap](#roadmap)
+  - [Other Roadmap Related Topics](#other-roadmap-related-topics)
 - [Contributing](#contributing)
   - [Code of Conduct](#code-of-conduct)
   - [How to Contribute?](#how-to-contribute)
@@ -130,24 +131,30 @@ But we will test it on other compilers and versions as quickly as possible. We p
 
 ## Roadmap
 
-This project is in POC (Proof of Concept) phase currently. Only models and operations for `Pod v1` resource are supported for now (partially). The initial goal is to support all `Core v1` models and operations:
+This project is in POC (Proof of Concept) phase currently. Only models and operations for `Pod v1` resource are supported for now (partially). The initial goal is to support all `Core v1` models and operations. In the following sections, you can find a list about completeness of models, its builders, parsers and operations with respect to API type (:white_check_mark: means fully implemented, :warning: means partially implemented, :x: means not implemented yet).
 
-- [x] [Pod v1](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/)
-- [ ] [Binding v1](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/binding-v1/)
-- [ ] [PodTemplate v1](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-template-v1/)
-- [ ] [ReplicationController v1](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/replication-controller-v1/)
-- [ ] [Service v1](https://kubernetes.io/docs/reference/kubernetes-api/service-resources/service-v1/)
-- [ ] [Endpoints v1](https://kubernetes.io/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
-- [ ] [ConfigMap v1](https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/config-map-v1/)
-- [ ] [Secret v1](https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/)
-- [ ] [PersistentVolumeClaim v1](https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-claim-v1/)
-- [ ] [PersistentVolume v1](https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/)
-- [ ] [ServiceAccount v1](https://kubernetes.io/docs/reference/kubernetes-api/authentication-resources/service-account-v1/)
-- [ ] [LimitRange v1](https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/limit-range-v1/)
-- [ ] [ResourceQuota v1](https://kubernetes.io/docs/reference/kubernetes-api/policy-resources/resource-quota-v1/)
-- [ ] [ComponentStatus v1](https://kubernetes.io/docs/reference/kubernetes-api/cluster-resources/component-status-v1/)
-- [ ] [Namespace v1](https://kubernetes.io/docs/reference/kubernetes-api/cluster-resources/namespace-v1/)
-- [ ] [Node v1](https://kubernetes.io/docs/reference/kubernetes-api/cluster-resources/node-v1/)
+**Core v1**
+
+| Resource                 | Model Fields       | Builder   | Parse to Json | Parse from Json | Operations |
+| ------------------------ | ------------------ | --------- | ------------- | --------------- | ---------- |
+| Pod v1                   | :white_check_mark: | :warning: | :warning:     | :warning:       | :warning:  |
+| Binding v1               | :x:                | :x:       | :x:           | :x:             | :x:        |
+| PodTemplate v1           | :x:                | :x:       | :x:           | :x:             | :x:        |
+| ReplicationController v1 | :x:                | :x:       | :x:           | :x:             | :x:        |
+| Service v1               | :x:                | :x:       | :x:           | :x:             | :x:        |
+| Endpoints v1             | :x:                | :x:       | :x:           | :x:             | :x:        |
+| ConfigMap v1             | :x:                | :x:       | :x:           | :x:             | :x:        |
+| Secret v1                | :x:                | :x:       | :x:           | :x:             | :x:        |
+| PersistentVolumeClaim v1 | :x:                | :x:       | :x:           | :x:             | :x:        |
+| PersistentVolume v1      | :x:                | :x:       | :x:           | :x:             | :x:        |
+| ServiceAccount v1        | :x:                | :x:       | :x:           | :x:             | :x:        |
+| LimitRange v1            | :x:                | :x:       | :x:           | :x:             | :x:        |
+| ResourceQuota v1         | :x:                | :x:       | :x:           | :x:             | :x:        |
+| ComponentStatus v1       | :x:                | :x:       | :x:           | :x:             | :x:        |
+| Namespace v1             | :x:                | :x:       | :x:           | :x:             | :x:        |
+| Node v1                  | :x:                | :x:       | :x:           | :x:             | :x:        |
+
+### Other Roadmap Related Topics
 
 Additionally, GitHub Actions integration will be added very soon. Also the first phase of the project lacks:
 - A proper error handling mechanism
