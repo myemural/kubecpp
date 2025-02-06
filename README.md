@@ -154,6 +154,43 @@ This project is in POC (Proof of Concept) phase currently. Only models and opera
 | Namespace v1             | :x:                | :x:       | :x:           | :x:             | :x:        |
 | Node v1                  | :x:                | :x:       | :x:           | :x:             | :x:        |
 
+**Apps v1**
+
+| Resource              | Model Fields | Builder | Parse to Json | Parse from Json | Operations |
+| --------------------- | ------------ | ------- | ------------- | --------------- | ---------- |
+| ReplicaSet v1         | :x:          | :x:     | :x:           | :x:             | :x:        |
+| Deployment v1         | :x:          | :x:     | :x:           | :x:             | :x:        |
+| StatefulSet v1        | :x:          | :x:     | :x:           | :x:             | :x:        |
+| ControllerRevision v1 | :x:          | :x:     | :x:           | :x:             | :x:        |
+| DaemonSet v1          | :x:          | :x:     | :x:           | :x:             | :x:        |
+
+**Networking v1**
+
+| Resource         | Model Fields | Builder | Parse to Json | Parse from Json | Operations |
+| ---------------- | ------------ | ------- | ------------- | --------------- | ---------- |
+| Ingress v1       | :x:          | :x:     | :x:           | :x:             | :x:        |
+| IngressClass v1  | :x:          | :x:     | :x:           | :x:             | :x:        |
+| NetworkPolicy v1 | :x:          | :x:     | :x:           | :x:             | :x:        |
+
+**Batch v1**
+
+| Resource   | Model Fields | Builder | Parse to Json | Parse from Json | Operations |
+| ---------- | ------------ | ------- | ------------- | --------------- | ---------- |
+| Job v1     | :x:          | :x:     | :x:           | :x:             | :x:        |
+| CronJob v1 | :x:          | :x:     | :x:           | :x:             | :x:        |
+
+**Autoscaling v1**
+
+| Resource                   | Model Fields | Builder | Parse to Json | Parse from Json | Operations |
+| -------------------------- | ------------ | ------- | ------------- | --------------- | ---------- |
+| HorizontalPodAutoscaler v1 | :x:          | :x:     | :x:           | :x:             | :x:        |
+
+**Autoscaling v2**
+
+| Resource                   | Model Fields | Builder | Parse to Json | Parse from Json | Operations |
+| -------------------------- | ------------ | ------- | ------------- | --------------- | ---------- |
+| HorizontalPodAutoscaler v2 | :x:          | :x:     | :x:           | :x:             | :x:        |
+
 ### Other Roadmap Related Topics
 
 Additionally, GitHub Actions integration will be added very soon. Also the first phase of the project lacks:
