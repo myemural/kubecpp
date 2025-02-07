@@ -573,4 +573,27 @@ PodDNSConfig PodDNSConfigBuilder::Build()
     return std::move(podDNSConfig_);
 }
 
+PodResourceClaimBuilder& PodResourceClaimBuilder::Name(const std::string& name)
+{
+    podResourceClaim_.Name = name;
+    return *this;
+}
+
+PodResourceClaimBuilder& PodResourceClaimBuilder::ResourceClaimName(const std::string& resourceClaimName)
+{
+    podResourceClaim_.ResourceClaimName = resourceClaimName;
+    return *this;
+}
+
+PodResourceClaimBuilder& PodResourceClaimBuilder::ResourceClaimTemplateName(const std::string& resourceClaimTemplateName)
+{
+    podResourceClaim_.ResourceClaimTemplateName = resourceClaimTemplateName;
+    return *this;
+}
+
+PodResourceClaim PodResourceClaimBuilder::Build()
+{
+    return std::move(podResourceClaim_);
+}
+
 } // namespace kubecpp::model::internal::pod

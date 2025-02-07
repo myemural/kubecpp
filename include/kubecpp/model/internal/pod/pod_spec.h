@@ -362,6 +362,20 @@ private:
     PodDNSConfig podDNSConfig_;
 };
 
+struct PodResourceClaimBuilder
+{
+    PodResourceClaimBuilder& Name(const std::string& name);
+
+    PodResourceClaimBuilder& ResourceClaimName(const std::string& resourceClaimName);
+
+    PodResourceClaimBuilder& ResourceClaimTemplateName(const std::string& resourceClaimTemplateName);
+
+    PodResourceClaim Build();
+
+private:
+    PodResourceClaim podResourceClaim_;
+};
+
 } // namespace kubecpp::model::internal::pod
 
 #endif // POD_SPEC_H_
