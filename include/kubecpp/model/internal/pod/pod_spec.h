@@ -376,6 +376,16 @@ private:
     PodResourceClaim podResourceClaim_;
 };
 
+struct PodSchedulingGateBuilder
+{
+    PodSchedulingGateBuilder& Name(const std::string& name);
+
+    PodSchedulingGate Build();
+
+private:
+    PodSchedulingGate podSchedulingGate_;
+};
+
 } // namespace kubecpp::model::internal::pod
 
 #endif // POD_SPEC_H_

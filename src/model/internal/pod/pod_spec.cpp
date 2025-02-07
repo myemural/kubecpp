@@ -596,4 +596,15 @@ PodResourceClaim PodResourceClaimBuilder::Build()
     return std::move(podResourceClaim_);
 }
 
+PodSchedulingGateBuilder& PodSchedulingGateBuilder::Name(const std::string& name)
+{
+    podSchedulingGate_.Name = name;
+    return *this;
+}
+
+PodSchedulingGate PodSchedulingGateBuilder::Build()
+{
+    return std::move(podSchedulingGate_);
+}
+
 } // namespace kubecpp::model::internal::pod
