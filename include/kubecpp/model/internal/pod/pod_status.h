@@ -29,11 +29,15 @@ namespace kubecpp::model::internal::pod
 struct HostIP
 {
     Checked<std::string> Ip{ "ip", true, "description" };
+
+    static HostIP ParseFromJson(const std::string& jsonData);
 };
 
 struct PodIP
 {
     Checked<std::string> Ip{ "ip", true, "description" };
+
+    static PodIP ParseFromJson(const std::string& jsonData);
 };
 
 struct PodCondition
@@ -44,23 +48,31 @@ struct PodCondition
     Checked<std::string> LastTransitionTime{ "lastTransitionTime", false, "description" }; // Time
     Checked<std::string> Message{ "message", false, "description" };
     Checked<std::string> Reason{ "reason", false, "description" };
+
+    static PodCondition ParseFromJson(const std::string& jsonData);
 };
 
 struct ResourceHealth
 {
     Checked<std::string> ResourceID{ "resourceID", true, "description" };
     Checked<std::string> Health{ "health", false, "description" };
+
+    static ResourceHealth ParseFromJson(const std::string& jsonData);
 };
 
 struct ResourceStatus
 {
     Checked<std::string> Name{ "name", true, "description" };
     Checked<std::vector<ResourceHealth>> Resources{ "resources", false, "description" };
+
+    static ResourceStatus ParseFromJson(const std::string& jsonData);
 };
 
 struct ContainerStateRunning
 {
     Checked<std::string> StartedAt{ "startedAt", false, "description" }; // Time
+
+    static ContainerStateRunning ParseFromJson(const std::string& jsonData);
 };
 
 struct ContainerStateTerminated
@@ -72,12 +84,16 @@ struct ContainerStateTerminated
     Checked<std::string> Message{ "message", false, "description" };
     Checked<std::string> Reason{ "reason", false, "description" };
     Checked<int32_t> Signal{ "signal", false, "description" };
+
+    static ContainerStateTerminated ParseFromJson(const std::string& jsonData);
 };
 
 struct ContainerStateWaiting
 {
     Checked<std::string> Message{ "message", false, "description" };
     Checked<std::string> Reason{ "reason", false, "description" };
+
+    static ContainerStateWaiting ParseFromJson(const std::string& jsonData);
 };
 
 struct ContainerState
@@ -85,6 +101,8 @@ struct ContainerState
     Checked<ContainerStateRunning> Running{ "running", false, "description" };
     Checked<ContainerStateTerminated> Terminated{ "terminated", false, "description" };
     Checked<ContainerStateWaiting> Waiting{ "Waiting", false, "description" };
+
+    static ContainerState ParseFromJson(const std::string& jsonData);
 };
 
 struct LinuxContainerUser
@@ -92,11 +110,15 @@ struct LinuxContainerUser
     Checked<int64_t> Gid{ "gid", true, "description" };
     Checked<int64_t> Uid{ "uid", true, "description" };
     Checked<std::vector<int64_t>> SupplementalGroups{ "supplementalGroups", false, "description" };
+
+    static LinuxContainerUser ParseFromJson(const std::string& jsonData);
 };
 
 struct ContainerUser
 {
     Checked<LinuxContainerUser> Linux{ "linux", false, "description" };
+
+    static ContainerUser ParseFromJson(const std::string& jsonData);
 };
 
 struct VolumeMountStatus
@@ -105,6 +127,8 @@ struct VolumeMountStatus
     Checked<std::string> Name{ "name", true, "description" };
     Checked<bool> ReadOnly{ "readOnly", false, "description" };
     Checked<std::string> RecursiveReadOnly{ "recursiveReadOnly", false, "description" };
+
+    static VolumeMountStatus ParseFromJson(const std::string& jsonData);
 };
 
 struct ContainerStatus
@@ -123,12 +147,16 @@ struct ContainerStatus
     Checked<ContainerState> State{ "state", false, "description" };
     Checked<ContainerUser> User{ "user", false, "description" };
     Checked<std::vector<VolumeMountStatus>> VolumeMounts{ "volumeMounts", false, "description" };
+
+    static ContainerStatus ParseFromJson(const std::string& jsonData);
 };
 
 struct PodResourceClaimStatus
 {
     Checked<std::string> Name{ "name", true, "description" };
     Checked<std::string> ResourceClaimName{ "resourceClaimName", false, "description" };
+
+    static PodResourceClaimStatus ParseFromJson(const std::string& jsonData);
 };
 
 struct PodStatus
