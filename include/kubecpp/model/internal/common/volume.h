@@ -18,7 +18,7 @@
 #define VOLUME_H_
 
 #include <cstdint>
-#include <map>
+#include <unordered_map>
 #include <vector>
 
 #include "kubecpp/common/checked.h"
@@ -34,6 +34,8 @@ namespace kubecpp::model::internal::common
 /// TODO: This will be implemented in PersistentVolumeClaim.
 struct PersistentVolumeClaimSpec
 {
+    [[nodiscard]] std::string ParseToJson() const;
+    static PersistentVolumeClaimSpec ParseFromJson(const std::string& jsonData);
 };
 
 struct KeyToPath
@@ -41,6 +43,9 @@ struct KeyToPath
     Checked<std::string> Key{ "key", true, "description" };
     Checked<std::string> Path{ "path", true, "description" };
     Checked<std::int32_t> Mode{ "mode", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static KeyToPath ParseFromJson(const std::string& jsonData);
 };
 
 struct DownwardAPIVolumeFile
@@ -49,18 +54,27 @@ struct DownwardAPIVolumeFile
     Checked<ObjectFieldSelector> FieldRef{ "fieldRef", false, "description" };
     Checked<std::int32_t> Mode{ "mode", false, "description" };
     Checked<ResourceFieldSelector> ResourceFieldRef{ "resourceFieldRef", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static DownwardAPIVolumeFile ParseFromJson(const std::string& jsonData);
 };
 
 struct PersistentVolumeClaimTemplate
 {
     Checked<PersistentVolumeClaimSpec> Spec{ "spec", true, "description" };
     Checked<ObjectMeta> Metadata{ "metadata", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static PersistentVolumeClaimTemplate ParseFromJson(const std::string& jsonData);
 };
 
 struct PersistentVolumeClaimVolumeSource
 {
     Checked<std::string> ClaimName{ "claimName", true, "description" };
     Checked<bool> ReadOnly{ "readOnly", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static PersistentVolumeClaimVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct ConfigMapVolumeSource
@@ -69,6 +83,9 @@ struct ConfigMapVolumeSource
     Checked<bool> Optional{ "optional", false, "description" };
     Checked<std::int32_t> DefaultMode{ "defaultMode", false, "description" };
     Checked<std::vector<KeyToPath>> Items{ "items", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static ConfigMapVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct SecretVolumeSource
@@ -77,12 +94,18 @@ struct SecretVolumeSource
     Checked<bool> Optional{ "optional", false, "description" };
     Checked<std::int32_t> DefaultMode{ "defaultMode", false, "description" };
     Checked<std::vector<KeyToPath>> Items{ "items", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static SecretVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct DownwardAPIVolumeSource
 {
     Checked<std::int32_t> DefaultMode{ "defaultMode", false, "description" };
     Checked<std::vector<DownwardAPIVolumeFile>> Items{ "items", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static DownwardAPIVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct ClusterTrustBundleProjection
@@ -92,6 +115,9 @@ struct ClusterTrustBundleProjection
     Checked<std::string> Name{ "name", false, "description" };
     Checked<bool> Optional{ "optional", false, "description" };
     Checked<std::string> SignerName{ "signerName", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static ClusterTrustBundleProjection ParseFromJson(const std::string& jsonData);
 };
 
 struct ConfigMapProjection
@@ -99,11 +125,17 @@ struct ConfigMapProjection
     Checked<std::string> Name{ "name", false, "description" };
     Checked<bool> Optional{ "optional", false, "description" };
     Checked<std::vector<KeyToPath>> Items{ "items", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static ConfigMapProjection ParseFromJson(const std::string& jsonData);
 };
 
 struct DownwardAPIProjection
 {
     Checked<std::vector<DownwardAPIVolumeFile>> Items{ "items", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static DownwardAPIProjection ParseFromJson(const std::string& jsonData);
 };
 
 struct SecretProjection
@@ -111,6 +143,9 @@ struct SecretProjection
     Checked<std::string> Name{ "name", false, "description" };
     Checked<bool> Optional{ "optional", false, "description" };
     Checked<std::vector<KeyToPath>> Items{ "items", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static SecretProjection ParseFromJson(const std::string& jsonData);
 };
 
 struct ServiceAccountTokenProjection
@@ -118,6 +153,9 @@ struct ServiceAccountTokenProjection
     Checked<std::string> Path{ "path", true, "description" };
     Checked<std::string> Audience{ "audience", false, "description" };
     Checked<std::int64_t> ExpirationSeconds{ "expirationSeconds", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static ServiceAccountTokenProjection ParseFromJson(const std::string& jsonData);
 };
 
 struct VolumeProjection
@@ -127,6 +165,9 @@ struct VolumeProjection
     Checked<DownwardAPIProjection> DownwardAPI{ "downwardAPI", false, "description" };
     Checked<SecretProjection> Secret{ "secret", false, "description" };
     Checked<ServiceAccountTokenProjection> ServiceAccountToken{ "serviceAccountToken", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static VolumeProjection ParseFromJson(const std::string& jsonData);
 };
 
 struct ProjectedVolumeSource
@@ -134,18 +175,27 @@ struct ProjectedVolumeSource
 {
     Checked<std::int32_t> DefaultMode{ "defaultMode", false, "description" };
     Checked<std::vector<VolumeProjection>> Sources{ "sources", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static ProjectedVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct EmptyDirVolumeSource
 {
     Checked<std::string> Medium{ "medium", false, "description" };
     Checked<std::string> SizeLimit{ "sizeLimit", false, "description" }; // Quantity
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static EmptyDirVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct HostPathVolumeSource
 {
     Checked<std::string> Path{ "path", true, "description" };
     Checked<std::string> Type{ "type", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static HostPathVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct AWSElasticBlockStoreVolumeSource
@@ -154,6 +204,9 @@ struct AWSElasticBlockStoreVolumeSource
     Checked<std::string> FsType{ "fsType", false, "description" };
     Checked<std::int32_t> Partition{ "partition", false, "description" };
     Checked<bool> ReadOnly{ "readOnly", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static AWSElasticBlockStoreVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct AzureDiskVolumeSource
@@ -164,6 +217,9 @@ struct AzureDiskVolumeSource
     Checked<std::string> FsType{ "fsType", false, "description" };
     Checked<std::string> Kind{ "kind", false, "description" };
     Checked<bool> ReadOnly{ "readOnly", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static AzureDiskVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct AzureFileVolumeSource
@@ -171,6 +227,9 @@ struct AzureFileVolumeSource
     Checked<std::string> SecretName{ "secretName", true, "description" };
     Checked<std::string> ShareName{ "shareName", true, "description" };
     Checked<bool> ReadOnly{ "readOnly", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static AzureFileVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct CephFSVolumeSource
@@ -181,6 +240,9 @@ struct CephFSVolumeSource
     Checked<std::string> SecretFile{ "secretFile", false, "description" };
     Checked<LocalObjectReference> SecretRef{ "secretRef", false, "description" };
     Checked<std::string> User{ "user", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static CephFSVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct CinderVolumeSource
@@ -189,6 +251,9 @@ struct CinderVolumeSource
     Checked<std::string> FsType{ "fsType", false, "description" };
     Checked<bool> ReadOnly{ "readOnly", false, "description" };
     Checked<LocalObjectReference> SecretRef{ "secretRef", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static CinderVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct CSIVolumeSource
@@ -197,21 +262,30 @@ struct CSIVolumeSource
     Checked<std::string> FsType{ "fsType", false, "description" };
     Checked<LocalObjectReference> NodePublishSecretRef{ "nodePublishSecretRef", false, "description" };
     Checked<bool> ReadOnly{ "readOnly", false, "description" };
-    Checked<std::map<std::string, std::string>> VolumeAttributes{ "volumeAttributes", false, "description" };
+    Checked<std::unordered_map<std::string, std::string>> VolumeAttributes{ "volumeAttributes", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static CSIVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct EphemeralVolumeSource
 {
     Checked<PersistentVolumeClaimTemplate> VolumeClaimTemplate{ "volumeClaimTemplate", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static EphemeralVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct FCVolumeSource
 {
     Checked<std::string> FsType{ "fsType", false, "description" };
     Checked<std::int32_t> Lun{ "lun", false, "description" };
-    Checked<bool> readOnly{ "readOnly", false, "description" };
+    Checked<bool> ReadOnly{ "readOnly", false, "description" };
     Checked<std::vector<std::string>> TargetWWNs{ "targetWWNs", false, "description" };
     Checked<std::vector<std::string>> Wwids{ "wwids", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static FCVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct FlexVolumeSource
@@ -221,12 +295,18 @@ struct FlexVolumeSource
     Checked<std::unordered_map<std::string, std::string>> Options{ "options", false, "description" };
     Checked<bool> ReadOnly{ "readOnly", false, "description" };
     Checked<LocalObjectReference> SecretRef{ "secretRef", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static FlexVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct FlockerVolumeSource
 {
     Checked<std::string> DatasetName{ "datasetName", false, "description" };
     Checked<std::string> DatasetUUID{ "datasetUUID", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static FlockerVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct GCEPersistentDiskVolumeSource
@@ -235,6 +315,9 @@ struct GCEPersistentDiskVolumeSource
     Checked<std::string> FsType{ "fsType", false, "description" };
     Checked<std::int32_t> Partition{ "partition", false, "description" };
     Checked<bool> ReadOnly{ "readOnly", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static GCEPersistentDiskVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct GlusterfsVolumeSource
@@ -242,6 +325,9 @@ struct GlusterfsVolumeSource
     Checked<std::string> Endpoints{ "endpoints", true, "description" };
     Checked<std::string> Path{ "path", true, "description" };
     Checked<bool> ReadOnly{ "readOnly", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static GlusterfsVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct ISCSIVolumeSource
@@ -257,12 +343,18 @@ struct ISCSIVolumeSource
     Checked<std::vector<std::string>> Portals{ "portals", false, "description" };
     Checked<bool> ReadOnly{ "readOnly", false, "description" };
     Checked<LocalObjectReference> SecretRef{ "secretRef", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static ISCSIVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct ImageVolumeSource
 {
     Checked<std::string> PullPolicy{ "pullPolicy", false, "description" };
     Checked<std::string> Reference{ "reference", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static ImageVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct NFSVolumeSource
@@ -270,12 +362,18 @@ struct NFSVolumeSource
     Checked<std::string> Path{ "path", true, "description" };
     Checked<std::string> Server{ "server", true, "description" };
     Checked<bool> ReadOnly{ "readOnly", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static NFSVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct PhotonPersistentDiskVolumeSource
 {
     Checked<std::string> PdID{ "pdID", true, "description" };
     Checked<std::string> FsType{ "fsType", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static PhotonPersistentDiskVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct PortworxVolumeSource
@@ -283,6 +381,9 @@ struct PortworxVolumeSource
     Checked<std::string> VolumeID{ "volumeID", true, "description" };
     Checked<std::string> FsType{ "fsType", false, "description" };
     Checked<bool> ReadOnly{ "readOnly", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static PortworxVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct QuobyteVolumeSource
@@ -293,6 +394,9 @@ struct QuobyteVolumeSource
     Checked<bool> ReadOnly{ "readOnly", false, "description" };
     Checked<std::string> Tenant{ "tenant", false, "description" };
     Checked<std::string> User{ "user", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static QuobyteVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct RBDVolumeSource
@@ -305,6 +409,9 @@ struct RBDVolumeSource
     Checked<bool> ReadOnly{ "readOnly", false, "description" };
     Checked<LocalObjectReference> SecretRef{ "secretRef", false, "description" };
     Checked<std::string> User{ "user", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static RBDVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct ScaleIOVolumeSource
@@ -319,6 +426,9 @@ struct ScaleIOVolumeSource
     Checked<std::string> StorageMode{ "storageMode", false, "description" };
     Checked<std::string> StoragePool{ "storagePool", false, "description" };
     Checked<std::string> VolumeName{ "volumeName", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static ScaleIOVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct StorageOSVolumeSource
@@ -328,6 +438,9 @@ struct StorageOSVolumeSource
     Checked<LocalObjectReference> SecretRef{ "secretRef", false, "description" };
     Checked<std::string> VolumeName{ "volumeName", false, "description" };
     Checked<std::string> VolumeNamespace{ "volumeNamespace", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static StorageOSVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct VsphereVirtualDiskVolumeSource
@@ -336,6 +449,9 @@ struct VsphereVirtualDiskVolumeSource
     Checked<std::string> FsType{ "fsType", false, "description" };
     Checked<std::string> StoragePolicyID{ "storagePolicyID", false, "description" };
     Checked<std::string> StoragePolicyName{ "storagePolicyName", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static VsphereVirtualDiskVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct GitRepoVolumeSource
@@ -343,6 +459,9 @@ struct GitRepoVolumeSource
     Checked<std::string> Repository{ "repository", true, "description" };
     Checked<std::string> Directory{ "directory", false, "description" };
     Checked<std::string> Revision{ "revision", false, "description" };
+
+    [[nodiscard]] std::string ParseToJson() const;
+    static GitRepoVolumeSource ParseFromJson(const std::string& jsonData);
 };
 
 struct Volume
