@@ -135,24 +135,24 @@ This project is in POC (Proof of Concept) phase currently. Only models and opera
 
 **Core v1**
 
-| Resource                 | Model Fields       | Builder   | Parse to Json | Parse from Json | Operations |
-| ------------------------ | ------------------ | --------- | ------------- | --------------- | ---------- |
-| Pod v1                   | :white_check_mark: | :warning: | :warning:     | :warning:       | :warning:  |
-| Binding v1               | :x:                | :x:       | :x:           | :x:             | :x:        |
-| PodTemplate v1           | :x:                | :x:       | :x:           | :x:             | :x:        |
-| ReplicationController v1 | :x:                | :x:       | :x:           | :x:             | :x:        |
-| Service v1               | :x:                | :x:       | :x:           | :x:             | :x:        |
-| Endpoints v1             | :x:                | :x:       | :x:           | :x:             | :x:        |
-| ConfigMap v1             | :x:                | :x:       | :x:           | :x:             | :x:        |
-| Secret v1                | :x:                | :x:       | :x:           | :x:             | :x:        |
-| PersistentVolumeClaim v1 | :x:                | :x:       | :x:           | :x:             | :x:        |
-| PersistentVolume v1      | :x:                | :x:       | :x:           | :x:             | :x:        |
-| ServiceAccount v1        | :x:                | :x:       | :x:           | :x:             | :x:        |
-| LimitRange v1            | :x:                | :x:       | :x:           | :x:             | :x:        |
-| ResourceQuota v1         | :x:                | :x:       | :x:           | :x:             | :x:        |
-| ComponentStatus v1       | :x:                | :x:       | :x:           | :x:             | :x:        |
-| Namespace v1             | :x:                | :x:       | :x:           | :x:             | :x:        |
-| Node v1                  | :x:                | :x:       | :x:           | :x:             | :x:        |
+| Resource                 | Model Fields       | Builder   | Parse to Json      | Parse from Json    | Operations |
+| ------------------------ | ------------------ | --------- | ------------------ | ------------------ | ---------- |
+| Pod v1                   | :white_check_mark: | :warning: | :white_check_mark: | :white_check_mark: | :warning:  |
+| Binding v1               | :x:                | :x:       | :x:                | :x:                | :x:        |
+| PodTemplate v1           | :x:                | :x:       | :x:                | :x:                | :x:        |
+| ReplicationController v1 | :x:                | :x:       | :x:                | :x:                | :x:        |
+| Service v1               | :x:                | :x:       | :x:                | :x:                | :x:        |
+| Endpoints v1             | :x:                | :x:       | :x:                | :x:                | :x:        |
+| ConfigMap v1             | :x:                | :x:       | :x:                | :x:                | :x:        |
+| Secret v1                | :x:                | :x:       | :x:                | :x:                | :x:        |
+| PersistentVolumeClaim v1 | :x:                | :x:       | :x:                | :x:                | :x:        |
+| PersistentVolume v1      | :x:                | :x:       | :x:                | :x:                | :x:        |
+| ServiceAccount v1        | :x:                | :x:       | :x:                | :x:                | :x:        |
+| LimitRange v1            | :x:                | :x:       | :x:                | :x:                | :x:        |
+| ResourceQuota v1         | :x:                | :x:       | :x:                | :x:                | :x:        |
+| ComponentStatus v1       | :x:                | :x:       | :x:                | :x:                | :x:        |
+| Namespace v1             | :x:                | :x:       | :x:                | :x:                | :x:        |
+| Node v1                  | :x:                | :x:       | :x:                | :x:                | :x:        |
 
 **Apps v1**
 
