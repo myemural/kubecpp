@@ -39,7 +39,9 @@ std::string KeyToPath::ParseToJson() const
 
 KeyToPath KeyToPath::ParseFromJson(const std::string& jsonData)
 {
-    return KeyToPath();
+    KeyToPath result;
+    ParseFieldsFromJson(jsonData, result.Key, result.Path, result.Mode);
+    return result;
 }
 
 std::string DownwardAPIVolumeFile::ParseToJson() const
@@ -49,7 +51,9 @@ std::string DownwardAPIVolumeFile::ParseToJson() const
 
 DownwardAPIVolumeFile DownwardAPIVolumeFile::ParseFromJson(const std::string& jsonData)
 {
-    return DownwardAPIVolumeFile();
+    DownwardAPIVolumeFile result;
+    ParseFieldsFromJson(jsonData, result.Path, result.FieldRef, result.Mode, result.ResourceFieldRef);
+    return result;
 }
 
 std::string PersistentVolumeClaimTemplate::ParseToJson() const
@@ -59,7 +63,9 @@ std::string PersistentVolumeClaimTemplate::ParseToJson() const
 
 PersistentVolumeClaimTemplate PersistentVolumeClaimTemplate::ParseFromJson(const std::string& jsonData)
 {
-    return PersistentVolumeClaimTemplate();
+    PersistentVolumeClaimTemplate result;
+    ParseFieldsFromJson(jsonData, result.Spec, result.Metadata);
+    return result;
 }
 
 std::string PersistentVolumeClaimVolumeSource::ParseToJson() const
@@ -69,7 +75,9 @@ std::string PersistentVolumeClaimVolumeSource::ParseToJson() const
 
 PersistentVolumeClaimVolumeSource PersistentVolumeClaimVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return PersistentVolumeClaimVolumeSource();
+    PersistentVolumeClaimVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.ClaimName, result.ReadOnly);
+    return result;
 }
 
 std::string ConfigMapVolumeSource::ParseToJson() const
@@ -79,7 +87,9 @@ std::string ConfigMapVolumeSource::ParseToJson() const
 
 ConfigMapVolumeSource ConfigMapVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return ConfigMapVolumeSource();
+    ConfigMapVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.Name, result.Optional, result.DefaultMode, result.Items);
+    return result;
 }
 
 std::string SecretVolumeSource::ParseToJson() const
@@ -89,7 +99,9 @@ std::string SecretVolumeSource::ParseToJson() const
 
 SecretVolumeSource SecretVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return SecretVolumeSource();
+    SecretVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.SecretName, result.Optional, result.DefaultMode, result.Items);
+    return result;
 }
 
 std::string DownwardAPIVolumeSource::ParseToJson() const
@@ -99,7 +111,9 @@ std::string DownwardAPIVolumeSource::ParseToJson() const
 
 DownwardAPIVolumeSource DownwardAPIVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return DownwardAPIVolumeSource();
+    DownwardAPIVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.DefaultMode, result.Items);
+    return result;
 }
 
 std::string ClusterTrustBundleProjection::ParseToJson() const
@@ -109,7 +123,9 @@ std::string ClusterTrustBundleProjection::ParseToJson() const
 
 ClusterTrustBundleProjection ClusterTrustBundleProjection::ParseFromJson(const std::string& jsonData)
 {
-    return ClusterTrustBundleProjection();
+    ClusterTrustBundleProjection result;
+    ParseFieldsFromJson(jsonData, result.Path, result.LabelSelector, result.Name, result.Optional, result.SignerName);
+    return result;
 }
 
 std::string ConfigMapProjection::ParseToJson() const
@@ -119,7 +135,9 @@ std::string ConfigMapProjection::ParseToJson() const
 
 ConfigMapProjection ConfigMapProjection::ParseFromJson(const std::string& jsonData)
 {
-    return ConfigMapProjection();
+    ConfigMapProjection result;
+    ParseFieldsFromJson(jsonData, result.Name, result.Optional, result.Items);
+    return result;
 }
 
 std::string DownwardAPIProjection::ParseToJson() const
@@ -129,7 +147,9 @@ std::string DownwardAPIProjection::ParseToJson() const
 
 DownwardAPIProjection DownwardAPIProjection::ParseFromJson(const std::string& jsonData)
 {
-    return DownwardAPIProjection();
+    DownwardAPIProjection result;
+    ParseFieldsFromJson(jsonData, result.Items);
+    return result;
 }
 
 std::string SecretProjection::ParseToJson() const
@@ -139,7 +159,9 @@ std::string SecretProjection::ParseToJson() const
 
 SecretProjection SecretProjection::ParseFromJson(const std::string& jsonData)
 {
-    return SecretProjection();
+    SecretProjection result;
+    ParseFieldsFromJson(jsonData, result.Name, result.Optional, result.Items);
+    return result;
 }
 
 std::string ServiceAccountTokenProjection::ParseToJson() const
@@ -149,7 +171,9 @@ std::string ServiceAccountTokenProjection::ParseToJson() const
 
 ServiceAccountTokenProjection ServiceAccountTokenProjection::ParseFromJson(const std::string& jsonData)
 {
-    return ServiceAccountTokenProjection();
+    ServiceAccountTokenProjection result;
+    ParseFieldsFromJson(jsonData, result.Path, result.Audience, result.ExpirationSeconds);
+    return result;
 }
 
 std::string VolumeProjection::ParseToJson() const
@@ -159,7 +183,10 @@ std::string VolumeProjection::ParseToJson() const
 
 VolumeProjection VolumeProjection::ParseFromJson(const std::string& jsonData)
 {
-    return VolumeProjection();
+    VolumeProjection result;
+    ParseFieldsFromJson(jsonData, result.ClusterTrustBundle, result.ConfigMap, result.DownwardAPI, result.Secret,
+    result.ServiceAccountToken);
+    return result;
 }
 
 std::string ProjectedVolumeSource::ParseToJson() const
@@ -169,7 +196,9 @@ std::string ProjectedVolumeSource::ParseToJson() const
 
 ProjectedVolumeSource ProjectedVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return ProjectedVolumeSource();
+    ProjectedVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.DefaultMode, result.Sources);
+    return result;
 }
 
 std::string EmptyDirVolumeSource::ParseToJson() const
@@ -179,7 +208,9 @@ std::string EmptyDirVolumeSource::ParseToJson() const
 
 EmptyDirVolumeSource EmptyDirVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return EmptyDirVolumeSource();
+    EmptyDirVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.Medium, result.SizeLimit);
+    return result;
 }
 
 std::string HostPathVolumeSource::ParseToJson() const
@@ -189,7 +220,9 @@ std::string HostPathVolumeSource::ParseToJson() const
 
 HostPathVolumeSource HostPathVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return HostPathVolumeSource();
+    HostPathVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.Path, result.Type);
+    return result;
 }
 
 std::string AWSElasticBlockStoreVolumeSource::ParseToJson() const
@@ -199,7 +232,9 @@ std::string AWSElasticBlockStoreVolumeSource::ParseToJson() const
 
 AWSElasticBlockStoreVolumeSource AWSElasticBlockStoreVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return AWSElasticBlockStoreVolumeSource();
+    AWSElasticBlockStoreVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.VolumeID, result.FsType, result.Partition, result.ReadOnly);
+    return result;
 }
 
 std::string AzureDiskVolumeSource::ParseToJson() const
@@ -209,7 +244,10 @@ std::string AzureDiskVolumeSource::ParseToJson() const
 
 AzureDiskVolumeSource AzureDiskVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return AzureDiskVolumeSource();
+    AzureDiskVolumeSource result;
+    ParseFieldsFromJson(
+    jsonData, result.DiskName, result.DiskURI, result.CachingMode, result.FsType, result.Kind, result.ReadOnly);
+    return result;
 }
 
 std::string AzureFileVolumeSource::ParseToJson() const
@@ -219,7 +257,9 @@ std::string AzureFileVolumeSource::ParseToJson() const
 
 AzureFileVolumeSource AzureFileVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return AzureFileVolumeSource();
+    AzureFileVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.SecretName, result.ShareName, result.ReadOnly);
+    return result;
 }
 
 std::string CephFSVolumeSource::ParseToJson() const
@@ -229,7 +269,10 @@ std::string CephFSVolumeSource::ParseToJson() const
 
 CephFSVolumeSource CephFSVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return CephFSVolumeSource();
+    CephFSVolumeSource result;
+    ParseFieldsFromJson(
+    jsonData, result.Monitors, result.Path, result.ReadOnly, result.SecretFile, result.SecretRef, result.User);
+    return result;
 }
 
 std::string CinderVolumeSource::ParseToJson() const
@@ -239,7 +282,9 @@ std::string CinderVolumeSource::ParseToJson() const
 
 CinderVolumeSource CinderVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return CinderVolumeSource();
+    CinderVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.VolumeID, result.FsType, result.ReadOnly, result.SecretRef);
+    return result;
 }
 
 std::string CSIVolumeSource::ParseToJson() const
@@ -249,7 +294,9 @@ std::string CSIVolumeSource::ParseToJson() const
 
 CSIVolumeSource CSIVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return CSIVolumeSource();
+    CSIVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.Driver, result.FsType, result.NodePublishSecretRef, result.ReadOnly, result.VolumeAttributes);
+    return result;
 }
 
 std::string EphemeralVolumeSource::ParseToJson() const
@@ -259,7 +306,9 @@ std::string EphemeralVolumeSource::ParseToJson() const
 
 EphemeralVolumeSource EphemeralVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return EphemeralVolumeSource();
+    EphemeralVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.VolumeClaimTemplate);
+    return result;
 }
 
 std::string FCVolumeSource::ParseToJson() const
@@ -269,7 +318,9 @@ std::string FCVolumeSource::ParseToJson() const
 
 FCVolumeSource FCVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return FCVolumeSource();
+    FCVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.FsType, result.Lun, result.ReadOnly, result.TargetWWNs, result.Wwids);
+    return result;
 }
 
 std::string FlexVolumeSource::ParseToJson() const
@@ -279,7 +330,9 @@ std::string FlexVolumeSource::ParseToJson() const
 
 FlexVolumeSource FlexVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return FlexVolumeSource();
+    FlexVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.Driver, result.FsType, result.Options, result.ReadOnly, result.SecretRef);
+    return result;
 }
 
 std::string FlockerVolumeSource::ParseToJson() const
@@ -289,7 +342,9 @@ std::string FlockerVolumeSource::ParseToJson() const
 
 FlockerVolumeSource FlockerVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return FlockerVolumeSource();
+    FlockerVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.DatasetName, result.DatasetUUID);
+    return result;
 }
 
 std::string GCEPersistentDiskVolumeSource::ParseToJson() const
@@ -299,7 +354,9 @@ std::string GCEPersistentDiskVolumeSource::ParseToJson() const
 
 GCEPersistentDiskVolumeSource GCEPersistentDiskVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return GCEPersistentDiskVolumeSource();
+    GCEPersistentDiskVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.PdName, result.FsType, result.Partition, result.ReadOnly);
+    return result;
 }
 
 std::string GlusterfsVolumeSource::ParseToJson() const
@@ -309,7 +366,9 @@ std::string GlusterfsVolumeSource::ParseToJson() const
 
 GlusterfsVolumeSource GlusterfsVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return GlusterfsVolumeSource();
+    GlusterfsVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.Endpoints, result.Path, result.ReadOnly);
+    return result;
 }
 
 std::string ISCSIVolumeSource::ParseToJson() const
@@ -320,7 +379,10 @@ std::string ISCSIVolumeSource::ParseToJson() const
 
 ISCSIVolumeSource ISCSIVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return ISCSIVolumeSource();
+    ISCSIVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.Iqn, result.Lun, result.TargetPortal, result.ChapAuthDiscovery, result.ChapAuthSession,
+    result.FsType, result.InitiatorName, result.IscsiInterface, result.Portals, result.ReadOnly, result.SecretRef);
+    return result;
 }
 
 std::string ImageVolumeSource::ParseToJson() const
@@ -330,7 +392,9 @@ std::string ImageVolumeSource::ParseToJson() const
 
 ImageVolumeSource ImageVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return ImageVolumeSource();
+    ImageVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.PullPolicy, result.Reference);
+    return result;
 }
 
 std::string NFSVolumeSource::ParseToJson() const
@@ -340,7 +404,9 @@ std::string NFSVolumeSource::ParseToJson() const
 
 NFSVolumeSource NFSVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return NFSVolumeSource();
+    NFSVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.Path, result.Server, result.ReadOnly);
+    return result;
 }
 
 std::string PhotonPersistentDiskVolumeSource::ParseToJson() const
@@ -350,7 +416,9 @@ std::string PhotonPersistentDiskVolumeSource::ParseToJson() const
 
 PhotonPersistentDiskVolumeSource PhotonPersistentDiskVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return PhotonPersistentDiskVolumeSource();
+    PhotonPersistentDiskVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.PdID, result.FsType);
+    return result;
 }
 
 std::string PortworxVolumeSource::ParseToJson() const
@@ -360,7 +428,9 @@ std::string PortworxVolumeSource::ParseToJson() const
 
 PortworxVolumeSource PortworxVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return PortworxVolumeSource();
+    PortworxVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.VolumeID, result.FsType, result.ReadOnly);
+    return result;
 }
 
 std::string QuobyteVolumeSource::ParseToJson() const
@@ -370,7 +440,9 @@ std::string QuobyteVolumeSource::ParseToJson() const
 
 QuobyteVolumeSource QuobyteVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return QuobyteVolumeSource();
+    QuobyteVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.Registry, result.Volume, result.Group, result.ReadOnly, result.Tenant, result.User);
+    return result;
 }
 
 std::string RBDVolumeSource::ParseToJson() const
@@ -380,7 +452,10 @@ std::string RBDVolumeSource::ParseToJson() const
 
 RBDVolumeSource RBDVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return RBDVolumeSource();
+    RBDVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.Image, result.Monitors, result.FsType, result.Keyring, result.Pool,
+    result.ReadOnly, result.SecretRef, result.User);
+    return result;
 }
 
 std::string ScaleIOVolumeSource::ParseToJson() const
@@ -391,7 +466,10 @@ std::string ScaleIOVolumeSource::ParseToJson() const
 
 ScaleIOVolumeSource ScaleIOVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return ScaleIOVolumeSource();
+    ScaleIOVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.Gateway, result.SecretRef, result.System, result.FsType, result.ProtectionDomain,
+    result.ReadOnly, result.SslEnabled, result.StorageMode, result.StoragePool, result.VolumeName);
+    return result;
 }
 
 std::string StorageOSVolumeSource::ParseToJson() const
@@ -401,7 +479,9 @@ std::string StorageOSVolumeSource::ParseToJson() const
 
 StorageOSVolumeSource StorageOSVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return StorageOSVolumeSource();
+    StorageOSVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.FsType, result.ReadOnly, result.SecretRef, result.VolumeName, result.VolumeNamespace);
+    return result;
 }
 
 std::string VsphereVirtualDiskVolumeSource::ParseToJson() const
@@ -411,7 +491,9 @@ std::string VsphereVirtualDiskVolumeSource::ParseToJson() const
 
 VsphereVirtualDiskVolumeSource VsphereVirtualDiskVolumeSource::ParseFromJson(const std::string& jsonData)
 {
-    return VsphereVirtualDiskVolumeSource();
+    VsphereVirtualDiskVolumeSource result;
+    ParseFieldsFromJson(jsonData, result.VolumePath, result.FsType, result.StoragePolicyID, result.StoragePolicyName);
+    return result;
 }
 
 std::string GitRepoVolumeSource::ParseToJson() const
