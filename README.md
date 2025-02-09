@@ -8,6 +8,7 @@
   - [Prerequisites](#prerequisites)
   - [Build](#build)
 - [Usage](#usage)
+- [Unit Testing](#unit-testing)
 - [Environment Support](#environment-support)
 - [Roadmap](#roadmap)
   - [Other Roadmap Related Topics](#other-roadmap-related-topics)
@@ -110,13 +111,34 @@ cmake --build .
 
 ## Usage
 
-Since the `BUILD_EXAMPLES` cache variable is `ON` by default, the examples will be compiled automatically when you perform the build steps. All you have to do after that is modify the example source code as you wish and compile using traditional CMake compilation or CMake Presets. You can find examples and their source codes in `examples` folder.
+Since the `BUILD_EXAMPLES` cache variable is `ON` by default, the examples will be compiled automatically when you perform the build steps. All you have to do after that is modify the example source code as you wish and compile using traditional CMake compilation or CMake Presets. You can find examples and their source codes in `examples` directory.
 
 **Important Note:** Please don't forget to change `<PUT_YOUR_KUBECONFIG_PATH_HERE>` string in example code to execute it properly. This example requires a Kubernetes cluster to properly work. If you don't know how to install Kubernetes in your local, please check these links:
 
 - [MicroK8s](https://microk8s.io/#install-microk8s)
 - [minikube](https://minikube.sigs.k8s.io/docs/start/?arch=%2Fwindows%2Fx86-64%2Fstable%2F.exe+download)
 - [kind](https://kind.sigs.k8s.io/docs/user/quick-start/)
+
+## Unit Testing
+
+Unit test support has been provided with GoogleTest library. First you need to set `BUILD_TESTS` variable in CMake to `ON`. You can do this via directly editing file or command line. After compilation with this flag, you can go `build` directory and simply execute `ctest` like this:
+
+```bash
+cd build
+ctest
+```
+
+This will test evertyhing. If you need to add more detailed information, you need to add `-VV` flag to this command:
+
+```bash
+ctest -VV
+```
+
+If you want to run a specific test (for example `string_utils_test`), you can do it like this:
+
+```bash
+ctest -R string_utils_test
+```
 
 ## Environment Support
 
@@ -197,7 +219,6 @@ Additionally, GitHub Actions integration will be added very soon. Also the first
 - A proper error handling mechanism
 - JSON/YAML from/to model conversion
 - A proper versioning and release scheme
-- Unit testing integration
 
 ## Contributing
 
