@@ -54,6 +54,7 @@ class kubecppRecipe(ConanFile):
         self.requires("cpr/1.11.1")
         self.requires("rapidyaml/0.7.1")
         self.requires("rapidjson/cci.20230929")
+        self.requires("gtest/1.15.0")
 
     def build(self):
         cmake = CMake(self)

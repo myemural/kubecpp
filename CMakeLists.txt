@@ -14,7 +14,7 @@ set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "${CMAKE_BINARY_DIR}/Release/generato
 
 # Settings
 option(BUILD_SHARED_LIBS "Build using shared libraries" OFF)
-option(BUILD_TESTS "Build tests" OFF) # Not used for now
+option(BUILD_TESTS "Build tests" ON)
 option(BUILD_EXAMPLES "Build examples" ON)
 
 ## Build type processing
@@ -40,10 +40,13 @@ add_subdirectory(src)
 add_library(${PACKAGE_NAME})
 target_link_libraries(${PACKAGE_NAME} PUBLIC kubecpp_objs)
 
+### Examples
 if(BUILD_EXAMPLES)
     add_subdirectory(examples/create_pod)
 endif()
 
 ### Tests
-
-##################
+if(BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(test)
+endif()
