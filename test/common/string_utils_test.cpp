@@ -52,3 +52,10 @@ TEST(StringUtilsTest, BuildQueryParams_WhenMultipleArgumentsProvided_ThenExpectP
     BuildQueryParams(path, { { "param1", "value1" }, { "param2", "value2" }, { "param3", "value3" } });
     ASSERT_STREQ(path.c_str(), "test1/test2?param1=value1&param2=value2&param3=value3");
 }
+
+TEST(StringUtilsTest, BuildQueryParams_WhenMultipleComplexArgumentsProvided_ThenExpectPathPlusQueryString)
+{
+    std::string path = "test1/test2";
+    BuildQueryParams(path, { { "param1", "value1" }, { "param3", "value3" }, { "param2", "value2" } });
+    ASSERT_STREQ(path.c_str(), "test1/test2?param1=value1&param2=value2&param3=value3");
+}

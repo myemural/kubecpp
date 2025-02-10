@@ -18,7 +18,7 @@
 #define CORE_API_H_
 
 #include <cstdint>
-#include <unordered_map>
+#include <map>
 
 #include "kubecpp/client/api_client.h"
 #include "kubecpp/common/api_result.h"
@@ -34,7 +34,7 @@ enum class PodUpdateFilter : std::uint8_t { kAll, kStatus, kEphemeralContainer }
 
 enum class PodPatchFilter : std::uint8_t { kAll, kStatus, kEphemeralContainer };
 
-using QueryParams = std::unordered_map<std::string, std::string>;
+using QueryParams = std::map<std::string, std::string>;
 
 class CoreApi
 {

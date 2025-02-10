@@ -17,6 +17,7 @@
 #ifndef JSON_UTILS_H_
 #define JSON_UTILS_H_
 
+#include <cstdint>
 #include <exception>
 #include <type_traits>
 #include <unordered_map>

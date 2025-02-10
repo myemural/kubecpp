@@ -19,7 +19,7 @@
 
 #include <initializer_list>
 #include <string>
-#include <unordered_map>
+#include <map>
 
 #include "kubecpp/common/constants.h"
 
@@ -28,7 +28,7 @@ namespace kubecpp::common
 
 std::string BuildPath(const std::initializer_list<std::string>& args);
 
-void BuildQueryParams(std::string& path, const std::unordered_map<std::string, std::string>& queryParams);
+void BuildQueryParams(std::string& path, const std::map<std::string, std::string>& queryParams);
 
 } // namespace kubecpp::common
 

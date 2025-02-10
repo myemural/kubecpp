@@ -37,7 +37,7 @@ std::string BuildPath(const std::initializer_list<std::string>& args)
     return path;
 }
 
-void BuildQueryParams(std::string& path, const std::unordered_map<std::string, std::string>& queryParams)
+void BuildQueryParams(std::string& path, const std::map<std::string, std::string>& queryParams)
 {
     if(!queryParams.empty()) {
         path += constants::kQuerySeparator;
