@@ -80,6 +80,9 @@ CoreApi::Get<Pod>(const std::string& name, const std::string& nameSpace, const P
     case PodGetFilter::kStatus:
         path = BuildPath({ kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural, name, "status" });
         break;
+    case PodGetFilter::kLog:
+        /// TODO: Currently not used.
+        break;
     }
 
     if(!queryParams.empty()) {

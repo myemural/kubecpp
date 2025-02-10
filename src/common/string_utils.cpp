@@ -29,7 +29,7 @@ std::string BuildPath(const std::initializer_list<std::string>& args)
 
     std::string path;
     std::ostringstream stream;
-    for(const auto arg : args) {
+    for(const auto& arg : args) {
         stream << arg << constants::kPathSeparator;
     }
     path = stream.str();

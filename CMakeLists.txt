@@ -32,7 +32,7 @@ if(MSVC)
         set(CMAKE_CXX_FLAGS_RELEASE "/Os /Ob2 /DNDEBUG")
     endif()
 else()
-    add_compile_options("-std=c++17")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -Wall -Wextra -Wpedantic -Os")
 endif()
 
 add_subdirectory(src)
