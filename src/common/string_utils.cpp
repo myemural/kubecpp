@@ -23,6 +23,10 @@ namespace kubecpp::common
 
 std::string BuildPath(const std::initializer_list<std::string>& args)
 {
+    if(std::empty(args)) {
+        return "";
+    }
+
     std::string path;
     std::ostringstream stream;
     for(const auto arg : args) {
@@ -41,11 +45,12 @@ void BuildQueryParams(std::string& path, const std::unordered_map<std::string, s
         for(const auto& [paramKey, paramValue] : queryParams) {
             if(!isFirst) {
                 path += constants::kQueryAnd;
-                isFirst = false;
             }
+
             path += paramKey;
             path += constants::kQueryEqual;
             path += paramValue;
+            isFirst = false;
         }
     }
 }
