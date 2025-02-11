@@ -56,6 +56,18 @@ struct PodSecurityContext
     static PodSecurityContext ParseFromJson(const std::string& jsonData);
 };
 
+struct SysctlBuilder
+{
+    SysctlBuilder& Name(const std::string& name);
+
+    SysctlBuilder& Value(const std::string& value);
+
+    Sysctl Build();
+
+private:
+    Sysctl sysctl_;
+};
+
 } // namespace kubecpp::model::internal::pod
 
 #endif // POD_SECURITY_CONTEXT_H_

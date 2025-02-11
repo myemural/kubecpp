@@ -48,4 +48,22 @@ PodSecurityContext PodSecurityContext::ParseFromJson(const std::string& jsonData
     return result;
 }
 
+SysctlBuilder& SysctlBuilder::Name(const std::string& name)
+{
+    sysctl_.Name = name;
+    return *this;
+}
+
+SysctlBuilder& SysctlBuilder::Value(const std::string& value)
+{
+    sysctl_.Value = value;
+    return *this;
+}
+
+Sysctl SysctlBuilder::Build()
+{
+    return std::move(sysctl_);
+}
+
+
 } // namespace kubecpp::model::internal::pod
