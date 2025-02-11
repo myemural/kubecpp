@@ -68,6 +68,38 @@ private:
     Sysctl sysctl_;
 };
 
+struct PodSecurityContextBuilder
+{
+    PodSecurityContextBuilder& AppArmorProfile(const security::AppArmorProfile& appArmorProfile);
+
+    PodSecurityContextBuilder& FsGroup(int64_t fsGroup);
+
+    PodSecurityContextBuilder& FsGroupChangePolicy(const std::string& fsGroupChangePolicy);
+
+    PodSecurityContextBuilder& RunAsUser(int64_t runAsUser);
+
+    PodSecurityContextBuilder& RunAsNonRoot(bool runAsNonRoot);
+
+    PodSecurityContextBuilder& RunAsGroup(int64_t runAsGroup);
+
+    PodSecurityContextBuilder& SeccompProfile(const security::SeccompProfile& seccompProfile);
+
+    PodSecurityContextBuilder& SeLinuxOptions(const security::SELinuxOptions& seLinuxOptions);
+
+    PodSecurityContextBuilder& SupplementalGroups(const std::vector<int64_t>& supplementalGroups);
+
+    PodSecurityContextBuilder& SupplementalGroupsPolicy(const std::string& supplementalGroupsPolicy);
+
+    PodSecurityContextBuilder& Sysctls(const std::vector<Sysctl>& sysctls);
+
+    PodSecurityContextBuilder& WindowsOptions(const security::WindowsSecurityContextOptions& windowsOptions);
+
+    PodSecurityContext Build();
+
+private:
+    PodSecurityContext podSecurityContext_;
+};
+
 } // namespace kubecpp::model::internal::pod
 
 #endif // POD_SECURITY_CONTEXT_H_

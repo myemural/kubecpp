@@ -65,5 +65,81 @@ Sysctl SysctlBuilder::Build()
     return std::move(sysctl_);
 }
 
+PodSecurityContextBuilder& PodSecurityContextBuilder::AppArmorProfile(const security::AppArmorProfile& appArmorProfile)
+{
+    podSecurityContext_.AppArmorProfile = appArmorProfile;
+    return *this;
+}
+
+PodSecurityContextBuilder& PodSecurityContextBuilder::FsGroup(int64_t fsGroup)
+{
+    podSecurityContext_.FsGroup = fsGroup;
+    return *this;
+}
+
+PodSecurityContextBuilder& PodSecurityContextBuilder::FsGroupChangePolicy(const std::string& fsGroupChangePolicy)
+{
+    podSecurityContext_.FsGroupChangePolicy = fsGroupChangePolicy;
+    return *this;
+}
+
+PodSecurityContextBuilder& PodSecurityContextBuilder::RunAsUser(int64_t runAsUser)
+{
+    podSecurityContext_.RunAsUser = runAsUser;
+    return *this;
+}
+
+PodSecurityContextBuilder& PodSecurityContextBuilder::RunAsNonRoot(bool runAsNonRoot)
+{
+    podSecurityContext_.RunAsNonRoot = runAsNonRoot;
+    return *this;
+}
+
+PodSecurityContextBuilder& PodSecurityContextBuilder::RunAsGroup(int64_t runAsGroup)
+{
+    podSecurityContext_.RunAsGroup = runAsGroup;
+    return *this;
+}
+
+PodSecurityContextBuilder& PodSecurityContextBuilder::SeccompProfile(const security::SeccompProfile& seccompProfile)
+{
+    podSecurityContext_.SeccompProfile = seccompProfile;
+    return *this;
+}
+
+PodSecurityContextBuilder& PodSecurityContextBuilder::SeLinuxOptions(const security::SELinuxOptions& seLinuxOptions)
+{
+    podSecurityContext_.SeLinuxOptions = seLinuxOptions;
+    return *this;
+}
+
+PodSecurityContextBuilder& PodSecurityContextBuilder::SupplementalGroups(const std::vector<int64_t>& supplementalGroups)
+{
+    podSecurityContext_.SupplementalGroups = supplementalGroups;
+    return *this;
+}
+
+PodSecurityContextBuilder& PodSecurityContextBuilder::SupplementalGroupsPolicy(const std::string& supplementalGroupsPolicy)
+{
+    podSecurityContext_.SupplementalGroupsPolicy = supplementalGroupsPolicy;
+    return *this;
+}
+
+PodSecurityContextBuilder& PodSecurityContextBuilder::Sysctls(const std::vector<Sysctl>& sysctls)
+{
+    podSecurityContext_.Sysctls = sysctls;
+    return *this;
+}
+
+PodSecurityContextBuilder& PodSecurityContextBuilder::WindowsOptions(const security::WindowsSecurityContextOptions& windowsOptions)
+{
+    podSecurityContext_.WindowsOptions = windowsOptions;
+    return *this;
+}
+
+PodSecurityContext PodSecurityContextBuilder::Build()
+{
+    return std::move(podSecurityContext_);
+}
 
 } // namespace kubecpp::model::internal::pod
