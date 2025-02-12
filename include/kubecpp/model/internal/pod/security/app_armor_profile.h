@@ -31,6 +31,18 @@ struct AppArmorProfile
     static AppArmorProfile ParseFromJson(const std::string& jsonData);
 };
 
+struct AppArmorProfileBuilder
+{
+    AppArmorProfileBuilder& Type(const std::string& type);
+
+    AppArmorProfileBuilder& LocalhostProfile(const std::string& localhostProfile);
+
+    AppArmorProfile Build();
+
+private:
+    AppArmorProfile appArmorProfile_;
+};
+
 } // namespace kubecpp::model::internal::pod::security
 
 #endif // APP_ARMOR_PROFILE_H_

@@ -33,4 +33,33 @@ SELinuxOptions SELinuxOptions::ParseFromJson(const std::string& jsonData)
     return result;
 }
 
+SELinuxOptionsBuilder& SELinuxOptionsBuilder::Level(const std::string& level)
+{
+    seLinuxOptions_.Level = level;
+    return *this;
+}
+
+SELinuxOptionsBuilder& SELinuxOptionsBuilder::Role(const std::string& role)
+{
+    seLinuxOptions_.Role = role;
+    return *this;
+}
+
+SELinuxOptionsBuilder& SELinuxOptionsBuilder::Type(const std::string& type)
+{
+    seLinuxOptions_.Type = type;
+    return *this;
+}
+
+SELinuxOptionsBuilder& SELinuxOptionsBuilder::User(const std::string& user)
+{
+    seLinuxOptions_.User = user;
+    return *this;
+}
+
+SELinuxOptions SELinuxOptionsBuilder::Build()
+{
+    return std::move(seLinuxOptions_);
+}
+
 } // namespace kubecpp::model::internal::pod::security

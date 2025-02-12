@@ -33,6 +33,22 @@ struct SELinuxOptions
     static SELinuxOptions ParseFromJson(const std::string& jsonData);
 };
 
+struct SELinuxOptionsBuilder
+{
+    SELinuxOptionsBuilder& Level(const std::string& level);
+
+    SELinuxOptionsBuilder& Role(const std::string& role);
+
+    SELinuxOptionsBuilder& Type(const std::string& type);
+
+    SELinuxOptionsBuilder& User(const std::string& user);
+
+    SELinuxOptions Build();
+
+private:
+    SELinuxOptions seLinuxOptions_;
+};
+
 } // namespace kubecpp::model::internal::pod::security
 
 #endif // SE_LINUX_OPTIONS_H_

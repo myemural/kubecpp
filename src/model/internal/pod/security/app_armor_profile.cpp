@@ -33,4 +33,21 @@ AppArmorProfile AppArmorProfile::ParseFromJson(const std::string& jsonData)
     return result;
 }
 
+AppArmorProfileBuilder& AppArmorProfileBuilder::Type(const std::string& type)
+{
+    appArmorProfile_.Type = type;
+    return *this;
+}
+
+AppArmorProfileBuilder& AppArmorProfileBuilder::LocalhostProfile(const std::string& localhostProfile)
+{
+    appArmorProfile_.LocalhostProfile = localhostProfile;
+    return *this;
+}
+
+AppArmorProfile AppArmorProfileBuilder::Build()
+{
+    return std::move(appArmorProfile_);
+}
+
 } // namespace kubecpp::model::internal::pod::security
