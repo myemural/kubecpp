@@ -33,6 +33,22 @@ struct WindowsSecurityContextOptions
     static WindowsSecurityContextOptions ParseFromJson(const std::string& jsonData);
 };
 
+struct WindowsSecurityContextOptionsBuilder
+{
+    WindowsSecurityContextOptionsBuilder& GmsaCredentialSpec(const std::string& gmsaCredentialSpec);
+
+    WindowsSecurityContextOptionsBuilder& GmsaCredentialSpecName(const std::string& gmsaCredentialSpecName);
+
+    WindowsSecurityContextOptionsBuilder& HostProcess(bool hostProcess);
+
+    WindowsSecurityContextOptionsBuilder& RunAsUserName(const std::string& runAsUserName);
+
+    WindowsSecurityContextOptions Build();
+
+private:
+    WindowsSecurityContextOptions windowsSecurityContextOptions_;
+};
+
 } // namespace kubecpp::model::internal::pod::security
 
 #endif // WINDOWS_SECURITY_CONTEXT_OPTIONS_H_

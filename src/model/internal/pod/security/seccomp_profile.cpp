@@ -33,4 +33,21 @@ SeccompProfile SeccompProfile::ParseFromJson(const std::string& jsonData)
     return result;
 }
 
+SeccompProfileBuilder& SeccompProfileBuilder::Type(const std::string& type)
+{
+    seccompProfile_.Type = type;
+    return *this;
+}
+
+SeccompProfileBuilder& SeccompProfileBuilder::LocalhostProfile(const std::string& localhostProfile)
+{
+    seccompProfile_.LocalhostProfile = localhostProfile;
+    return *this;
+}
+
+SeccompProfile SeccompProfileBuilder::Build()
+{
+    return std::move(seccompProfile_);
+}
+
 } // namespace kubecpp::model::internal::pod::security

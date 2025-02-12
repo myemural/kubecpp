@@ -33,4 +33,33 @@ WindowsSecurityContextOptions WindowsSecurityContextOptions::ParseFromJson(const
     return result;
 }
 
+WindowsSecurityContextOptionsBuilder& WindowsSecurityContextOptionsBuilder::GmsaCredentialSpec(const std::string& gmsaCredentialSpec)
+{
+    windowsSecurityContextOptions_.GmsaCredentialSpec = gmsaCredentialSpec;
+    return *this;
+}
+
+WindowsSecurityContextOptionsBuilder& WindowsSecurityContextOptionsBuilder::GmsaCredentialSpecName(const std::string& gmsaCredentialSpecName)
+{
+    windowsSecurityContextOptions_.GmsaCredentialSpecName = gmsaCredentialSpecName;
+    return *this;
+}
+
+WindowsSecurityContextOptionsBuilder& WindowsSecurityContextOptionsBuilder::HostProcess(bool hostProcess)
+{
+    windowsSecurityContextOptions_.HostProcess = hostProcess;
+    return *this;
+}
+
+WindowsSecurityContextOptionsBuilder& WindowsSecurityContextOptionsBuilder::RunAsUserName(const std::string& runAsUserName)
+{
+    windowsSecurityContextOptions_.RunAsUserName = runAsUserName;
+    return *this;
+}
+
+WindowsSecurityContextOptions WindowsSecurityContextOptionsBuilder::Build()
+{
+    return std::move(windowsSecurityContextOptions_);
+}
+
 } // namespace kubecpp::model::internal::pod::security

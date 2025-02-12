@@ -31,6 +31,18 @@ struct SeccompProfile
     static SeccompProfile ParseFromJson(const std::string& jsonData);
 };
 
+struct SeccompProfileBuilder
+{
+    SeccompProfileBuilder& Type(const std::string& type);
+
+    SeccompProfileBuilder& LocalhostProfile(const std::string& localhostProfile);
+
+    SeccompProfile Build();
+
+private:
+    SeccompProfile seccompProfile_;
+};
+
 } // namespace kubecpp::model::internal::pod::security
 
 #endif // SECCOMP_PROFILE_H_
