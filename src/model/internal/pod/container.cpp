@@ -504,6 +504,70 @@ ContainerPortType ContainerPortBuilder::Build()
     return std::move(containerPortType_);
 }
 
+VolumeMountBuilder& VolumeMountBuilder::MountPath(const std::string& mountPath)
+{
+    volumeMount_.MountPath = mountPath;
+    return *this;
+}
+
+VolumeMountBuilder& VolumeMountBuilder::Name(const std::string& name)
+{
+    volumeMount_.Name = name;
+    return *this;
+}
+
+VolumeMountBuilder& VolumeMountBuilder::MountPropagation(const std::string& mountPropagation)
+{
+    volumeMount_.MountPropagation = mountPropagation;
+    return *this;
+}
+
+VolumeMountBuilder& VolumeMountBuilder::ReadOnly(bool readOnly)
+{
+    volumeMount_.ReadOnly = readOnly;
+    return *this;
+}
+
+VolumeMountBuilder& VolumeMountBuilder::RecursiveReadOnly(const std::string& recursiveReadOnly)
+{
+    volumeMount_.RecursiveReadOnly = recursiveReadOnly;
+    return *this;
+}
+
+VolumeMountBuilder& VolumeMountBuilder::SubPath(const std::string& subPath)
+{
+    volumeMount_.SubPath = subPath;
+    return *this;
+}
+
+VolumeMountBuilder& VolumeMountBuilder::SubPathExpr(const std::string& subPathExpr)
+{
+    volumeMount_.SubPathExpr = subPathExpr;
+    return *this;
+}
+
+VolumeMount VolumeMountBuilder::Build()
+{
+    return std::move(volumeMount_);
+}
+
+VolumeDeviceBuilder& VolumeDeviceBuilder::DevicePath(const std::string& devicePath)
+{
+    volumeDevice_.DevicePath = devicePath;
+    return *this;
+}
+
+VolumeDeviceBuilder& VolumeDeviceBuilder::Name(const std::string& name)
+{
+    volumeDevice_.Name = name;
+    return *this;
+}
+
+VolumeDevice VolumeDeviceBuilder::Build()
+{
+    return std::move(volumeDevice_);
+}
+
 ContainerResizePolicyBuilder& ContainerResizePolicyBuilder::ResourceName(const std::string& resourceName)
 {
     containerResizePolicy_.ResourceName = resourceName;

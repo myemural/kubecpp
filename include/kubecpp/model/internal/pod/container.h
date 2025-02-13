@@ -329,6 +329,40 @@ private:
     ContainerPortType containerPortType_;
 };
 
+struct VolumeMountBuilder
+{
+    VolumeMountBuilder& MountPath(const std::string& mountPath);
+
+    VolumeMountBuilder& Name(const std::string& name);
+
+    VolumeMountBuilder& MountPropagation(const std::string& mountPropagation);
+
+    VolumeMountBuilder& ReadOnly(bool readOnly);
+
+    VolumeMountBuilder& RecursiveReadOnly(const std::string& recursiveReadOnly);
+
+    VolumeMountBuilder& SubPath(const std::string& subPath);
+
+    VolumeMountBuilder& SubPathExpr(const std::string& subPathExpr);
+
+    VolumeMount Build();
+
+private:
+    VolumeMount volumeMount_;
+};
+
+struct VolumeDeviceBuilder
+{
+    VolumeDeviceBuilder& DevicePath(const std::string& devicePath);
+
+    VolumeDeviceBuilder& Name(const std::string& name);
+
+    VolumeDevice Build();
+
+private:
+    VolumeDevice volumeDevice_;
+};
+
 struct ContainerResizePolicyBuilder
 {
     ContainerResizePolicyBuilder& ResourceName(const std::string& resourceName);
