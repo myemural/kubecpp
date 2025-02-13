@@ -469,4 +469,56 @@ EphemeralContainer EphemeralContainerBuilder::Build()
     return std::move(ephemeralContainer_);
 }
 
+ContainerPortBuilder& ContainerPortBuilder::ContainerPort(int32_t containerPort)
+{
+    containerPortType_.ContainerPort = containerPort;
+    return *this;
+}
+
+ContainerPortBuilder& ContainerPortBuilder::HostIP(const std::string& hostIP)
+{
+    containerPortType_.HostIP = hostIP;
+    return *this;
+}
+
+ContainerPortBuilder& ContainerPortBuilder::HostPort(int32_t hostPort)
+{
+    containerPortType_.HostPort = hostPort;
+    return *this;
+}
+
+ContainerPortBuilder& ContainerPortBuilder::Name(const std::string& name)
+{
+    containerPortType_.Name = name;
+    return *this;
+}
+
+ContainerPortBuilder& ContainerPortBuilder::Protocol(const std::string& protocol)
+{
+    containerPortType_.Protocol = protocol;
+    return *this;
+}
+
+ContainerPortType ContainerPortBuilder::Build()
+{
+    return std::move(containerPortType_);
+}
+
+ContainerResizePolicyBuilder& ContainerResizePolicyBuilder::ResourceName(const std::string& resourceName)
+{
+    containerResizePolicy_.ResourceName = resourceName;
+    return *this;
+}
+
+ContainerResizePolicyBuilder& ContainerResizePolicyBuilder::RestartPolicy(const std::string& restartPolicy)
+{
+    containerResizePolicy_.RestartPolicy = restartPolicy;
+    return *this;
+}
+
+ContainerResizePolicy ContainerResizePolicyBuilder::Build()
+{
+    return std::move(containerResizePolicy_);
+}
+
 } // namespace kubecpp::model::internal::pod

@@ -311,6 +311,36 @@ private:
     EphemeralContainer ephemeralContainer_;
 };
 
+struct ContainerPortBuilder
+{
+    ContainerPortBuilder& ContainerPort(int32_t containerPort);
+
+    ContainerPortBuilder& HostIP(const std::string& hostIP);
+
+    ContainerPortBuilder& HostPort(int32_t hostPort);
+
+    ContainerPortBuilder& Name(const std::string& name);
+
+    ContainerPortBuilder& Protocol(const std::string& protocol);
+
+    ContainerPortType Build();
+
+private:
+    ContainerPortType containerPortType_;
+};
+
+struct ContainerResizePolicyBuilder
+{
+    ContainerResizePolicyBuilder& ResourceName(const std::string& resourceName);
+
+    ContainerResizePolicyBuilder& RestartPolicy(const std::string& restartPolicy);
+
+    ContainerResizePolicy Build();
+
+private:
+    ContainerResizePolicy containerResizePolicy_;
+};
+
 } // namespace kubecpp::model::internal::pod
 
 #endif // CONTAINER_H_
