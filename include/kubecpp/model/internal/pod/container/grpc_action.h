@@ -31,6 +31,18 @@ struct GRPCAction
     static GRPCAction ParseFromJson(const std::string& jsonData);
 };
 
+struct GRPCActionBuilder
+{
+    GRPCActionBuilder& Port(int32_t port);
+
+    GRPCActionBuilder& Service(const std::string& service);
+
+    GRPCAction Build();
+
+private:
+    GRPCAction grpcAction_;
+};
+
 } // namespace kubecpp::model::internal::pod::container
 
 #endif // GRPC_ACTION_H_

@@ -32,6 +32,16 @@ struct ExecAction
     static ExecAction ParseFromJson(const std::string& jsonData);
 };
 
+struct ExecActionBuilder
+{
+    ExecActionBuilder& Command(const std::vector<std::string>& command);
+
+    ExecAction Build();
+
+private:
+    ExecAction execAction_;
+};
+
 } // namespace kubecpp::model::internal::pod::container
 
 #endif // EXEC_ACTION_H_

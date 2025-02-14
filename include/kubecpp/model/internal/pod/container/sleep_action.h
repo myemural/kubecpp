@@ -25,9 +25,19 @@ namespace kubecpp::model::internal::pod::container
 struct SleepAction
 {
     Checked<int64_t> Seconds{ "seconds", true, "description" };
-    
+
     [[nodiscard]] std::string ParseToJson() const;
     static SleepAction ParseFromJson(const std::string& jsonData);
+};
+
+struct SleepActionBuilder
+{
+    SleepActionBuilder& Seconds(int64_t seconds);
+
+    SleepAction Build();
+
+private:
+    SleepAction sleepAction_;
 };
 
 } // namespace kubecpp::model::internal::pod::container

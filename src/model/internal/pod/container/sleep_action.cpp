@@ -33,4 +33,15 @@ SleepAction SleepAction::ParseFromJson(const std::string& jsonData)
     return result;
 }
 
+SleepActionBuilder& SleepActionBuilder::Seconds(int64_t seconds)
+{
+    sleepAction_.Seconds = seconds;
+    return *this;
+}
+
+SleepAction SleepActionBuilder::Build()
+{
+    return std::move(sleepAction_);
+}
+
 } // namespace kubecpp::model::internal::pod::container

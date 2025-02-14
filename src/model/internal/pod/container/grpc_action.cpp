@@ -33,4 +33,21 @@ GRPCAction GRPCAction::ParseFromJson(const std::string& jsonData)
     return result;
 }
 
+GRPCActionBuilder& GRPCActionBuilder::Port(int32_t port)
+{
+    grpcAction_.Port = port;
+    return *this;
+}
+
+GRPCActionBuilder& GRPCActionBuilder::Service(const std::string& service)
+{
+    grpcAction_.Service = service;
+    return *this;
+}
+
+GRPCAction GRPCActionBuilder::Build()
+{
+    return std::move(grpcAction_);
+}
+
 } // namespace kubecpp::model::internal::pod::container

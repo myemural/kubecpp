@@ -33,4 +33,16 @@ ExecAction ExecAction::ParseFromJson(const std::string& jsonData)
     return result;
 }
 
+ExecActionBuilder& ExecActionBuilder::Command(const std::vector<std::string>& command)
+{
+    execAction_.Command = command;
+    return *this;
+}
+
+ExecAction ExecActionBuilder::Build()
+{
+    return std::move(execAction_);
+}
+
+
 } // namespace kubecpp::model::internal::pod::container
