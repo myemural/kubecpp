@@ -45,6 +45,36 @@ struct HTTPGetAction
     static HTTPGetAction ParseFromJson(const std::string& jsonData);
 };
 
+struct HTTPHeaderBuilder
+{
+    HTTPHeaderBuilder& Name(const std::string& name);
+
+    HTTPHeaderBuilder& Value(const std::string& value);
+
+    HTTPHeader Build();
+
+private:
+    HTTPHeader httpHeader_;
+};
+
+struct HTTPGetActionBuilder
+{
+    HTTPGetActionBuilder& Port(const std::string& port);
+
+    HTTPGetActionBuilder& Host(const std::string& host);
+
+    HTTPGetActionBuilder& HttpHeaders(const std::vector<HTTPHeader>& httpHeaders);
+
+    HTTPGetActionBuilder& Path(const std::string& path);
+
+    HTTPGetActionBuilder& Scheme(const std::string& scheme);
+
+    HTTPGetAction Build();
+
+private:
+    HTTPGetAction httpGetAction_;
+};
+
 } // namespace kubecpp::model::internal::pod::container
 
 #endif // HTTP_GET_ACTION_H_

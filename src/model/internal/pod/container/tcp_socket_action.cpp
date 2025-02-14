@@ -33,4 +33,21 @@ TCPSocketAction TCPSocketAction::ParseFromJson(const std::string& jsonData)
     return result;
 }
 
+TCPSocketActionBuilder& TCPSocketActionBuilder::Port(const std::string& port)
+{
+    tcpSocketAction_.Port = port;
+    return *this;
+}
+
+TCPSocketActionBuilder& TCPSocketActionBuilder::Host(const std::string& host)
+{
+    tcpSocketAction_.Host = host;
+    return *this;
+}
+
+TCPSocketAction TCPSocketActionBuilder::Build()
+{
+    return std::move(tcpSocketAction_);
+}
+
 } // namespace kubecpp::model::internal::pod::container

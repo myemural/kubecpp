@@ -45,4 +45,56 @@ HTTPGetAction HTTPGetAction::ParseFromJson(const std::string& jsonData)
     return result;
 }
 
+HTTPHeaderBuilder& HTTPHeaderBuilder::Name(const std::string& name)
+{
+    httpHeader_.Name = name;
+    return *this;
+}
+
+HTTPHeaderBuilder& HTTPHeaderBuilder::Value(const std::string& value)
+{
+    httpHeader_.Value = value;
+    return *this;
+}
+
+HTTPHeader HTTPHeaderBuilder::Build()
+{
+    return std::move(httpHeader_);
+}
+
+HTTPGetActionBuilder& HTTPGetActionBuilder::Port(const std::string& port)
+{
+    httpGetAction_.Port = port;
+    return *this;
+}
+
+HTTPGetActionBuilder& HTTPGetActionBuilder::Host(const std::string& host)
+{
+    httpGetAction_.Host = host;
+    return *this;
+}
+
+HTTPGetActionBuilder& HTTPGetActionBuilder::HttpHeaders(const std::vector<HTTPHeader>& httpHeaders)
+{
+    httpGetAction_.HttpHeaders = httpHeaders;
+    return *this;
+}
+
+HTTPGetActionBuilder& HTTPGetActionBuilder::Path(const std::string& path)
+{
+    httpGetAction_.Path = path;
+    return *this;
+}
+
+HTTPGetActionBuilder& HTTPGetActionBuilder::Scheme(const std::string& scheme)
+{
+    httpGetAction_.Scheme = scheme;
+    return *this;
+}
+
+HTTPGetAction HTTPGetActionBuilder::Build()
+{
+    return std::move(httpGetAction_);
+}
+
 } // namespace kubecpp::model::internal::pod::container

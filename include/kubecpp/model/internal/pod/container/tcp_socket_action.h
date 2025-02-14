@@ -31,6 +31,18 @@ struct TCPSocketAction
     static TCPSocketAction ParseFromJson(const std::string& jsonData);
 };
 
+struct TCPSocketActionBuilder
+{
+    TCPSocketActionBuilder& Port(const std::string& port);
+
+    TCPSocketActionBuilder& Host(const std::string& host);
+
+    TCPSocketAction Build();
+
+private:
+    TCPSocketAction tcpSocketAction_;
+};
+
 } // namespace kubecpp::model::internal::pod::container
 
 #endif // TCP_SOCKET_ACTION_H_
