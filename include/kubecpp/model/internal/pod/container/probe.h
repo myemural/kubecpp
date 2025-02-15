@@ -43,6 +43,34 @@ struct Probe
     static Probe ParseFromJson(const std::string& jsonData);
 };
 
+struct ProbeBuilder
+{
+    ProbeBuilder& Exec(const ExecAction& exec);
+
+    ProbeBuilder& HttpGet(const HTTPGetAction& httpGet);
+
+    ProbeBuilder& TcpSocket(const TCPSocketAction& tcpSocket);
+
+    ProbeBuilder& InitialDelaySeconds(int32_t initialDelaySeconds);
+
+    ProbeBuilder& TerminationGracePeriodSeconds(int64_t terminationGracePeriodSeconds);
+
+    ProbeBuilder& PeriodSeconds(int32_t periodSeconds);
+
+    ProbeBuilder& TimeoutSeconds(int32_t timeoutSeconds);
+
+    ProbeBuilder& FailureThreshold(int32_t failureThreshold);
+
+    ProbeBuilder& SuccessThreshold(int32_t successThreshold);
+
+    ProbeBuilder& Grpc(const GRPCAction& grpc);
+
+    Probe Build();
+
+private:
+    Probe probe_;
+};
+
 } // namespace kubecpp::model::internal::pod::container
 
 #endif // PROBE_H_

@@ -585,4 +585,21 @@ ContainerResizePolicy ContainerResizePolicyBuilder::Build()
     return std::move(containerResizePolicy_);
 }
 
+LifecycleBuilder& LifecycleBuilder::PostStart(const container::LifecycleHandler& postStart)
+{
+    lifecycle_.PostStart = postStart;
+    return *this;
+}
+
+LifecycleBuilder& LifecycleBuilder::PreStop(const container::LifecycleHandler& preStop)
+{
+    lifecycle_.PreStop = preStop;
+    return *this;
+}
+
+LifecycleType LifecycleBuilder::Build()
+{
+    return std::move(lifecycle_);
+}
+
 } // namespace kubecpp::model::internal::pod

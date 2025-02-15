@@ -375,6 +375,18 @@ private:
     ContainerResizePolicy containerResizePolicy_;
 };
 
+struct LifecycleBuilder
+{
+    LifecycleBuilder& PostStart(const container::LifecycleHandler& postStart);
+
+    LifecycleBuilder& PreStop(const container::LifecycleHandler& preStop);
+
+    LifecycleType Build();
+
+private:
+    LifecycleType lifecycle_;
+};
+
 } // namespace kubecpp::model::internal::pod
 
 #endif // CONTAINER_H_

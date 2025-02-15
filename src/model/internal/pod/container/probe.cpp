@@ -36,4 +36,69 @@ Probe Probe::ParseFromJson(const std::string& jsonData)
     return result;
 }
 
+ProbeBuilder& ProbeBuilder::Exec(const ExecAction& exec)
+{
+    probe_.Exec = exec;
+    return *this;
+}
+
+ProbeBuilder& ProbeBuilder::HttpGet(const HTTPGetAction& httpGet)
+{
+    probe_.HttpGet = httpGet;
+    return *this;
+}
+
+ProbeBuilder& ProbeBuilder::TcpSocket(const TCPSocketAction& tcpSocket)
+{
+    probe_.TcpSocket = tcpSocket;
+    return *this;
+}
+
+ProbeBuilder& ProbeBuilder::InitialDelaySeconds(int32_t initialDelaySeconds)
+{
+    probe_.InitialDelaySeconds = initialDelaySeconds;
+    return *this;
+}
+
+ProbeBuilder& ProbeBuilder::TerminationGracePeriodSeconds(int64_t terminationGracePeriodSeconds)
+{
+    probe_.TerminationGracePeriodSeconds = terminationGracePeriodSeconds;
+    return *this;
+}
+
+ProbeBuilder& ProbeBuilder::PeriodSeconds(int32_t periodSeconds)
+{
+    probe_.PeriodSeconds = periodSeconds;
+    return *this;
+}
+
+ProbeBuilder& ProbeBuilder::TimeoutSeconds(int32_t timeoutSeconds)
+{
+    probe_.TimeoutSeconds = timeoutSeconds;
+    return *this;
+}
+
+ProbeBuilder& ProbeBuilder::FailureThreshold(int32_t failureThreshold)
+{
+    probe_.FailureThreshold = failureThreshold;
+    return *this;
+}
+
+ProbeBuilder& ProbeBuilder::SuccessThreshold(int32_t successThreshold)
+{
+    probe_.SuccessThreshold = successThreshold;
+    return *this;
+}
+
+ProbeBuilder& ProbeBuilder::Grpc(const GRPCAction& grpc)
+{
+    probe_.Grpc = grpc;
+    return *this;
+}
+
+Probe ProbeBuilder::Build()
+{
+    return std::move(probe_);
+}
+
 } // namespace kubecpp::model::internal::pod::container

@@ -37,6 +37,22 @@ struct LifecycleHandler
     static LifecycleHandler ParseFromJson(const std::string& jsonData);
 };
 
+struct LifecycleHandlerBuilder
+{
+    LifecycleHandlerBuilder& Exec(const ExecAction& exec);
+
+    LifecycleHandlerBuilder& HttpGet(const HTTPGetAction& httpGet);
+
+    LifecycleHandlerBuilder& Sleep(const SleepAction& sleep);
+
+    LifecycleHandlerBuilder& TcpSocket(const TCPSocketAction& tcpSocket);
+
+    LifecycleHandler Build();
+
+private:
+    LifecycleHandler lifecycleHandler_;
+};
+
 } // namespace kubecpp::model::internal::pod::container
 
 #endif // LIFECYCLE_HANDLER_H_

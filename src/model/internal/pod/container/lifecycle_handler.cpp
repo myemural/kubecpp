@@ -33,4 +33,33 @@ LifecycleHandler LifecycleHandler::ParseFromJson(const std::string& jsonData)
     return result;
 }
 
+LifecycleHandlerBuilder& LifecycleHandlerBuilder::Exec(const ExecAction& exec)
+{
+    lifecycleHandler_.Exec = exec;
+    return *this;
+}
+
+LifecycleHandlerBuilder& LifecycleHandlerBuilder::HttpGet(const HTTPGetAction& httpGet)
+{
+    lifecycleHandler_.HttpGet = httpGet;
+    return *this;
+}
+
+LifecycleHandlerBuilder& LifecycleHandlerBuilder::Sleep(const SleepAction& sleep)
+{
+    lifecycleHandler_.Sleep = sleep;
+    return *this;
+}
+
+LifecycleHandlerBuilder& LifecycleHandlerBuilder::TcpSocket(const TCPSocketAction& tcpSocket)
+{
+    lifecycleHandler_.TcpSocket = tcpSocket;
+    return *this;
+}
+
+LifecycleHandler LifecycleHandlerBuilder::Build()
+{
+    return std::move(lifecycleHandler_);
+}
+
 } // namespace kubecpp::model::internal::pod::container
