@@ -48,4 +48,98 @@ SecurityContext SecurityContext::ParseFromJson(const std::string& jsonData)
     return result;
 }
 
+CapabilitiesBuilder& CapabilitiesBuilder::Add(const std::vector<std::string>& add)
+{
+    capabilities_.Add = add;
+    return *this;
+}
+
+CapabilitiesBuilder& CapabilitiesBuilder::Drop(const std::vector<std::string>& drop)
+{
+    capabilities_.Drop = drop;
+    return *this;
+}
+
+CapabilitiesType CapabilitiesBuilder::Build()
+{
+    return std::move(capabilities_);
+}
+
+SecurityContextBuilder& SecurityContextBuilder::AllowPrivilegeEscalation(bool allowPrivilegeEscalation)
+{
+    securityContext_.AllowPrivilegeEscalation = allowPrivilegeEscalation;
+    return *this;
+}
+
+SecurityContextBuilder& SecurityContextBuilder::AppArmorProfile(const security::AppArmorProfile& appArmorProfile)
+{
+    securityContext_.AppArmorProfile = appArmorProfile;
+    return *this;
+}
+
+SecurityContextBuilder& SecurityContextBuilder::Capabilities(const CapabilitiesType& capabilities)
+{
+    securityContext_.Capabilities = capabilities;
+    return *this;
+}
+
+SecurityContextBuilder& SecurityContextBuilder::ProcMount(const std::string& procMount)
+{
+    securityContext_.ProcMount = procMount;
+    return *this;
+}
+
+SecurityContextBuilder& SecurityContextBuilder::Privileged(bool privileged)
+{
+    securityContext_.Privileged = privileged;
+    return *this;
+}
+
+SecurityContextBuilder& SecurityContextBuilder::ReadOnlyRootFilesystem(bool readOnlyRootFilesystem)
+{
+    securityContext_.ReadOnlyRootFilesystem = readOnlyRootFilesystem;
+    return *this;
+}
+
+SecurityContextBuilder& SecurityContextBuilder::RunAsUser(int64_t runAsUser)
+{
+    securityContext_.RunAsUser = runAsUser;
+    return *this;
+}
+
+SecurityContextBuilder& SecurityContextBuilder::RunAsNonRoot(bool runAsNonRoot)
+{
+    securityContext_.RunAsNonRoot = runAsNonRoot;
+    return *this;
+}
+
+SecurityContextBuilder& SecurityContextBuilder::RunAsGroup(int64_t runAsGroup)
+{
+    securityContext_.RunAsGroup = runAsGroup;
+    return *this;
+}
+
+SecurityContextBuilder& SecurityContextBuilder::SeLinuxOptions(const security::SELinuxOptions& seLinuxOptions)
+{
+    securityContext_.SeLinuxOptions = seLinuxOptions;
+    return *this;
+}
+
+SecurityContextBuilder& SecurityContextBuilder::SeccompProfile(const security::SeccompProfile& seccompProfile)
+{
+    securityContext_.SeccompProfile = seccompProfile;
+    return *this;
+}
+
+SecurityContextBuilder& SecurityContextBuilder::WindowsOptions(const security::WindowsSecurityContextOptions& windowsOptions)
+{
+    securityContext_.WindowsOptions = windowsOptions;
+    return *this;
+}
+
+SecurityContext SecurityContextBuilder::Build()
+{
+    return std::move(securityContext_);
+}
+
 } // namespace kubecpp::model::internal::pod::container

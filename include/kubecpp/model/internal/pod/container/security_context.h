@@ -56,6 +56,50 @@ struct SecurityContext
     static SecurityContext ParseFromJson(const std::string& jsonData);
 };
 
+struct CapabilitiesBuilder
+{
+    CapabilitiesBuilder& Add(const std::vector<std::string>& add);
+
+    CapabilitiesBuilder& Drop(const std::vector<std::string>& drop);
+
+    CapabilitiesType Build();
+
+private:
+    CapabilitiesType capabilities_;
+};
+
+struct SecurityContextBuilder
+{
+    SecurityContextBuilder& AllowPrivilegeEscalation(bool allowPrivilegeEscalation);
+
+    SecurityContextBuilder& AppArmorProfile(const security::AppArmorProfile& appArmorProfile);
+
+    SecurityContextBuilder& Capabilities(const CapabilitiesType& capabilities);
+
+    SecurityContextBuilder& ProcMount(const std::string& procMount);
+
+    SecurityContextBuilder& Privileged(bool privileged);
+
+    SecurityContextBuilder& ReadOnlyRootFilesystem(bool readOnlyRootFilesystem);
+
+    SecurityContextBuilder& RunAsUser(int64_t runAsUser);
+
+    SecurityContextBuilder& RunAsNonRoot(bool runAsNonRoot);
+
+    SecurityContextBuilder& RunAsGroup(int64_t runAsGroup);
+
+    SecurityContextBuilder& SeLinuxOptions(const security::SELinuxOptions& seLinuxOptions);
+
+    SecurityContextBuilder& SeccompProfile(const security::SeccompProfile& seccompProfile);
+
+    SecurityContextBuilder& WindowsOptions(const security::WindowsSecurityContextOptions& windowsOptions);
+
+    SecurityContext Build();
+
+private:
+    SecurityContext securityContext_;
+};
+
 } // namespace kubecpp::model::internal::pod::container
 
 #endif // SECURITY_CONTEXT_H_
