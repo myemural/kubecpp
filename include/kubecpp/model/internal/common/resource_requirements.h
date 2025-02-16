@@ -44,6 +44,32 @@ struct ResourceRequirements
     static ResourceRequirements ParseFromJson(const std::string& jsonData);
 };
 
+struct ResourceClaimBuilder
+{
+    ResourceClaimBuilder& Name(const std::string& name);
+
+    ResourceClaimBuilder& Request(const std::string& request);
+
+    ResourceClaim Build();
+
+private:
+    ResourceClaim resourceClaim_;
+};
+
+struct ResourceRequirementsBuilder
+{
+    ResourceRequirementsBuilder& Claims(const std::vector<ResourceClaim>& claims);
+
+    ResourceRequirementsBuilder& Limits(const std::unordered_map<std::string, std::string>& limits);
+
+    ResourceRequirementsBuilder& Requests(const std::unordered_map<std::string, std::string>& requests);
+
+    ResourceRequirements Build();
+
+private:
+    ResourceRequirements resourceRequirements_;
+};
+
 } // namespace kubecpp::model::internal::common
 
 #endif // RESOURCE_REQUIREMENTS_H_

@@ -33,4 +33,27 @@ NodeSelectorRequirement NodeSelectorRequirement::ParseFromJson(const std::string
     return result;
 }
 
+NodeSelectorRequirementBuilder& NodeSelectorRequirementBuilder::Key(const std::string& key)
+{
+    nodeSelectorRequirement_.Key = key;
+    return *this;
+}
+
+NodeSelectorRequirementBuilder& NodeSelectorRequirementBuilder::Operator(const std::string& oprtr)
+{
+    nodeSelectorRequirement_.Operator = oprtr;
+    return *this;
+}
+
+NodeSelectorRequirementBuilder& NodeSelectorRequirementBuilder::Values(const std::vector<std::string>& values)
+{
+    nodeSelectorRequirement_.Values = values;
+    return *this;
+}
+
+NodeSelectorRequirement NodeSelectorRequirementBuilder::Build()
+{
+    return std::move(nodeSelectorRequirement_);
+}
+
 } // namespace kubecpp::model::internal::common

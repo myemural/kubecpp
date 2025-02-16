@@ -45,4 +45,44 @@ ResourceRequirements ResourceRequirements::ParseFromJson(const std::string& json
     return result;
 }
 
+ResourceClaimBuilder& ResourceClaimBuilder::Name(const std::string& name)
+{
+    resourceClaim_.Name = name;
+    return *this;
+}
+
+ResourceClaimBuilder& ResourceClaimBuilder::Request(const std::string& request)
+{
+    resourceClaim_.Request = request;
+    return *this;
+}
+
+ResourceClaim ResourceClaimBuilder::Build()
+{
+    return std::move(resourceClaim_);
+}
+
+ResourceRequirementsBuilder& ResourceRequirementsBuilder::Claims(const std::vector<ResourceClaim>& claims)
+{
+    resourceRequirements_.Claims = claims;
+    return *this;
+}
+
+ResourceRequirementsBuilder& ResourceRequirementsBuilder::Limits(const std::unordered_map<std::string, std::string>& limits)
+{
+    resourceRequirements_.Limits = limits;
+    return *this;
+}
+
+ResourceRequirementsBuilder& ResourceRequirementsBuilder::Requests(const std::unordered_map<std::string, std::string>& requests)
+{
+    resourceRequirements_.Requests = requests;
+    return *this;
+}
+
+ResourceRequirements ResourceRequirementsBuilder::Build()
+{
+    return std::move(resourceRequirements_);
+}
+
 } // namespace kubecpp::model::internal::common

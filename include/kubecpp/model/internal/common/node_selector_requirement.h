@@ -34,6 +34,20 @@ struct NodeSelectorRequirement
     static NodeSelectorRequirement ParseFromJson(const std::string& jsonData);
 };
 
+struct NodeSelectorRequirementBuilder
+{
+    NodeSelectorRequirementBuilder& Key(const std::string& key);
+
+    NodeSelectorRequirementBuilder& Operator(const std::string& oprtr);
+
+    NodeSelectorRequirementBuilder& Values(const std::vector<std::string>& values);
+
+    NodeSelectorRequirement Build();
+
+private:
+    NodeSelectorRequirement nodeSelectorRequirement_;
+};
+
 } // namespace kubecpp::model::internal::common
 
 #endif // NODE_SELECTOR_REQUIREMENT_H_
