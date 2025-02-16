@@ -272,6 +272,20 @@ private:
     PodSpec podSpec_;
 };
 
+struct AffinityBuilder
+{
+    AffinityBuilder& NodeAffinity(const NodeAffinityType& nodeAffinity);
+
+    AffinityBuilder& PodAffinity(const PodAffinityType& podAffinity);
+
+    AffinityBuilder& PodAntiAffinity(const PodAntiAffinityType& podAntiAffinity);
+
+    AffinityType Build();
+
+private:
+    AffinityType affinity_;
+};
+
 struct TolerationBuilder
 {
     TolerationBuilder& Key(const std::string& key);

@@ -417,6 +417,29 @@ PodSpec PodSpecBuilder::Build()
     return std::move(podSpec_);
 }
 
+AffinityBuilder& AffinityBuilder::NodeAffinity(const NodeAffinityType& nodeAffinity)
+{
+    affinity_.NodeAffinity = nodeAffinity;
+    return *this;
+}
+
+AffinityBuilder& AffinityBuilder::PodAffinity(const PodAffinityType& podAffinity)
+{
+    affinity_.PodAffinity = podAffinity;
+    return *this;
+}
+
+AffinityBuilder& AffinityBuilder::PodAntiAffinity(const PodAntiAffinityType& podAntiAffinity)
+{
+    affinity_.PodAntiAffinity = podAntiAffinity;
+    return *this;
+}
+
+AffinityType AffinityBuilder::Build()
+{
+    return std::move(affinity_);
+}
+
 TolerationBuilder& TolerationBuilder::Key(const std::string& key)
 {
     toleration_.Key = key;

@@ -64,6 +64,54 @@ struct NodeAffinityType
     static NodeAffinityType ParseFromJson(const std::string& jsonData);
 };
 
+struct NodeSelectorTermBuilder
+{
+    NodeSelectorTermBuilder& MatchExpressions(const common::NodeSelectorRequirement& matchExpressions);
+
+    NodeSelectorTermBuilder& MatchFields(const common::NodeSelectorRequirement& matchFields);
+
+    NodeSelectorTerm Build();
+
+private:
+    NodeSelectorTerm nodeSelectorTerm_;
+};
+
+struct PreferredSchedulingTermBuilder
+{
+    PreferredSchedulingTermBuilder& Preference(const NodeSelectorTerm& preference);
+
+    PreferredSchedulingTermBuilder& Weight(int32_t weight);
+
+    PreferredSchedulingTerm Build();
+
+private:
+    PreferredSchedulingTerm preferredSchedulingTerm_;
+};
+
+struct NodeSelectorBuilder
+{
+    NodeSelectorBuilder& NodeSelectorTerms(const std::vector<NodeSelectorTerm>& nodeSelectorTerms);
+
+    NodeSelector Build();
+
+private:
+    NodeSelector nodeSelector_;
+};
+
+struct NodeAffinityBuilder
+{
+    NodeAffinityBuilder& PreferredDuringSchedulingIgnoredDuringExecution(
+    const std::vector<PreferredSchedulingTerm>& preferredDuringSchedulingIgnoredDuringExecution);
+
+    NodeAffinityBuilder& RequiredDuringSchedulingIgnoredDuringExecution(
+    const NodeSelector& requiredDuringSchedulingIgnoredDuringExecution);
+
+    NodeAffinityType Build();
+
+private:
+    NodeAffinityType nodeAffinity_;
+};
+
 } // namespace kubecpp::model::internal::pod
 
 #endif // NODE_AFFINITY_H_

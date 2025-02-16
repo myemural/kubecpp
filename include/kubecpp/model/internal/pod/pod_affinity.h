@@ -73,6 +73,66 @@ struct PodAntiAffinityType
     static PodAntiAffinityType ParseFromJson(const std::string& jsonData);
 };
 
+struct PodAffinityTermBuilder
+{
+    PodAffinityTermBuilder& TopologyKey(const std::string& topologyKey);
+
+    PodAffinityTermBuilder& LabelSelector(const common::LabelSelector& labelSelector);
+
+    PodAffinityTermBuilder& MatchLabelKeys(const std::vector<std::string>& matchLabelKeys);
+
+    PodAffinityTermBuilder& MismatchLabelKeys(const std::vector<std::string>& mismatchLabelKeys);
+
+    PodAffinityTermBuilder& NamespaceSelector(const common::LabelSelector& namespaceSelector);
+
+    PodAffinityTermBuilder& Namespaces(const std::vector<std::string>& namespaces);
+
+    PodAffinityTermType Build();
+
+private:
+    PodAffinityTermType podAffinityTerm_;
+};
+
+struct WeightedPodAffinityTermBuilder
+{
+    WeightedPodAffinityTermBuilder& PodAffinityTerm(const PodAffinityTermType& podAffinityTerm);
+
+    WeightedPodAffinityTermBuilder& Weight(int32_t weight);
+
+    WeightedPodAffinityTerm Build();
+
+private:
+    WeightedPodAffinityTerm weightedPodAffinityTerm_;
+};
+
+struct PodAffinityBuilder
+{
+    PodAffinityBuilder& PreferredDuringSchedulingIgnoredDuringExecution(
+    const std::vector<WeightedPodAffinityTerm>& preferredDuringSchedulingIgnoredDuringExecution);
+
+    PodAffinityBuilder& RequiredDuringSchedulingIgnoredDuringExecution(
+    const std::vector<PodAffinityTermType>& requiredDuringSchedulingIgnoredDuringExecution);
+
+    PodAffinityType Build();
+
+private:
+    PodAffinityType podAffinity_;
+};
+
+struct PodAntiAffinityBuilder
+{
+    PodAntiAffinityBuilder& PreferredDuringSchedulingIgnoredDuringExecution(
+    const std::vector<WeightedPodAffinityTerm>& preferredDuringSchedulingIgnoredDuringExecution);
+
+    PodAntiAffinityBuilder& RequiredDuringSchedulingIgnoredDuringExecution(
+    const std::vector<PodAffinityTermType>& requiredDuringSchedulingIgnoredDuringExecution);
+
+    PodAntiAffinityType Build();
+
+private:
+    PodAntiAffinityType podAntiAffinity_;
+};
+
 } // namespace kubecpp::model::internal::pod
 
 #endif // POD_AFFINITY_H_

@@ -72,4 +72,100 @@ PodAntiAffinityType PodAntiAffinityType::ParseFromJson(const std::string& jsonDa
     return result;
 }
 
+PodAffinityTermBuilder& PodAffinityTermBuilder::TopologyKey(const std::string& topologyKey)
+{
+    podAffinityTerm_.TopologyKey = topologyKey;
+    return *this;
+}
+
+PodAffinityTermBuilder& PodAffinityTermBuilder::LabelSelector(const common::LabelSelector& labelSelector)
+{
+    podAffinityTerm_.LabelSelector = labelSelector;
+    return *this;
+}
+
+PodAffinityTermBuilder& PodAffinityTermBuilder::MatchLabelKeys(const std::vector<std::string>& matchLabelKeys)
+{
+    podAffinityTerm_.MatchLabelKeys = matchLabelKeys;
+    return *this;
+}
+
+PodAffinityTermBuilder& PodAffinityTermBuilder::MismatchLabelKeys(const std::vector<std::string>& mismatchLabelKeys)
+{
+    podAffinityTerm_.MismatchLabelKeys = mismatchLabelKeys;
+    return *this;
+}
+
+PodAffinityTermBuilder& PodAffinityTermBuilder::NamespaceSelector(const common::LabelSelector& namespaceSelector)
+{
+    podAffinityTerm_.NamespaceSelector = namespaceSelector;
+    return *this;
+}
+
+PodAffinityTermBuilder& PodAffinityTermBuilder::Namespaces(const std::vector<std::string>& namespaces)
+{
+    podAffinityTerm_.Namespaces = namespaces;
+    return *this;
+}
+
+PodAffinityTermType PodAffinityTermBuilder::Build()
+{
+    return std::move(podAffinityTerm_);
+}
+
+WeightedPodAffinityTermBuilder& WeightedPodAffinityTermBuilder::PodAffinityTerm(const PodAffinityTermType& podAffinityTerm)
+{
+    weightedPodAffinityTerm_.PodAffinityTerm = podAffinityTerm;
+    return *this;
+}
+
+WeightedPodAffinityTermBuilder& WeightedPodAffinityTermBuilder::Weight(int32_t weight)
+{
+    weightedPodAffinityTerm_.Weight = weight;
+    return *this;
+}
+
+WeightedPodAffinityTerm WeightedPodAffinityTermBuilder::Build()
+{
+    return std::move(weightedPodAffinityTerm_);
+}
+
+PodAffinityBuilder& PodAffinityBuilder::PreferredDuringSchedulingIgnoredDuringExecution(
+const std::vector<WeightedPodAffinityTerm>& preferredDuringSchedulingIgnoredDuringExecution)
+{
+    podAffinity_.PreferredDuringSchedulingIgnoredDuringExecution = preferredDuringSchedulingIgnoredDuringExecution;
+    return *this;
+}
+
+PodAffinityBuilder& PodAffinityBuilder::RequiredDuringSchedulingIgnoredDuringExecution(
+const std::vector<PodAffinityTermType>& requiredDuringSchedulingIgnoredDuringExecution)
+{
+    podAffinity_.RequiredDuringSchedulingIgnoredDuringExecution = requiredDuringSchedulingIgnoredDuringExecution;
+    return *this;
+}
+
+PodAffinityType PodAffinityBuilder::Build()
+{
+    return std::move(podAffinity_);
+}
+
+PodAntiAffinityBuilder& PodAntiAffinityBuilder::PreferredDuringSchedulingIgnoredDuringExecution(
+const std::vector<WeightedPodAffinityTerm>& preferredDuringSchedulingIgnoredDuringExecution)
+{
+    podAntiAffinity_.PreferredDuringSchedulingIgnoredDuringExecution = preferredDuringSchedulingIgnoredDuringExecution;
+    return *this;
+}
+
+PodAntiAffinityBuilder& PodAntiAffinityBuilder::RequiredDuringSchedulingIgnoredDuringExecution(
+const std::vector<PodAffinityTermType>& requiredDuringSchedulingIgnoredDuringExecution)
+{
+    podAntiAffinity_.RequiredDuringSchedulingIgnoredDuringExecution = requiredDuringSchedulingIgnoredDuringExecution;
+    return *this;
+}
+
+PodAntiAffinityType PodAntiAffinityBuilder::Build()
+{
+    return std::move(podAntiAffinity_);
+}
+
 } // namespace kubecpp::model::internal::pod

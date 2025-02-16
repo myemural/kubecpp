@@ -70,4 +70,68 @@ NodeAffinityType NodeAffinityType::ParseFromJson(const std::string& jsonData)
     return result;
 }
 
+NodeSelectorTermBuilder& NodeSelectorTermBuilder::MatchExpressions(const common::NodeSelectorRequirement& matchExpressions)
+{
+    nodeSelectorTerm_.MatchExpressions = matchExpressions;
+    return *this;
+}
+
+NodeSelectorTermBuilder& NodeSelectorTermBuilder::MatchFields(const common::NodeSelectorRequirement& matchFields)
+{
+    nodeSelectorTerm_.MatchFields = matchFields;
+    return *this;
+}
+
+NodeSelectorTerm NodeSelectorTermBuilder::Build()
+{
+    return std::move(nodeSelectorTerm_);
+}
+
+PreferredSchedulingTermBuilder& PreferredSchedulingTermBuilder::Preference(const NodeSelectorTerm& preference)
+{
+    preferredSchedulingTerm_.Preference = preference;
+    return *this;
+}
+
+PreferredSchedulingTermBuilder& PreferredSchedulingTermBuilder::Weight(int32_t weight)
+{
+    preferredSchedulingTerm_.Weight = weight;
+    return *this;
+}
+
+PreferredSchedulingTerm PreferredSchedulingTermBuilder::Build()
+{
+    return std::move(preferredSchedulingTerm_);
+}
+
+NodeSelectorBuilder& NodeSelectorBuilder::NodeSelectorTerms(const std::vector<NodeSelectorTerm>& nodeSelectorTerms)
+{
+    nodeSelector_.NodeSelectorTerms = nodeSelectorTerms;
+    return *this;
+}
+
+NodeSelector NodeSelectorBuilder::Build()
+{
+    return std::move(nodeSelector_);
+}
+
+NodeAffinityBuilder& NodeAffinityBuilder::PreferredDuringSchedulingIgnoredDuringExecution(
+const std::vector<PreferredSchedulingTerm>& preferredDuringSchedulingIgnoredDuringExecution)
+{
+    nodeAffinity_.PreferredDuringSchedulingIgnoredDuringExecution = preferredDuringSchedulingIgnoredDuringExecution;
+    return *this;
+}
+
+NodeAffinityBuilder& NodeAffinityBuilder::RequiredDuringSchedulingIgnoredDuringExecution(
+const NodeSelector& requiredDuringSchedulingIgnoredDuringExecution)
+{
+    nodeAffinity_.RequiredDuringSchedulingIgnoredDuringExecution = requiredDuringSchedulingIgnoredDuringExecution;
+    return *this;
+}
+
+NodeAffinityType NodeAffinityBuilder::Build()
+{
+    return std::move(nodeAffinity_);
+}
+
 } // namespace kubecpp::model::internal::pod
