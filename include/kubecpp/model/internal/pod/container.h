@@ -329,6 +329,64 @@ private:
     ContainerPortType containerPortType_;
 };
 
+struct SecretKeySelectorBuilder
+{
+    SecretKeySelectorBuilder& Key(const std::string& key);
+
+    SecretKeySelectorBuilder& Name(const std::string& name);
+
+    SecretKeySelectorBuilder& Optional(bool optional);
+
+    SecretKeySelector Build();
+
+private:
+    SecretKeySelector secretKeySelector_;
+};
+
+struct ConfigMapKeySelectorBuilder
+{
+    ConfigMapKeySelectorBuilder& Key(const std::string& key);
+
+    ConfigMapKeySelectorBuilder& Name(const std::string& name);
+
+    ConfigMapKeySelectorBuilder& Optional(bool optional);
+
+    ConfigMapKeySelector Build();
+
+private:
+    ConfigMapKeySelector configMapKeySelector_;
+};
+
+struct EnvVarSourceBuilder
+{
+    EnvVarSourceBuilder& ConfigMapKeyRef(const ConfigMapKeySelector& configMapKeyRef);
+
+    EnvVarSourceBuilder& FieldRef(const common::ObjectFieldSelector& fieldRef);
+
+    EnvVarSourceBuilder& ResourceFieldRef(const common::ResourceFieldSelector& resourceFieldRef);
+
+    EnvVarSourceBuilder& SecretKeyRef(const SecretKeySelector& secretKeyRef);
+
+    EnvVarSource Build();
+
+private:
+    EnvVarSource envVarSource_;
+};
+
+struct EnvVarBuilder
+{
+    EnvVarBuilder& Name(const std::string& name);
+
+    EnvVarBuilder& Value(const std::string& value);
+
+    EnvVarBuilder& ValueFrom(const EnvVarSource& valueFrom);
+
+    EnvVar Build();
+
+private:
+    EnvVar envVar_;
+};
+
 struct VolumeMountBuilder
 {
     VolumeMountBuilder& MountPath(const std::string& mountPath);

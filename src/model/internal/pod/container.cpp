@@ -504,6 +504,104 @@ ContainerPortType ContainerPortBuilder::Build()
     return std::move(containerPortType_);
 }
 
+SecretKeySelectorBuilder& SecretKeySelectorBuilder::Key(const std::string& key)
+{
+    secretKeySelector_.Key = key;
+    return *this;
+}
+
+SecretKeySelectorBuilder& SecretKeySelectorBuilder::Name(const std::string& name)
+{
+    secretKeySelector_.Name = name;
+    return *this;
+}
+
+SecretKeySelectorBuilder& SecretKeySelectorBuilder::Optional(bool optional)
+{
+    secretKeySelector_.Optional = optional;
+    return *this;
+}
+
+SecretKeySelector SecretKeySelectorBuilder::Build()
+{
+    return std::move(secretKeySelector_);
+}
+
+ConfigMapKeySelectorBuilder& ConfigMapKeySelectorBuilder::Key(const std::string& key)
+{
+    configMapKeySelector_.Key = key;
+    return *this;
+}
+
+ConfigMapKeySelectorBuilder& ConfigMapKeySelectorBuilder::Name(const std::string& name)
+{
+    configMapKeySelector_.Name = name;
+    return *this;
+}
+
+ConfigMapKeySelectorBuilder& ConfigMapKeySelectorBuilder::Optional(bool optional)
+{
+    configMapKeySelector_.Optional = optional;
+    return *this;
+}
+
+ConfigMapKeySelector ConfigMapKeySelectorBuilder::Build()
+{
+    return std::move(configMapKeySelector_);
+}
+
+EnvVarSourceBuilder& EnvVarSourceBuilder::ConfigMapKeyRef(const ConfigMapKeySelector& configMapKeyRef)
+{
+    envVarSource_.ConfigMapKeyRef = configMapKeyRef;
+    return *this;
+}
+
+EnvVarSourceBuilder& EnvVarSourceBuilder::FieldRef(const common::ObjectFieldSelector& fieldRef)
+{
+    envVarSource_.FieldRef = fieldRef;
+    return *this;
+}
+
+EnvVarSourceBuilder& EnvVarSourceBuilder::ResourceFieldRef(const common::ResourceFieldSelector& resourceFieldRef)
+{
+    envVarSource_.ResourceFieldRef = resourceFieldRef;
+    return *this;
+}
+
+EnvVarSourceBuilder& EnvVarSourceBuilder::SecretKeyRef(const SecretKeySelector& secretKeyRef)
+{
+    envVarSource_.SecretKeyRef = secretKeyRef;
+    return *this;
+}
+
+EnvVarSource EnvVarSourceBuilder::Build()
+{
+    return std::move(envVarSource_);
+}
+
+EnvVarBuilder& EnvVarBuilder::Name(const std::string& name)
+{
+    envVar_.Name = name;
+    return *this;
+}
+
+EnvVarBuilder& EnvVarBuilder::Value(const std::string& value)
+{
+    envVar_.Value = value;
+    return *this;
+}
+
+EnvVarBuilder& EnvVarBuilder::ValueFrom(const EnvVarSource& valueFrom)
+{
+    envVar_.ValueFrom = valueFrom;
+    return *this;
+}
+
+EnvVar EnvVarBuilder::Build()
+{
+    return std::move(envVar_);
+}
+
 VolumeMountBuilder& VolumeMountBuilder::MountPath(const std::string& mountPath)
 {
     volumeMount_.MountPath = mountPath;
