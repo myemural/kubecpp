@@ -387,6 +387,44 @@ private:
     EnvVar envVar_;
 };
 
+struct SecretEnvSourceBuilder
+{
+    SecretEnvSourceBuilder& Name(const std::string& name);
+
+    SecretEnvSourceBuilder& Optional(bool optional);
+
+    SecretEnvSource Build();
+
+private:
+    SecretEnvSource secretEnvSource_;
+};
+
+struct ConfigMapEnvSourceBuilder
+{
+    ConfigMapEnvSourceBuilder& Name(const std::string& name);
+
+    ConfigMapEnvSourceBuilder& Optional(bool optional);
+
+    ConfigMapEnvSource Build();
+
+private:
+    ConfigMapEnvSource configMapEnvSource_;
+};
+
+struct EnvFromSourceBuilder
+{
+    EnvFromSourceBuilder& ConfigMapRef(const ConfigMapEnvSource& configMapRef);
+
+    EnvFromSourceBuilder& Prefix(const std::string& prefix);
+
+    EnvFromSourceBuilder& SecretRef(const SecretEnvSource& secretRef);
+
+    EnvFromSource Build();
+
+private:
+    EnvFromSource envFromSource_;
+};
+
 struct VolumeMountBuilder
 {
     VolumeMountBuilder& MountPath(const std::string& mountPath);

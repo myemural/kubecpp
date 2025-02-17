@@ -602,6 +602,63 @@ EnvVar EnvVarBuilder::Build()
     return std::move(envVar_);
 }
 
+SecretEnvSourceBuilder& SecretEnvSourceBuilder::Name(const std::string& name)
+{
+    secretEnvSource_.Name = name;
+    return *this;
+}
+
+SecretEnvSourceBuilder& SecretEnvSourceBuilder::Optional(bool optional)
+{
+    secretEnvSource_.Optional = optional;
+    return *this;
+}
+
+SecretEnvSource SecretEnvSourceBuilder::Build()
+{
+    return std::move(secretEnvSource_);
+}
+
+ConfigMapEnvSourceBuilder& ConfigMapEnvSourceBuilder::Name(const std::string& name)
+{
+    configMapEnvSource_.Name = name;
+    return *this;
+}
+
+ConfigMapEnvSourceBuilder& ConfigMapEnvSourceBuilder::Optional(bool optional)
+{
+    configMapEnvSource_.Optional = optional;
+    return *this;
+}
+
+ConfigMapEnvSource ConfigMapEnvSourceBuilder::Build()
+{
+    return std::move(configMapEnvSource_);
+}
+
+EnvFromSourceBuilder& EnvFromSourceBuilder::ConfigMapRef(const ConfigMapEnvSource& configMapRef)
+{
+    envFromSource_.ConfigMapRef = configMapRef;
+    return *this;
+}
+
+EnvFromSourceBuilder& EnvFromSourceBuilder::Prefix(const std::string& prefix)
+{
+    envFromSource_.Prefix = prefix;
+    return *this;
+}
+
+EnvFromSourceBuilder& EnvFromSourceBuilder::SecretRef(const SecretEnvSource& secretRef)
+{
+    envFromSource_.SecretRef = secretRef;
+    return *this;
+}
+
+EnvFromSource EnvFromSourceBuilder::Build()
+{
+    return std::move(envFromSource_);
+}
+
 VolumeMountBuilder& VolumeMountBuilder::MountPath(const std::string& mountPath)
 {
     volumeMount_.MountPath = mountPath;
