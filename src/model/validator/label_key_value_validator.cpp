@@ -24,9 +24,9 @@ namespace kubecpp::model::validator
 bool LabelKeyValueValidator::Validate(const std::unordered_map<std::string, std::string>& newValue)
 {
     return std::all_of(newValue.begin(), newValue.end(), [](const auto& item) {
-        const bool isKeyPassed = (item.first.length() <= labelKeyMaxLength) &&
+        const bool isKeyPassed = (item.first.length() <= kLabelKeyMaxLength) &&
         std::regex_match(item.first, std::regex("[a-zA-Z0-9]+(-_/.[a-zA-Z0-9]+)*"));
-        const bool isValuePassed = (item.second.length() <= labelKeyMaxLength) &&
+        const bool isValuePassed = (item.second.length() <= kLabelKeyMaxLength) &&
         std::regex_match(item.second, std::regex("[a-zA-Z0-9]+(-_/.[a-zA-Z0-9]+)*"));
         return isKeyPassed && isValuePassed;
     });

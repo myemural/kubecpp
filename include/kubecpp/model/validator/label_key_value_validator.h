@@ -31,7 +31,7 @@ public:
     bool Validate(const std::unordered_map<std::string, std::string>& newValue) override;
 
 private:
-    static inline size_t labelKeyMaxLength = 63;
+    static inline const size_t kLabelKeyMaxLength = 63U;
 };
 
 } // namespace kubecpp::model::validator

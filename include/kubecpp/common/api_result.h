@@ -23,7 +23,7 @@ template <typename T>
 class ApiResult
 {
 public:
-    ApiResult(long responseCode)
+    explicit ApiResult(long responseCode)
         : responseCode_{ responseCode }, data_{ std::nullopt }
     {}
 

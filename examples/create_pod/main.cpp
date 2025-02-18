@@ -34,7 +34,7 @@ int main()
         const CoreApi instance{ defaultClient };
         auto res = instance.Create<Pod>("default", pod);
         if(res.HasData()) {
-            std::cout << res.GetData().ParseToJson() << std::endl;
+            std::cout << res.GetData().ParseToJson() << '\n';
         }
     } catch(const std::exception& except) {
         std::cout << "Error: " << except.what() << '\n';

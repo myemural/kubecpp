@@ -539,9 +539,9 @@ PodReadinessGate PodReadinessGateBuilder::Build()
     return std::move(podReadinessGate_);
 }
 
-HostAliasBuilder& HostAliasBuilder::Ip(const std::string& ip)
+HostAliasBuilder& HostAliasBuilder::Ip(const std::string& ipAddress)
 {
-    hostAlias_.Ip = ip;
+    hostAlias_.Ip = ipAddress;
     return *this;
 }
 

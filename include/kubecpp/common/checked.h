@@ -45,7 +45,7 @@ public:
     bool isRequired,
     const std::string& description,
     std::shared_ptr<kubecpp::model::validator::IValidator<Type>> validator)
-        : fieldProps_{ keyName, isRequired, description }, value_{ std::nullopt }, validator_{ validator }
+        : fieldProps_{ keyName, isRequired, description }, value_{ std::nullopt }, validator_{ std::move(validator) }
     {}
 
     Checked& operator=(const Type& val)

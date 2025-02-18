@@ -32,7 +32,7 @@ public:
     bool Validate(const std::string& newValue) override;
 
 private:
-    static inline size_t dnsLabelMaxLength         = 63;
+    static inline const size_t kDnsLabelMaxLength  = 63U;
     static inline const char* dnsLabelRegexPattern = "[a-z0-9]+(-[a-z0-9]+)*";
 };
 

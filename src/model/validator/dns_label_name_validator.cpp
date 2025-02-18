@@ -23,7 +23,7 @@ namespace kubecpp::model::validator
 
 bool DnsLabelNameValidator::Validate(const std::string& newValue)
 {
-    return (newValue.length() <= dnsLabelMaxLength) && std::regex_match(newValue, std::regex(dnsLabelRegexPattern));
+    return (newValue.length() <= kDnsLabelMaxLength) && std::regex_match(newValue, std::regex(dnsLabelRegexPattern));
 }
 
 } // namespace kubecpp::model::validator

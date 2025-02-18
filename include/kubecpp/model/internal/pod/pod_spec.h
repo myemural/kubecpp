@@ -340,7 +340,7 @@ private:
 
 struct HostAliasBuilder
 {
-    HostAliasBuilder& Ip(const std::string& ip);
+    HostAliasBuilder& Ip(const std::string& ipAddress);
 
     HostAliasBuilder& HostNames(const std::vector<std::string>& hostNames);
 
