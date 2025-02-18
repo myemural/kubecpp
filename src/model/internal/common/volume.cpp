@@ -532,6 +532,186 @@ VolumeBuilder& VolumeBuilder::Name(const std::string& name)
     return *this;
 }
 
+VolumeBuilder& VolumeBuilder::PersistentVolumeClaim(const PersistentVolumeClaimVolumeSource& persistentVolumeClaim)
+{
+    volume_.PersistentVolumeClaim = persistentVolumeClaim;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::ConfigMap(const ConfigMapVolumeSource& configMap)
+{
+    volume_.ConfigMap = configMap;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::Secret(const SecretVolumeSource& secret)
+{
+    volume_.Secret = secret;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::DownwardAPI(const DownwardAPIVolumeSource& downwardAPI)
+{
+    volume_.DownwardAPI = downwardAPI;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::Projected(const ProjectedVolumeSource& projected)
+{
+    volume_.Projected = projected;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::EmptyDir(const EmptyDirVolumeSource& emptyDir)
+{
+    volume_.EmptyDir = emptyDir;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::HostPath(const HostPathVolumeSource& hostPath)
+{
+    volume_.HostPath = hostPath;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::AwsElasticBlockStore(const AWSElasticBlockStoreVolumeSource& awsElasticBlockStore)
+{
+    volume_.AwsElasticBlockStore = awsElasticBlockStore;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::AzureDisk(const AzureDiskVolumeSource& azureDisk)
+{
+    volume_.AzureDisk = azureDisk;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::AzureFile(const AzureFileVolumeSource& azureFile)
+{
+    volume_.AzureFile = azureFile;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::Cephfs(const CephFSVolumeSource& cephfs)
+{
+    volume_.Cephfs = cephfs;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::Cinder(const CinderVolumeSource& cinder)
+{
+    volume_.Cinder = cinder;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::Csi(const CSIVolumeSource& csiVolumeSource)
+{
+    volume_.Csi = csiVolumeSource;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::Ephemeral(const EphemeralVolumeSource& ephemeral)
+{
+    volume_.Ephemeral = ephemeral;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::Fc(const FCVolumeSource& fcVolumeSource)
+{
+    volume_.Fc = fcVolumeSource;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::FlexVolume(const FlexVolumeSource& flexVolume)
+{
+    volume_.FlexVolume = flexVolume;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::Flocker(const FlockerVolumeSource& flocker)
+{
+    volume_.Flocker = flocker;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::GcePersistentDisk(const GCEPersistentDiskVolumeSource& gcePersistentDisk)
+{
+    volume_.GcePersistentDisk = gcePersistentDisk;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::Glusterfs(const GlusterfsVolumeSource& glusterfs)
+{
+    volume_.Glusterfs = glusterfs;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::Iscsi(const ISCSIVolumeSource& iscsi)
+{
+    volume_.Iscsi = iscsi;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::Image(const ImageVolumeSource& image)
+{
+    volume_.Image = image;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::Nfs(const NFSVolumeSource& nfsVolumeSource)
+{
+    volume_.Nfs = nfsVolumeSource;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::PhotonPersistentDisk(const PhotonPersistentDiskVolumeSource& photonPersistentDisk)
+{
+    volume_.PhotonPersistentDisk = photonPersistentDisk;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::PortworxVolume(const PortworxVolumeSource& portworxVolume)
+{
+    volume_.PortworxVolume = portworxVolume;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::Quobyte(const QuobyteVolumeSource& quobyte)
+{
+    volume_.Quobyte = quobyte;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::Rbd(const RBDVolumeSource& rbdVolumeSource)
+{
+    volume_.Rbd = rbdVolumeSource;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::ScaleIO(const ScaleIOVolumeSource& scaleIO)
+{
+    volume_.ScaleIO = scaleIO;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::Storageos(const StorageOSVolumeSource& storageos)
+{
+    volume_.Storageos = storageos;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::VsphereVolume(const VsphereVirtualDiskVolumeSource& vsphereVolume)
+{
+    volume_.VsphereVolume = vsphereVolume;
+    return *this;
+}
+
+VolumeBuilder& VolumeBuilder::GitRepo(const GitRepoVolumeSource& gitRepo)
+{
+    volume_.GitRepo = gitRepo;
+    return *this;
+}
+
 Volume VolumeBuilder::Build()
 {
     return std::move(volume_);

@@ -506,6 +506,66 @@ struct VolumeBuilder
 {
     VolumeBuilder& Name(const std::string& name);
 
+    VolumeBuilder& PersistentVolumeClaim(const PersistentVolumeClaimVolumeSource& persistentVolumeClaim);
+
+    VolumeBuilder& ConfigMap(const ConfigMapVolumeSource& configMap);
+
+    VolumeBuilder& Secret(const SecretVolumeSource& secret);
+
+    VolumeBuilder& DownwardAPI(const DownwardAPIVolumeSource& downwardAPI);
+
+    VolumeBuilder& Projected(const ProjectedVolumeSource& projected);
+
+    VolumeBuilder& EmptyDir(const EmptyDirVolumeSource& emptyDir);
+
+    VolumeBuilder& HostPath(const HostPathVolumeSource& hostPath);
+
+    VolumeBuilder& AwsElasticBlockStore(const AWSElasticBlockStoreVolumeSource& awsElasticBlockStore);
+
+    VolumeBuilder& AzureDisk(const AzureDiskVolumeSource& azureDisk);
+
+    VolumeBuilder& AzureFile(const AzureFileVolumeSource& azureFile);
+
+    VolumeBuilder& Cephfs(const CephFSVolumeSource& cephfs);
+
+    VolumeBuilder& Cinder(const CinderVolumeSource& cinder);
+
+    VolumeBuilder& Csi(const CSIVolumeSource& csiVolumeSource);
+
+    VolumeBuilder& Ephemeral(const EphemeralVolumeSource& ephemeral);
+
+    VolumeBuilder& Fc(const FCVolumeSource& fcVolumeSource);
+
+    VolumeBuilder& FlexVolume(const FlexVolumeSource& flexVolume);
+
+    VolumeBuilder& Flocker(const FlockerVolumeSource& flocker);
+
+    VolumeBuilder& GcePersistentDisk(const GCEPersistentDiskVolumeSource& gcePersistentDisk);
+
+    VolumeBuilder& Glusterfs(const GlusterfsVolumeSource& glusterfs);
+
+    VolumeBuilder& Iscsi(const ISCSIVolumeSource& iscsi);
+
+    VolumeBuilder& Image(const ImageVolumeSource& image);
+
+    VolumeBuilder& Nfs(const NFSVolumeSource& nfsVolumeSource);
+
+    VolumeBuilder& PhotonPersistentDisk(const PhotonPersistentDiskVolumeSource& photonPersistentDisk);
+
+    VolumeBuilder& PortworxVolume(const PortworxVolumeSource& portworxVolume);
+
+    VolumeBuilder& Quobyte(const QuobyteVolumeSource& quobyte);
+
+    VolumeBuilder& Rbd(const RBDVolumeSource& rbdVolumeSource);
+
+    VolumeBuilder& ScaleIO(const ScaleIOVolumeSource& scaleIO);
+
+    VolumeBuilder& Storageos(const StorageOSVolumeSource& storageos);
+
+    VolumeBuilder& VsphereVolume(const VsphereVirtualDiskVolumeSource& vsphereVolume);
+
+    VolumeBuilder& GitRepo(const GitRepoVolumeSource& gitRepo);
+
     Volume Build();
 
 private:
