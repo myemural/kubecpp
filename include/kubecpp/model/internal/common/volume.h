@@ -572,6 +572,36 @@ private:
     Volume volume_;
 };
 
+struct KeyToPathBuilder
+{
+    KeyToPathBuilder& Key(const std::string& key);
+
+    KeyToPathBuilder& Path(const std::string& path);
+
+    KeyToPathBuilder& Mode(std::int32_t mode);
+
+    KeyToPath Build();
+
+private:
+    KeyToPath keyToPath_;
+};
+
+struct DownwardAPIVolumeFileBuilder
+{
+    DownwardAPIVolumeFileBuilder& Path(const std::string& path);
+
+    DownwardAPIVolumeFileBuilder& FieldRef(const ObjectFieldSelector& fieldRef);
+
+    DownwardAPIVolumeFileBuilder& Mode(std::int32_t mode);
+
+    DownwardAPIVolumeFileBuilder& ResourceFieldRef(const ResourceFieldSelector& resourceFieldRef);
+
+    DownwardAPIVolumeFile Build();
+
+private:
+    DownwardAPIVolumeFile downwardAPIVolumeFile_;
+};
+
 } // namespace kubecpp::model::internal::common
 
 #endif // VOLUME_H_

@@ -717,4 +717,56 @@ Volume VolumeBuilder::Build()
     return std::move(volume_);
 }
 
+KeyToPathBuilder& KeyToPathBuilder::Key(const std::string& key)
+{
+    keyToPath_.Key = key;
+    return *this;
+}
+
+KeyToPathBuilder& KeyToPathBuilder::Path(const std::string& path)
+{
+    keyToPath_.Path = path;
+    return *this;
+}
+
+KeyToPathBuilder& KeyToPathBuilder::Mode(std::int32_t mode)
+{
+    keyToPath_.Mode = mode;
+    return *this;
+}
+
+KeyToPath KeyToPathBuilder::Build()
+{
+    return std::move(keyToPath_);
+}
+
+DownwardAPIVolumeFileBuilder& DownwardAPIVolumeFileBuilder::Path(const std::string& path)
+{
+    downwardAPIVolumeFile_.Path = path;
+    return *this;
+}
+
+DownwardAPIVolumeFileBuilder& DownwardAPIVolumeFileBuilder::FieldRef(const ObjectFieldSelector& fieldRef)
+{
+    downwardAPIVolumeFile_.FieldRef = fieldRef;
+    return *this;
+}
+
+DownwardAPIVolumeFileBuilder& DownwardAPIVolumeFileBuilder::Mode(std::int32_t mode)
+{
+    downwardAPIVolumeFile_.Mode = mode;
+    return *this;
+}
+
+DownwardAPIVolumeFileBuilder& DownwardAPIVolumeFileBuilder::ResourceFieldRef(const ResourceFieldSelector& resourceFieldRef)
+{
+    downwardAPIVolumeFile_.ResourceFieldRef = resourceFieldRef;
+    return *this;
+}
+
+DownwardAPIVolumeFile DownwardAPIVolumeFileBuilder::Build()
+{
+    return std::move(downwardAPIVolumeFile_);
+}
+
 } // namespace kubecpp::model::internal::common
