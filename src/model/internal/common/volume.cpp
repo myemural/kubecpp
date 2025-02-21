@@ -769,4 +769,21 @@ DownwardAPIVolumeFile DownwardAPIVolumeFileBuilder::Build()
     return std::move(downwardAPIVolumeFile_);
 }
 
+PersistentVolumeClaimTemplateBuilder& PersistentVolumeClaimTemplateBuilder::Spec(const PersistentVolumeClaimSpec& spec)
+{
+    persistentVolumeClaimTemplate_.Spec = spec;
+    return *this;
+}
+
+PersistentVolumeClaimTemplateBuilder& PersistentVolumeClaimTemplateBuilder::Metadata(const ObjectMeta& metadata)
+{
+    persistentVolumeClaimTemplate_.Metadata = metadata;
+    return *this;
+}
+
+PersistentVolumeClaimTemplate PersistentVolumeClaimTemplateBuilder::Build()
+{
+    return std::move(persistentVolumeClaimTemplate_);
+}
+
 } // namespace kubecpp::model::internal::common

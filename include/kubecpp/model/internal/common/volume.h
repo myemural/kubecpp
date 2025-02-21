@@ -602,6 +602,18 @@ private:
     DownwardAPIVolumeFile downwardAPIVolumeFile_;
 };
 
+struct PersistentVolumeClaimTemplateBuilder
+{
+    PersistentVolumeClaimTemplateBuilder& Spec(const PersistentVolumeClaimSpec& spec);
+
+    PersistentVolumeClaimTemplateBuilder& Metadata(const ObjectMeta& metadata);
+
+    PersistentVolumeClaimTemplate Build();
+
+private:
+    PersistentVolumeClaimTemplate persistentVolumeClaimTemplate_;
+};
+
 } // namespace kubecpp::model::internal::common
 
 #endif // VOLUME_H_
