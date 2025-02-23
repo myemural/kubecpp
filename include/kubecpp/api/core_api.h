@@ -23,6 +23,7 @@
 #include "kubecpp/client/api_client.h"
 #include "kubecpp/common/api_result.h"
 #include "kubecpp/model/internal/common/delete_options.h"
+#include "kubecpp/model/internal/common/status.h"
 
 namespace kubecpp::api::core::v1
 {
@@ -44,63 +45,67 @@ public:
     {}
 
     template <typename T>
-    ApiResult<T> Create(const T& resource, const QueryParams& queryParams = {}) const;
+    ApiResult<T, model::internal::common::Status> Create(const T& resource, const QueryParams& queryParams = {}) const;
 
     template <typename T>
-    ApiResult<T> Create(const std::string& nameSpace, const T& resource, const QueryParams& queryParams = {}) const;
+    ApiResult<T, model::internal::common::Status>
+    Create(const std::string& nameSpace, const T& resource, const QueryParams& queryParams = {}) const;
 
     template <typename T>
-    ApiResult<T> Create(std::string podName, std::string nameSpace, const T& resource, const QueryParams& queryParams = {}) const;
+    ApiResult<T, model::internal::common::Status>
+    Create(std::string podName, std::string nameSpace, const T& resource, const QueryParams& queryParams = {}) const;
 
     template <typename T, typename FilterType>
-    ApiResult<T> Get(const std::string& name, const FilterType& filter, const QueryParams& queryParams = {}) const;
+    ApiResult<T, model::internal::common::Status>
+    Get(const std::string& name, const FilterType& filter, const QueryParams& queryParams = {}) const;
 
     template <typename T, typename FilterType>
-    ApiResult<T>
+    ApiResult<T, model::internal::common::Status>
     Get(const std::string& name, const std::string& nameSpace, const FilterType& filter, const QueryParams& queryParams = {}) const;
 
     template <typename T>
-    ApiResult<typename T::ListType> List(const QueryParams& queryParams = {}) const;
+    ApiResult<typename T::ListType, model::internal::common::Status> List(const QueryParams& queryParams = {}) const;
 
     template <typename T>
-    ApiResult<typename T::ListType> List(const std::string& nameSpace, const QueryParams& queryParams = {}) const;
+    ApiResult<typename T::ListType, model::internal::common::Status>
+    List(const std::string& nameSpace, const QueryParams& queryParams = {}) const;
 
     template <typename T>
-    ApiResult<T>
+    ApiResult<T, model::internal::common::Status>
     Delete(const std::string& name, const model::internal::common::DeleteOptions& options, const QueryParams& queryParams = {}) const;
 
     template <typename T>
-    ApiResult<T> Delete(const std::string& name,
+    ApiResult<T, model::internal::common::Status> Delete(const std::string& name,
     const std::string& nameSpace,
     const model::internal::common::DeleteOptions& options,
     const QueryParams& queryParams = {}) const;
 
     template <typename T, typename ReturnType>
-    ApiResult<ReturnType>
+    ApiResult<ReturnType, model::internal::common::Status>
     DeleteCollection(const model::internal::common::DeleteOptions& options, const QueryParams& queryParams = {}) const;
 
     template <typename T>
-    ApiResult<typename T::ListType> DeleteCollection(const std::string& nameSpace,
+    ApiResult<typename T::ListType, model::internal::common::Status> DeleteCollection(const std::string& nameSpace,
     const model::internal::common::DeleteOptions& options,
     const QueryParams& queryParams = {}) const;
 
     template <typename T, typename FilterType>
-    ApiResult<T>
+    ApiResult<T, model::internal::common::Status>
     Update(const std::string& name, const T& newResource, const FilterType& filter, const QueryParams& queryParams = {}) const;
 
     template <typename T, typename FilterType>
-    ApiResult<T> Update(const std::string& name,
+    ApiResult<T, model::internal::common::Status> Update(const std::string& name,
     const std::string& nameSpace,
     const T& newResource,
     const FilterType& filter,
     const QueryParams& queryParams = {}) const;
 
     template <typename T, typename FilterType>
-    ApiResult<T>
+    ApiResult<T, model::internal::common::Status>
     Patch(const std::string& name, const std::string& patch, const FilterType& filter, const QueryParams& queryParams = {}) const;
 
     template <typename T, typename FilterType>
-    ApiResult<T> Patch(const std::string& name,
+    ApiResult<T, model::internal::common::Status> Patch(const std::string& name,
     const std::string& nameSpace,
     const std::string& patch,
     const FilterType& filter,

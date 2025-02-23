@@ -38,9 +38,10 @@ using namespace kubecpp::common;
 using namespace kubecpp::common::constants;
 using kubecpp::model::core::v1::Pod;
 using kubecpp::model::internal::common::DeleteOptions;
+using kubecpp::model::internal::common::Status;
 
 template <>
-ApiResult<Pod> CoreApi::Create<Pod>(const std::string& nameSpace, const Pod& resource, const QueryParams& queryParams) const
+ApiResult<Pod, Status> CoreApi::Create<Pod>(const std::string& nameSpace, const Pod& resource, const QueryParams& queryParams) const
 {
     // Build path
     std::string path = BuildPath({ kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural });
@@ -56,15 +57,20 @@ ApiResult<Pod> CoreApi::Create<Pod>(const std::string& nameSpace, const Pod& res
 
     // Convert body to resource type
     if(result.ErrorInfo.ErrorCode == 0L) {
-        const Pod data = Pod::ParseFromJson(result.Body);
-        return ApiResult<Pod>{ result.StatusCode, data };
+        if(result.StatusCode == 200 || result.StatusCode == 201 || result.StatusCode == 202) {
+            const Pod data = Pod::ParseFromJson(result.Body);
+            return ApiResult<Pod, Status>{ result.StatusCode, data };
+        } else {
+            const Status data = Status::ParseFromJson(result.Body);
+            return ApiResult<Pod, Status>{ result.StatusCode, data };
+        }
     }
 
-    return ApiResult<Pod>{ result.StatusCode };
+    return ApiResult<Pod, Status>{ result.StatusCode };
 }
 
 template <>
-ApiResult<Pod>
+ApiResult<Pod, Status>
 CoreApi::Get<Pod>(const std::string& name, const std::string& nameSpace, const PodGetFilter& filter, const QueryParams& queryParams) const
 {
     // Build Path
@@ -95,14 +101,14 @@ CoreApi::Get<Pod>(const std::string& name, const std::string& nameSpace, const P
     // Convert body to resource type
     if(result.ErrorInfo.ErrorCode == 0L) {
         const Pod data = Pod::ParseFromJson(result.Body);
-        return ApiResult<Pod>{ result.StatusCode, data };
+        return ApiResult<Pod, Status>{ result.StatusCode, data };
     }
 
-    return ApiResult<Pod>{ result.StatusCode };
+    return ApiResult<Pod, Status>{ result.StatusCode };
 }
 
 template <>
-ApiResult<Pod::ListType> CoreApi::List<Pod>(const QueryParams& queryParams) const
+ApiResult<Pod::ListType, Status> CoreApi::List<Pod>(const QueryParams& queryParams) const
 {
     // Build Path
     std::string path = BuildPath({ kK8sApiKeyword, kApiVersion, kResourceNamePlural });
@@ -116,14 +122,14 @@ ApiResult<Pod::ListType> CoreApi::List<Pod>(const QueryParams& queryParams) cons
     // Convert body to resource type
     if(result.ErrorInfo.ErrorCode == 0L) {
         const Pod::ListType data = Pod::ListType::ParseFromJson(result.Body);
-        return ApiResult<Pod::ListType>{ result.StatusCode, data };
+        return ApiResult<Pod::ListType, Status>{ result.StatusCode, data };
     }
 
-    return ApiResult<Pod::ListType>{ result.StatusCode };
+    return ApiResult<Pod::ListType, Status>{ result.StatusCode };
 }
 
 template <>
-ApiResult<Pod::ListType> CoreApi::List<Pod>(const std::string& nameSpace, const QueryParams& queryParams) const
+ApiResult<Pod::ListType, Status> CoreApi::List<Pod>(const std::string& nameSpace, const QueryParams& queryParams) const
 {
     // Build Path
     std::string path = BuildPath({ kK8sApiKeyword, kApiVersion, kK8sNamespacesKeyword, nameSpace, kResourceNamePlural });
@@ -137,14 +143,14 @@ ApiResult<Pod::ListType> CoreApi::List<Pod>(const std::string& nameSpace, const 
     // Convert body to resource type
     if(result.ErrorInfo.ErrorCode == 0L) {
         const Pod::ListType data = Pod::ListType::ParseFromJson(result.Body);
-        return ApiResult<Pod::ListType>{ result.StatusCode, data };
+        return ApiResult<Pod::ListType, Status>{ result.StatusCode, data };
     }
 
-    return ApiResult<Pod::ListType>{ result.StatusCode };
+    return ApiResult<Pod::ListType, Status>{ result.StatusCode };
 }
 
 template <>
-ApiResult<Pod> CoreApi::Delete<Pod>(const std::string& name,
+ApiResult<Pod, Status> CoreApi::Delete<Pod>(const std::string& name,
 const std::string& nameSpace,
 const model::internal::common::DeleteOptions& options,
 const QueryParams& queryParams) const
@@ -164,14 +170,14 @@ const QueryParams& queryParams) const
     // Convert body to resource type
     if(result.ErrorInfo.ErrorCode == 0L) {
         const Pod data = Pod::ParseFromJson(result.Body);
-        return ApiResult<Pod>{ result.StatusCode, data };
+        return ApiResult<Pod, Status>{ result.StatusCode, data };
     }
 
-    return ApiResult<Pod>{ result.StatusCode };
+    return ApiResult<Pod, Status>{ result.StatusCode };
 }
 
 template <>
-ApiResult<Pod::ListType> CoreApi::DeleteCollection<Pod>(const std::string& nameSpace,
+ApiResult<Pod::ListType, Status> CoreApi::DeleteCollection<Pod>(const std::string& nameSpace,
 const model::internal::common::DeleteOptions& options,
 const QueryParams& queryParams) const
 {
@@ -190,14 +196,14 @@ const QueryParams& queryParams) const
     // Convert body to resource type
     if(result.ErrorInfo.ErrorCode == 0L) {
         const Pod::ListType data = Pod::ListType::ParseFromJson(result.Body);
-        return ApiResult<Pod::ListType>{ result.StatusCode, data };
+        return ApiResult<Pod::ListType, Status>{ result.StatusCode, data };
     }
 
-    return ApiResult<Pod::ListType>{ result.StatusCode };
+    return ApiResult<Pod::ListType, Status>{ result.StatusCode };
 }
 
 template <>
-ApiResult<Pod> CoreApi::Update<Pod>(const std::string& name,
+ApiResult<Pod, Status> CoreApi::Update<Pod>(const std::string& name,
 const std::string& nameSpace,
 const Pod& newResource,
 const PodUpdateFilter& filter,
@@ -231,20 +237,20 @@ const QueryParams& queryParams) const
     // Convert body to resource type
     if(result.ErrorInfo.ErrorCode == 0L) {
         const Pod data = Pod::ParseFromJson(result.Body);
-        return ApiResult<Pod>{ result.StatusCode, data };
+        return ApiResult<Pod, Status>{ result.StatusCode, data };
     }
 
-    return ApiResult<Pod>{ result.StatusCode };
+    return ApiResult<Pod, Status>{ result.StatusCode };
 }
 
 template <>
-ApiResult<Pod> CoreApi::Patch([[maybe_unused]] const std::string& name,
+ApiResult<Pod, Status> CoreApi::Patch([[maybe_unused]] const std::string& name,
 [[maybe_unused]] const std::string& nameSpace,
 [[maybe_unused]] const std::string& patch,
 [[maybe_unused]] const PodPatchFilter& filter,
 [[maybe_unused]] const QueryParams& queryParams) const
 {
-    return ApiResult<Pod>{ 200 };
+    return ApiResult<Pod, Status>{ 200 };
 }
 
 } // namespace kubecpp::api::core::v1

@@ -18,27 +18,42 @@
 #define API_RESULT_H_
 
 #include <optional>
+#include <variant>
 
-template <typename T>
+template <typename SuccessType, typename FailType>
 class ApiResult
 {
 public:
     explicit ApiResult(long responseCode)
-        : responseCode_{ responseCode }, data_{ std::nullopt }
+        : isNetworkError{ true }, responseCode_{ responseCode }
     {}
 
-    ApiResult(long responseCode, T data)
-        : responseCode_{ responseCode }, data_{ std::move(data) }
+    ApiResult(long responseCode, SuccessType data)
+        : isNetworkError{ false }, responseCode_{ responseCode }, data_{ std::move(data) }
+    {}
+
+    ApiResult(long responseCode, FailType data)
+        : isNetworkError{ false }, responseCode_{ responseCode }, data_{ std::move(data) }
     {}
 
     [[nodiscard]] bool HasData() const
     {
-        return data_.has_value();
+        return !isNetworkError;
     }
 
-    [[nodiscard]] T GetData() const
+    [[nodiscard]] bool IsFailed() const
     {
-        return data_.value_or(T{});
+        return std::holds_alternative<FailType>(data_);
+    }
+
+    [[nodiscard]] SuccessType GetSuccessData() const
+    {
+        return std::get<SuccessType>(data_);
+    }
+
+    [[nodiscard]] FailType GetFailData() const
+    {
+        return std::get<FailType>(data_);
     }
 
     [[nodiscard]] long GetResponseCode() const
@@ -47,8 +62,9 @@ public:
     }
 
 private:
+    bool isNetworkError;
     long responseCode_;
-    std::optional<T> data_;
+    std::variant<SuccessType, FailType> data_;
 };
 
 #endif // API_RESULT_H_
