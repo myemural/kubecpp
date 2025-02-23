@@ -115,6 +115,10 @@ template <typename T>
 inline void GetField(const rapidjson::Document& doc, Checked<T>& field)
 {
     if(const auto it = doc.FindMember(field.GetKeyName().c_str()); it != doc.MemberEnd()) {
+        if(it->value.IsNull()) {
+            return;
+        }
+
         if constexpr(std::is_same_v<std::string, T>) {
             field = it->value.GetString();
         } else if constexpr(std::is_same_v<std::int32_t, T>) {
