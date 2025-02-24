@@ -100,8 +100,13 @@ CoreApi::Get<Pod>(const std::string& name, const std::string& nameSpace, const P
 
     // Convert body to resource type
     if(result.ErrorInfo.ErrorCode == 0L) {
-        const Pod data = Pod::ParseFromJson(result.Body);
-        return ApiResult<Pod, Status>{ result.StatusCode, data };
+        if(result.StatusCode == 200) {
+            const Pod data = Pod::ParseFromJson(result.Body);
+            return ApiResult<Pod, Status>{ result.StatusCode, data };
+        } else {
+            const Status data = Status::ParseFromJson(result.Body);
+            return ApiResult<Pod, Status>{ result.StatusCode, data };
+        }
     }
 
     return ApiResult<Pod, Status>{ result.StatusCode };
@@ -121,8 +126,13 @@ ApiResult<Pod::ListType, Status> CoreApi::List<Pod>(const QueryParams& queryPara
 
     // Convert body to resource type
     if(result.ErrorInfo.ErrorCode == 0L) {
-        const Pod::ListType data = Pod::ListType::ParseFromJson(result.Body);
-        return ApiResult<Pod::ListType, Status>{ result.StatusCode, data };
+        if(result.StatusCode == 200) {
+            const Pod::ListType data = Pod::ListType::ParseFromJson(result.Body);
+            return ApiResult<Pod::ListType, Status>{ result.StatusCode, data };
+        } else {
+            const Status data = Status::ParseFromJson(result.Body);
+            return ApiResult<Pod::ListType, Status>{ result.StatusCode, data };
+        }
     }
 
     return ApiResult<Pod::ListType, Status>{ result.StatusCode };
@@ -142,8 +152,13 @@ ApiResult<Pod::ListType, Status> CoreApi::List<Pod>(const std::string& nameSpace
 
     // Convert body to resource type
     if(result.ErrorInfo.ErrorCode == 0L) {
-        const Pod::ListType data = Pod::ListType::ParseFromJson(result.Body);
-        return ApiResult<Pod::ListType, Status>{ result.StatusCode, data };
+        if(result.StatusCode == 200) {
+            const Pod::ListType data = Pod::ListType::ParseFromJson(result.Body);
+            return ApiResult<Pod::ListType, Status>{ result.StatusCode, data };
+        } else {
+            const Status data = Status::ParseFromJson(result.Body);
+            return ApiResult<Pod::ListType, Status>{ result.StatusCode, data };
+        }
     }
 
     return ApiResult<Pod::ListType, Status>{ result.StatusCode };
@@ -169,8 +184,13 @@ const QueryParams& queryParams) const
 
     // Convert body to resource type
     if(result.ErrorInfo.ErrorCode == 0L) {
-        const Pod data = Pod::ParseFromJson(result.Body);
-        return ApiResult<Pod, Status>{ result.StatusCode, data };
+        if(result.StatusCode == 200 || result.StatusCode == 202) {
+            const Pod data = Pod::ParseFromJson(result.Body);
+            return ApiResult<Pod, Status>{ result.StatusCode, data };
+        } else {
+            const Status data = Status::ParseFromJson(result.Body);
+            return ApiResult<Pod, Status>{ result.StatusCode, data };
+        }
     }
 
     return ApiResult<Pod, Status>{ result.StatusCode };
@@ -195,8 +215,13 @@ const QueryParams& queryParams) const
 
     // Convert body to resource type
     if(result.ErrorInfo.ErrorCode == 0L) {
-        const Pod::ListType data = Pod::ListType::ParseFromJson(result.Body);
-        return ApiResult<Pod::ListType, Status>{ result.StatusCode, data };
+        if(result.StatusCode == 200) {
+            const Pod::ListType data = Pod::ListType::ParseFromJson(result.Body);
+            return ApiResult<Pod::ListType, Status>{ result.StatusCode, data };
+        } else {
+            const Status data = Status::ParseFromJson(result.Body);
+            return ApiResult<Pod::ListType, Status>{ result.StatusCode, data };
+        }
     }
 
     return ApiResult<Pod::ListType, Status>{ result.StatusCode };
@@ -236,8 +261,13 @@ const QueryParams& queryParams) const
 
     // Convert body to resource type
     if(result.ErrorInfo.ErrorCode == 0L) {
-        const Pod data = Pod::ParseFromJson(result.Body);
-        return ApiResult<Pod, Status>{ result.StatusCode, data };
+        if(result.StatusCode == 200 || result.StatusCode == 201) {
+            const Pod data = Pod::ParseFromJson(result.Body);
+            return ApiResult<Pod, Status>{ result.StatusCode, data };
+        } else {
+            const Status data = Status::ParseFromJson(result.Body);
+            return ApiResult<Pod, Status>{ result.StatusCode, data };
+        }
     }
 
     return ApiResult<Pod, Status>{ result.StatusCode };
