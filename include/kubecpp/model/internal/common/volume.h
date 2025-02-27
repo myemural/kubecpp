@@ -614,6 +614,18 @@ private:
     PersistentVolumeClaimTemplate persistentVolumeClaimTemplate_;
 };
 
+struct PersistentVolumeClaimVolumeSourceBuilder
+{
+    PersistentVolumeClaimVolumeSourceBuilder& ClaimName(const std::string& claimName);
+
+    PersistentVolumeClaimVolumeSourceBuilder& ReadOnly(bool readOnly);
+
+    PersistentVolumeClaimVolumeSource Build();
+
+private:
+    PersistentVolumeClaimVolumeSource persistentVolumeClaimVolumeSource_;
+};
+
 } // namespace kubecpp::model::internal::common
 
 #endif // VOLUME_H_

@@ -786,4 +786,21 @@ PersistentVolumeClaimTemplate PersistentVolumeClaimTemplateBuilder::Build()
     return std::move(persistentVolumeClaimTemplate_);
 }
 
+PersistentVolumeClaimVolumeSourceBuilder& PersistentVolumeClaimVolumeSourceBuilder::ClaimName(const std::string& claimName)
+{
+    persistentVolumeClaimVolumeSource_.ClaimName = claimName;
+    return *this;
+}
+
+PersistentVolumeClaimVolumeSourceBuilder& PersistentVolumeClaimVolumeSourceBuilder::ReadOnly(bool readOnly)
+{
+    persistentVolumeClaimVolumeSource_.ReadOnly = readOnly;
+    return *this;
+}
+
+PersistentVolumeClaimVolumeSource PersistentVolumeClaimVolumeSourceBuilder::Build()
+{
+    return std::move(persistentVolumeClaimVolumeSource_);
+}
+
 } // namespace kubecpp::model::internal::common
