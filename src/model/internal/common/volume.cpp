@@ -803,4 +803,33 @@ PersistentVolumeClaimVolumeSource PersistentVolumeClaimVolumeSourceBuilder::Buil
     return std::move(persistentVolumeClaimVolumeSource_);
 }
 
+ConfigMapVolumeSourceBuilder& ConfigMapVolumeSourceBuilder::Name(const std::string& name)
+{
+    configMapVolumeSource_.Name = name;
+    return *this;
+}
+
+ConfigMapVolumeSourceBuilder& ConfigMapVolumeSourceBuilder::Optional(bool optional)
+{
+    configMapVolumeSource_.Optional = optional;
+    return *this;
+}
+
+ConfigMapVolumeSourceBuilder& ConfigMapVolumeSourceBuilder::DefaultMode(std::int32_t defaultMode)
+{
+    configMapVolumeSource_.DefaultMode = defaultMode;
+    return *this;
+}
+
+ConfigMapVolumeSourceBuilder& ConfigMapVolumeSourceBuilder::Items(const std::vector<KeyToPath>& items)
+{
+    configMapVolumeSource_.Items = items;
+    return *this;
+}
+
+ConfigMapVolumeSource ConfigMapVolumeSourceBuilder::Build()
+{
+    return std::move(configMapVolumeSource_);
+}
+
 } // namespace kubecpp::model::internal::common

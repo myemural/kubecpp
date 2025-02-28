@@ -626,6 +626,22 @@ private:
     PersistentVolumeClaimVolumeSource persistentVolumeClaimVolumeSource_;
 };
 
+struct ConfigMapVolumeSourceBuilder
+{
+    ConfigMapVolumeSourceBuilder& Name(const std::string& name);
+
+    ConfigMapVolumeSourceBuilder& Optional(bool optional);
+
+    ConfigMapVolumeSourceBuilder& DefaultMode(std::int32_t defaultMode);
+
+    ConfigMapVolumeSourceBuilder& Items(const std::vector<KeyToPath>& items);
+
+    ConfigMapVolumeSource Build();
+
+private:
+    ConfigMapVolumeSource configMapVolumeSource_;
+};
+
 } // namespace kubecpp::model::internal::common
 
 #endif // VOLUME_H_
