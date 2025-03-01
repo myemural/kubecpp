@@ -832,4 +832,33 @@ ConfigMapVolumeSource ConfigMapVolumeSourceBuilder::Build()
     return std::move(configMapVolumeSource_);
 }
 
+SecretVolumeSourceBuilder& SecretVolumeSourceBuilder::SecretName(const std::string& secretName)
+{
+    secretVolumeSource_.SecretName = secretName;
+    return *this;
+}
+
+SecretVolumeSourceBuilder& SecretVolumeSourceBuilder::Optional(bool optional)
+{
+    secretVolumeSource_.Optional = optional;
+    return *this;
+}
+
+SecretVolumeSourceBuilder& SecretVolumeSourceBuilder::DefaultMode(std::int32_t defaultMode)
+{
+    secretVolumeSource_.DefaultMode = defaultMode;
+    return *this;
+}
+
+SecretVolumeSourceBuilder& SecretVolumeSourceBuilder::Items(const std::vector<KeyToPath>& items)
+{
+    secretVolumeSource_.Items = items;
+    return *this;
+}
+
+SecretVolumeSource SecretVolumeSourceBuilder::Build()
+{
+    return std::move(secretVolumeSource_);
+}
+
 } // namespace kubecpp::model::internal::common

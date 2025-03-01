@@ -642,6 +642,22 @@ private:
     ConfigMapVolumeSource configMapVolumeSource_;
 };
 
+struct SecretVolumeSourceBuilder
+{
+    SecretVolumeSourceBuilder& SecretName(const std::string& secretName);
+
+    SecretVolumeSourceBuilder& Optional(bool optional);
+
+    SecretVolumeSourceBuilder& DefaultMode(std::int32_t defaultMode);
+
+    SecretVolumeSourceBuilder& Items(const std::vector<KeyToPath>& items);
+
+    SecretVolumeSource Build();
+
+private:
+    SecretVolumeSource secretVolumeSource_;
+};
+
 } // namespace kubecpp::model::internal::common
 
 #endif // VOLUME_H_
