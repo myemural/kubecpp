@@ -861,4 +861,21 @@ SecretVolumeSource SecretVolumeSourceBuilder::Build()
     return std::move(secretVolumeSource_);
 }
 
+DownwardAPIVolumeSourceBuilder& DownwardAPIVolumeSourceBuilder::DefaultMode(std::int32_t defaultMode)
+{
+    downwardAPIVolumeSource_.DefaultMode = defaultMode;
+    return *this;
+}
+
+DownwardAPIVolumeSourceBuilder& DownwardAPIVolumeSourceBuilder::Items(const std::vector<DownwardAPIVolumeFile>& items)
+{
+    downwardAPIVolumeSource_.Items = items;
+    return *this;
+}
+
+DownwardAPIVolumeSource DownwardAPIVolumeSourceBuilder::Build()
+{
+    return std::move(downwardAPIVolumeSource_);
+}
+
 } // namespace kubecpp::model::internal::common

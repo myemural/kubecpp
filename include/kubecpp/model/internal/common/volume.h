@@ -658,6 +658,18 @@ private:
     SecretVolumeSource secretVolumeSource_;
 };
 
+struct DownwardAPIVolumeSourceBuilder
+{
+    DownwardAPIVolumeSourceBuilder& DefaultMode(std::int32_t defaultMode);
+
+    DownwardAPIVolumeSourceBuilder& Items(const std::vector<DownwardAPIVolumeFile>& items);
+
+    DownwardAPIVolumeSource Build();
+
+private:
+    DownwardAPIVolumeSource downwardAPIVolumeSource_;
+};
+
 } // namespace kubecpp::model::internal::common
 
 #endif // VOLUME_H_
