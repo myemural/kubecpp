@@ -670,6 +670,24 @@ private:
     DownwardAPIVolumeSource downwardAPIVolumeSource_;
 };
 
+struct ClusterTrustBundleProjectionBuilder
+{
+    ClusterTrustBundleProjectionBuilder& Path(const std::string& path);
+
+    ClusterTrustBundleProjectionBuilder& LabelSelector(const common::LabelSelector& labelSelector);
+
+    ClusterTrustBundleProjectionBuilder& Name(const std::string& name);
+
+    ClusterTrustBundleProjectionBuilder& Optional(bool optional);
+
+    ClusterTrustBundleProjectionBuilder& SignerName(const std::string& signerName);
+
+    ClusterTrustBundleProjection Build();
+
+private:
+    ClusterTrustBundleProjection clusterTrustBundleProjection_;
+};
+
 } // namespace kubecpp::model::internal::common
 
 #endif // VOLUME_H_

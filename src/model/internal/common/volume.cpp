@@ -878,4 +878,39 @@ DownwardAPIVolumeSource DownwardAPIVolumeSourceBuilder::Build()
     return std::move(downwardAPIVolumeSource_);
 }
 
+ClusterTrustBundleProjectionBuilder& ClusterTrustBundleProjectionBuilder::Path(const std::string& path)
+{
+    clusterTrustBundleProjection_.Path = path;
+    return *this;
+}
+
+ClusterTrustBundleProjectionBuilder& ClusterTrustBundleProjectionBuilder::LabelSelector(const common::LabelSelector& labelSelector)
+{
+    clusterTrustBundleProjection_.LabelSelector = labelSelector;
+    return *this;
+}
+
+ClusterTrustBundleProjectionBuilder& ClusterTrustBundleProjectionBuilder::Name(const std::string& name)
+{
+    clusterTrustBundleProjection_.Name = name;
+    return *this;
+}
+
+ClusterTrustBundleProjectionBuilder& ClusterTrustBundleProjectionBuilder::Optional(bool optional)
+{
+    clusterTrustBundleProjection_.Optional = optional;
+    return *this;
+}
+
+ClusterTrustBundleProjectionBuilder& ClusterTrustBundleProjectionBuilder::SignerName(const std::string& signerName)
+{
+    clusterTrustBundleProjection_.SignerName = signerName;
+    return *this;
+}
+
+ClusterTrustBundleProjection ClusterTrustBundleProjectionBuilder::Build()
+{
+    return std::move(clusterTrustBundleProjection_);
+}
+
 } // namespace kubecpp::model::internal::common
