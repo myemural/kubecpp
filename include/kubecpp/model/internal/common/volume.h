@@ -688,6 +688,20 @@ private:
     ClusterTrustBundleProjection clusterTrustBundleProjection_;
 };
 
+struct ConfigMapProjectionBuilder
+{
+    ConfigMapProjectionBuilder& Name(const std::string& name);
+
+    ConfigMapProjectionBuilder& Optional(bool optional);
+
+    ConfigMapProjectionBuilder& Items(const std::vector<KeyToPath>& items);
+
+    ConfigMapProjection Build();
+
+private:
+    ConfigMapProjection configMapProjection_;
+};
+
 } // namespace kubecpp::model::internal::common
 
 #endif // VOLUME_H_

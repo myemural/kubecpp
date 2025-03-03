@@ -913,4 +913,27 @@ ClusterTrustBundleProjection ClusterTrustBundleProjectionBuilder::Build()
     return std::move(clusterTrustBundleProjection_);
 }
 
+ConfigMapProjectionBuilder& ConfigMapProjectionBuilder::Name(const std::string& name)
+{
+    configMapProjection_.Name = name;
+    return *this;
+}
+
+ConfigMapProjectionBuilder& ConfigMapProjectionBuilder::Optional(bool optional)
+{
+    configMapProjection_.Optional = optional;
+    return *this;
+}
+
+ConfigMapProjectionBuilder& ConfigMapProjectionBuilder::Items(const std::vector<KeyToPath>& items)
+{
+    configMapProjection_.Items = items;
+    return *this;
+}
+
+ConfigMapProjection ConfigMapProjectionBuilder::Build()
+{
+    return std::move(configMapProjection_);
+}
+
 } // namespace kubecpp::model::internal::common
