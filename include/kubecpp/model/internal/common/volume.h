@@ -702,6 +702,17 @@ private:
     ConfigMapProjection configMapProjection_;
 };
 
+struct DownwardAPIProjectionBuilder
+{
+    DownwardAPIProjectionBuilder& Items(const std::vector<DownwardAPIVolumeFile>& items);
+
+    DownwardAPIProjection Build();
+
+private:
+    DownwardAPIProjection downwardAPIProjection_;
+};
+
+
 } // namespace kubecpp::model::internal::common
 
 #endif // VOLUME_H_

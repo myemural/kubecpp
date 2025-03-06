@@ -936,4 +936,15 @@ ConfigMapProjection ConfigMapProjectionBuilder::Build()
     return std::move(configMapProjection_);
 }
 
+DownwardAPIProjectionBuilder& DownwardAPIProjectionBuilder::Items(const std::vector<DownwardAPIVolumeFile>& items)
+{
+    downwardAPIProjection_.Items = items;
+    return *this;
+}
+
+DownwardAPIProjection DownwardAPIProjectionBuilder::Build()
+{
+    return std::move(downwardAPIProjection_);
+}
+
 } // namespace kubecpp::model::internal::common
