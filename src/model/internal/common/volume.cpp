@@ -947,4 +947,27 @@ DownwardAPIProjection DownwardAPIProjectionBuilder::Build()
     return std::move(downwardAPIProjection_);
 }
 
+SecretProjectionBuilder& SecretProjectionBuilder::Name(const std::string& name)
+{
+    secretProjection_.Name = name;
+    return *this;
+}
+
+SecretProjectionBuilder& SecretProjectionBuilder::Optional(bool optional)
+{
+    secretProjection_.Optional = optional;
+    return *this;
+}
+
+SecretProjectionBuilder& SecretProjectionBuilder::Items(const std::vector<KeyToPath>& items)
+{
+    secretProjection_.Items = items;
+    return *this;
+}
+
+SecretProjection SecretProjectionBuilder::Build()
+{
+    return std::move(secretProjection_);
+}
+
 } // namespace kubecpp::model::internal::common

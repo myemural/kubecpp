@@ -712,6 +712,20 @@ private:
     DownwardAPIProjection downwardAPIProjection_;
 };
 
+struct SecretProjectionBuilder
+{
+    SecretProjectionBuilder& Name(const std::string& name);
+
+    SecretProjectionBuilder& Optional(bool optional);
+
+    SecretProjectionBuilder& Items(const std::vector<KeyToPath>& items);
+
+    SecretProjection Build();
+
+private:
+    SecretProjection secretProjection_;
+};
+
 
 } // namespace kubecpp::model::internal::common
 
