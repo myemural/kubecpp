@@ -740,6 +740,36 @@ private:
     ServiceAccountTokenProjection serviceAccountTokenProjection_;
 };
 
+struct VolumeProjectionBuilder
+{
+    VolumeProjectionBuilder& ClusterTrustBundle(const ClusterTrustBundleProjection& clusterTrustBundle);
+
+    VolumeProjectionBuilder& ConfigMap(const ConfigMapProjection& configMap);
+
+    VolumeProjectionBuilder& DownwardAPI(const DownwardAPIProjection& downwardAPI);
+
+    VolumeProjectionBuilder& Secret(const SecretProjection& secret);
+
+    VolumeProjectionBuilder& ServiceAccountToken(const ServiceAccountTokenProjection& serviceAccountToken);
+
+    VolumeProjection Build();
+
+private:
+    VolumeProjection volumeProjection_;
+};
+
+struct ProjectedVolumeSourceBuilder
+{
+    ProjectedVolumeSourceBuilder& DefaultMode(std::int32_t defaultMode);
+
+    ProjectedVolumeSourceBuilder& Sources(const std::vector<VolumeProjection>& sources);
+
+    ProjectedVolumeSource Build();
+
+private:
+    ProjectedVolumeSource projectedVolumeSource_;
+};
+
 } // namespace kubecpp::model::internal::common
 
 #endif // VOLUME_H_

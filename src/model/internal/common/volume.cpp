@@ -993,4 +993,56 @@ ServiceAccountTokenProjection ServiceAccountTokenProjectionBuilder::Build()
     return std::move(serviceAccountTokenProjection_);
 }
 
+VolumeProjectionBuilder& VolumeProjectionBuilder::ClusterTrustBundle(const ClusterTrustBundleProjection& clusterTrustBundle)
+{
+    volumeProjection_.ClusterTrustBundle = clusterTrustBundle;
+    return *this;
+}
+
+VolumeProjectionBuilder& VolumeProjectionBuilder::ConfigMap(const ConfigMapProjection& configMap)
+{
+    volumeProjection_.ConfigMap = configMap;
+    return *this;
+}
+
+VolumeProjectionBuilder& VolumeProjectionBuilder::DownwardAPI(const DownwardAPIProjection& downwardAPI)
+{
+    volumeProjection_.DownwardAPI = downwardAPI;
+    return *this;
+}
+
+VolumeProjectionBuilder& VolumeProjectionBuilder::Secret(const SecretProjection& secret)
+{
+    volumeProjection_.Secret = secret;
+    return *this;
+}
+
+VolumeProjectionBuilder& VolumeProjectionBuilder::ServiceAccountToken(const ServiceAccountTokenProjection& serviceAccountToken)
+{
+    volumeProjection_.ServiceAccountToken = serviceAccountToken;
+    return *this;
+}
+
+VolumeProjection VolumeProjectionBuilder::Build()
+{
+    return std::move(volumeProjection_);
+}
+
+ProjectedVolumeSourceBuilder& ProjectedVolumeSourceBuilder::DefaultMode(std::int32_t defaultMode)
+{
+    projectedVolumeSource_.DefaultMode = defaultMode;
+    return *this;
+}
+
+ProjectedVolumeSourceBuilder& ProjectedVolumeSourceBuilder::Sources(const std::vector<VolumeProjection>& sources)
+{
+    projectedVolumeSource_.Sources = sources;
+    return *this;
+}
+
+ProjectedVolumeSource ProjectedVolumeSourceBuilder::Build()
+{
+    return std::move(projectedVolumeSource_);
+}
+
 } // namespace kubecpp::model::internal::common
