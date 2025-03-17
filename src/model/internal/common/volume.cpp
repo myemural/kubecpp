@@ -970,4 +970,27 @@ SecretProjection SecretProjectionBuilder::Build()
     return std::move(secretProjection_);
 }
 
+ServiceAccountTokenProjectionBuilder& ServiceAccountTokenProjectionBuilder::Path(const std::string& path)
+{
+    serviceAccountTokenProjection_.Path = path;
+    return *this;
+}
+
+ServiceAccountTokenProjectionBuilder& ServiceAccountTokenProjectionBuilder::Audience(const std::string& audience)
+{
+    serviceAccountTokenProjection_.Audience = audience;
+    return *this;
+}
+
+ServiceAccountTokenProjectionBuilder& ServiceAccountTokenProjectionBuilder::ExpirationSeconds(std::int64_t expirationSeconds)
+{
+    serviceAccountTokenProjection_.ExpirationSeconds = expirationSeconds;
+    return *this;
+}
+
+ServiceAccountTokenProjection ServiceAccountTokenProjectionBuilder::Build()
+{
+    return std::move(serviceAccountTokenProjection_);
+}
+
 } // namespace kubecpp::model::internal::common

@@ -726,6 +726,19 @@ private:
     SecretProjection secretProjection_;
 };
 
+struct ServiceAccountTokenProjectionBuilder
+{
+    ServiceAccountTokenProjectionBuilder& Path(const std::string& path);
+
+    ServiceAccountTokenProjectionBuilder& Audience(const std::string& audience);
+
+    ServiceAccountTokenProjectionBuilder& ExpirationSeconds(std::int64_t expirationSeconds);
+
+    ServiceAccountTokenProjection Build();
+
+private:
+    ServiceAccountTokenProjection serviceAccountTokenProjection_;
+};
 
 } // namespace kubecpp::model::internal::common
 
